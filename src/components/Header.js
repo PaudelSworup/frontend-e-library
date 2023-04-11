@@ -2,26 +2,19 @@ import React, { useEffect, useState } from "react";
 import { BsArrowLeftShort, BsChevronDown, BsSearch } from "react-icons/bs";
 import { AiFillEnvironment } from "react-icons/ai";
 import items from "./navItems";
+import Banner from "./Banner";
+import Row from "./Row";
 
 const Header = () => {
   const [open, setOpen] = useState(false);
   const [submenuOpen, setsubmenuOpen] = useState(false);
-  const[widthCount , setWidthCount] = useState(window.screen.width)
-
-  const actualWidth = ()=>{
-    setWidthCount(window.innerWidth)
-  }
-  useEffect(()=>{
-    window.addEventListener("resize", actualWidth)
-    return ()=>{
-      window.removeEventListener("resize", actualWidth)
-    }
-  },[])
+  
   
   return (
+    <>
     <div className={`flex ${open ? "gap-8" : "gap-2"}`}>
       <div
-        className={`bg-dark-purple h-screen p-5 text-white pt-8 relative ${
+        className={`h-full bg-dark-purple  p-5 text-white pt-8 relative ${
           open ? "w-72" : "w-20"
         } duration-200 `}
       >
@@ -121,50 +114,15 @@ const Header = () => {
         </ul>
       </div>
 
-      <div className="p-5">
+      <div className="w-full">
         {/* <h1 className="text-2xl font-semibold">Home Page</h1> */}
-        <div
-          id="carouselExampleSlidesOnly"
-          className="relative"
-          data-te-carousel-init
-          data-te-carousel-slide
-        >
-          <div className="relative w-full mr-3 overflow-hidden after:clear-both after:block after:content-['']">
-            <div
-              className="relative float-left  w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
-              data-te-carousel-item
-              data-te-carousel-active
-            >
-              <img
-                src="https://mdbcdn.b-cdn.net/img/new/slides/041.webp"
-                className="block w-full"
-                alt="Wild Landscape"
-              />
-            </div>
-            {/* <div
-              class="relative float-left -mr-[100%] hidden w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
-              data-te-carousel-item
-            >
-              <img
-                src="https://mdbcdn.b-cdn.net/img/new/slides/042.webp"
-                class="block w-full"
-                alt="Camera"
-              />
-            </div>
-            <div
-              class="relative float-left -mr-[100%] hidden w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
-              data-te-carousel-item
-            >
-              <img
-                src="https://mdbcdn.b-cdn.net/img/new/slides/043.webp"
-                class="block w-full"
-                alt="Exotic Fruits"
-              />
-            </div> */}
-          </div>
-        </div>
+        <Banner/>
+        <Row/>
       </div>
+
     </div>
+    
+    </>
   );
 };
 
