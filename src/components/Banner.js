@@ -1,26 +1,41 @@
 import React, { useState, useEffect } from "react";
-import { TypeAnimation } from "react-type-animation";
 
 const Banner = () => {
-  // const [widthCount, setWidthCount] = useState(window.screen.width);
+  const [index, setIndex] = useState(0);
 
-  // const actualWidth = () => {
-  //   setWidthCount(window.innerWidth);
-  // };
-  // useEffect(() => {
-  //   window.addEventListener("resize", actualWidth);
-  //   return () => {
-  //     window.removeEventListener("resize", actualWidth);
-  //   };
-  // }, []);
+  let img_container = [
+    "https://images2.alphacoders.com/261/26102.jpg",
+    "https://images.alphacoders.com/154/154103.jpg",
+    "https://images.pexels.com/photos/9572477/pexels-photo-9572477.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+  ];
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setIndex((index) => (index + 1) % img_container.length);
+    }, 5000);
+    return () => clearInterval(intervalId);
+  }, [img_container.length]);
 
   return (
-       <div className=" m-1 rounded-md flex justify-between backdrop-brightness-100 px-[30px] bg-[url('https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=928&q=80')] h-[480px] bg-cover bg-center bg-opacity-20 object-contain">
-      <div className="py-[150px] text-xl font-serif tracking-widest text-white">
-        <p>An educated mind is better than an empty one</p> 
-      </div>
+    <div className="relative h-[650px]">
+      {img_container.map((image, i) => (
+        <div
+          key={i}
+          className={`absolute  inset-0 h-full w-full transition-opacity duration-500 ${
+            i === index ? "opacity-100" : "opacity-0"
+          }`}
+          style={{
+            backgroundImage: `url(${image})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        />
+      ))}
+      <p className="absolute text-white md:text-3xl sm:text-3xl text-[20px] capitalize tracking-widest sm:absolute md:absolute top-56 right-20">
+        Looking for something <br />
+        <span className="md:pl-5 sm:pl-5">good to read?</span>
+      </p>
     </div>
-   
   );
 };
 
