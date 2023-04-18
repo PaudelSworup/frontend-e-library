@@ -33,7 +33,7 @@ const NavBars = () => {
   };
   return (
     // <div className="shadow-xl w-full fixed top-0 left-0">
-      <div className="md:flex items-center justify-between bg-black py-2  md:px-10 px-7">
+      <div className="md:flex items-center justify-between bg-black  py-2  md:px-10 px-7">
         <div className="font-bold text-2xl cursor-pointer ">
           <img
             src="../images/librarykct.png"

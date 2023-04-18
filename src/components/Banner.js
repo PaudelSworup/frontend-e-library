@@ -17,7 +17,7 @@ const Banner = () => {
   }, [img_container.length]);
 
   return (
-    <div className="relative h-[650px]">
+    <div className="relative md:h-[650px] sm:h[600px] h-[500px]">
       {img_container.map((image, i) => (
         <div
           key={i}

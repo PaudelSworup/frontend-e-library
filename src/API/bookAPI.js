@@ -9,3 +9,12 @@ export const searchBook = async (name)=>{
         console.log(err);
     }
 }
+
+
+export const recommendedBooks = async(userId)=>{
+    try{
+        return await axios.get(`${API}/recommend/${userId}`)
+    }catch(err){
+        console.log(err);
+    }
+}

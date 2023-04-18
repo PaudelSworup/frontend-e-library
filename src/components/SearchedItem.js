@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { searchBook } from "../API/bookAPI";
-import Cards from "./Cards";
+import ThumbNail from "./ThumbNail";
+import NavBars from "./NavBars"
 
 const SearchedItem = () => {
   const { search } = useLocation();
@@ -18,10 +19,22 @@ const SearchedItem = () => {
     getSearchItem()
   }, [name]);
 
-  const props = {searchItem}
+  // const props = {searchItem}
 
   console.log(searchItem)
-  return <Cards {...props}/>;
+  // return <ThumbNail {...props}/>;
+  return(
+    <>
+   <NavBars/>
+    <div className="px-5  sm:grid md:grid-cols-2 xl:grid-cols-4 3xl:flex flex-wrap justify-center bg-[#2E2E2E]">
+        {searchItem.map((result) => (
+          <ThumbNail key={result.id} result={result} />
+        ))}
+      </div>
+    </>
+    
+  )
+  
 };
 
 export default SearchedItem;
