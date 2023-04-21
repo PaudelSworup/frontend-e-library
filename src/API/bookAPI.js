@@ -18,3 +18,21 @@ export const recommendedBooks = async(userId)=>{
         console.log(err);
     }
 }
+
+
+export const getAllBooks = async()=>{
+    try{
+        return await axios.get(`${API}/books`)
+    }catch(err){
+        console.log(err)
+    }
+}
+
+
+// export const getRecentBooks = async()=>{
+//     try{
+//         return await axios.get(`${API}/all`)
+//     }catch(err){
+//         console.log(err)
+//     }
+// }

@@ -19,10 +19,10 @@ const SearchedItem = () => {
     getSearchItem()
   }, [name]);
 
-  // const props = {searchItem}
+  
 
   console.log(searchItem)
-  // return <ThumbNail {...props}/>;
+ 
   return(
     <>
    <NavBars/>

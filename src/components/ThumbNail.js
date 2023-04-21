@@ -1,6 +1,5 @@
 import React from "react";
 import { overFlow } from "../reusuableFunctions/overFlow";
-import NavBars from "./NavBars";
 
 const ThumbNail = ({ result }) => {
   const showStatus = () => {
