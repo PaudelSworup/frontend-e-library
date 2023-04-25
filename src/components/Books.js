@@ -2,49 +2,45 @@ import React, { useEffect, useState } from "react";
 import { getAllBooks } from "../API/bookAPI";
 import ThumbNail from "./ThumbNail";
 
+
 const Books = () => {
   const [books, setBooks] = useState([]);
-  
+
+ 
 
   useEffect(() => {
-    getAllBooks().then((res) => {   
+    getAllBooks().then((res) => {
       setBooks(res?.data?.books);
     });
   }, []);
 
   const filterItem = () => {
-   
-      const recentlyAdded = books.map((data) => {
-        return { ...data, timestamps: new Date(data.createdAt).getTime() };
-      });
+    const recentlyAdded = books.map((data) => {
+      return { ...data, timestamps: new Date(data.createdAt).getTime() };
+    });
 
-      recentlyAdded.sort((a, b) => b.timestamps - a.timestamps);
+    recentlyAdded.sort((a, b) => b.timestamps - a.timestamps);
 
-      setBooks(recentlyAdded.slice(0, 3));
-   
+    setBooks(recentlyAdded.slice(0, 3));
   };
 
-  const setAll = ()=>{
-    getAllBooks().then((res) => {   
+  const setAll = () => {
+    getAllBooks().then((res) => {
       setBooks(res?.data?.books);
     });
-  }
+  };
 
   // console.log(books)
 
   return (
     <>
-      <div>
+      {/* <div className="container"> */}
         <div className=" grid grid-cols-2 px-5   sm:flex gap-3 p-3 justify-center items-center ">
           <button
-            
             className="py-2 bg-slate-600 rounded-md px-2 text-white tracking-widest"
             onClick={() => filterItem()}
           >
             Recently Added
-          </button>
-          <button className="py-2 bg-slate-600 rounded-md px-2 text-white tracking-widest">
-            Most Requested
           </button>
           <button
             className="py-2 bg-slate-600 rounded-md px-2 text-white tracking-widest"
@@ -59,7 +55,7 @@ const Books = () => {
             <ThumbNail key={result.isbn} result={result} />
           ))}
         </div>
-      </div>
+      {/* </div>j */}
     </>
   );
 };

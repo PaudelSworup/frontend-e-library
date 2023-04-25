@@ -33,7 +33,7 @@ const NavBars = () => {
   };
   return (
     // <div className="shadow-xl w-full fixed top-0 left-0">
-    <div className="md:flex items-center justify-between bg-black  py-2  md:px-10 px-7">
+    <div className="md:flex items-center justify-between bg-[#333]  py-2  md:px-10 px-7">
       <div className="font-bold text-2xl cursor-pointer ">
         <Link to="/">
           <img
@@ -80,17 +80,20 @@ const NavBars = () => {
       </div>
 
       <ul
-        className={`md:flex cursor-pointer md:pb-0 pb-2 absolute md:static bg-black md:z-auto z-[-1] left-0 w-full md:w-auto md:pl-0 pl-6 transition-all duration-500 ease-in ${
+        className={`md:flex cursor-pointer md:pb-0 pb-2 absolute md:static bg-[#333]  md:z-auto z-[-1] left-0 w-full md:w-auto md:pl-0 pl-6 transition-all duration-500 ease-in ${
           open ? "top-[148px] z-[1] rotate-[360deg]" : "top-[-500px]"
         }`}
       >
-        {items.map((currentNavItems) => {
-          const { id, src, span } = currentNavItems;
+        {items.map((currentNavItems , i) => {
+          const { id, src, span, link } = currentNavItems;
           return (
-            <li key={id} className="md:my-2 my-[95px]">
+            <Link to={link} key={id}>
+            <li  className="md:my-2 my-[95px]">
               <img src={src} alt="" />
               <span className="text-white p-2 tracking-wide">{span}</span>
             </li>
+            </Link>
+            
           );
         })}
       </ul>

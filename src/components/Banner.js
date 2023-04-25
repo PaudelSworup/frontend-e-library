@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Generes from "./Generes";
 
 const Banner = () => {
   const [index, setIndex] = useState(0);
@@ -17,7 +18,9 @@ const Banner = () => {
   }, [img_container.length]);
 
   return (
-    <div className="relative md:h-[650px] sm:h[600px] h-[500px]">
+    <>
+
+<div className="relative md:h-[650px] sm:h[600px] h-[500px]">
       {img_container.map((image, i) => (
         <div
           key={i}
@@ -32,10 +35,14 @@ const Banner = () => {
         />
       ))}
       <p className="absolute text-white md:text-3xl sm:text-3xl text-[20px] capitalize tracking-widest sm:absolute md:absolute top-56 right-20">
-        Looking for something <br />
-        <span className="md:pl-5 sm:pl-5">good to read?</span>
+        An educated mind is  <br />
+        <span className="md:pl-5 sm:pl-5">better than an empty one.</span>
       </p>
     </div>
+
+    <Generes />
+    </>
+    
   );
 };
 
