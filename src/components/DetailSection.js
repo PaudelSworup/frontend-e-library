@@ -1,14 +1,23 @@
 import React from "react";
-import { overFlow } from "../reusuableFunctions/overFlow";
 import { icons } from "./Ricons";
 import {  FaCheckCircle,  FaTimesCircle } from "react-icons/fa";
+import { Link } from "react-router-dom";
+
+import { useNavigate } from "react-router-dom";
 
 const DetailSection = ({ result }) => {
-  console.log(result);
+  const navigate = useNavigate()
+  
+
+
   return (
     <>
-   
       <div className="p-2 my-10 hover:z-50 ">
+        <div className="py-3 px-2">
+        <p className="text-white tracking-wider"><Link to="/">Home</Link> / <Link>{result?.category?.category_name}</Link> / <span>{result?.title}</span> </p>
+
+        </div>
+
         <img
           src={`http://localhost:8000/${result?.image}`}
           alt=""
@@ -28,12 +37,12 @@ const DetailSection = ({ result }) => {
 
         <div className="flex flex-col text-white tracking-widest">
           <h2 className="text-2xl">Genres</h2>
-          <p className="cursor-pointer underline underline-offset-1">
+          <p className="cursor-pointer underline underline-offset-1" onClick={()=>navigate(`/book/genre/${result?.category?.category_name}/${result?.category?._id}`)}>
             {result?.category?.category_name}
           </p>
         </div>
       </div>
-        <div className="p-2 my-10  xl:w-[900px] ">
+        <div className="p-2 my-20 xl:my-28  xl:w-[900px] ">
           <button className="py-2  px-2 bg-[#252525] rounded-md  text-white tracking-widest">
             {result?.publisher}
           </button>
@@ -49,7 +58,7 @@ const DetailSection = ({ result }) => {
             </div>
             
             <div>
-              <p  className="text-white tracking-widest">Stock:{result.stock}</p>
+              <p  className="text-white tracking-widest">Stock:{result?.stock}</p>
             </div> 
           </div>
          

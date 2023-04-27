@@ -2,7 +2,6 @@ const items = [
     {
         id:1,
         idName:"home",
-        src:"images/home-icon.svg",
         span:"Home",
         link:"/"
     },
@@ -10,7 +9,6 @@ const items = [
     {
         id:4,
         idName:"original",
-        src:"images/original-icon.svg",
         span:"History",
         link:"/book/history"
     },
@@ -18,7 +16,6 @@ const items = [
     {
         id:2,
         idName:"req",
-        src:"images/home-icon.svg",
         span:"Request",
         link:"/book/request"
     },
@@ -26,8 +23,7 @@ const items = [
     {
         id:5,
         idName:"movie",
-        src:"images/movie-icon.svg",
-        span:"Status",
+        span:"notification",
         link:"book/status"
     },
 

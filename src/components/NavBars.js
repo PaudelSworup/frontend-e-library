@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import items from "./NavItem";
-import { FaBars, FaUser } from "react-icons/fa";
+import { FaBars, FaBell, FaEnvelope, FaHistory, FaHome, FaUser } from "react-icons/fa";
 import { BiSearch } from "react-icons/bi";
 import { ToastContainer, toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 
 const NavBars = () => {
+  const icons = [FaHome , FaHistory , FaEnvelope , FaBell]
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState("");
 
@@ -33,11 +34,11 @@ const NavBars = () => {
   };
   return (
     // <div className="shadow-xl w-full fixed top-0 left-0">
-    <div className="md:flex items-center justify-between bg-[#333]  py-2  md:px-10 px-7">
+    <div className="md:flex items-center justify-between bg-[#252525]  py-2  md:px-10 px-7">
       <div className="font-bold text-2xl cursor-pointer ">
         <Link to="/">
           <img
-            src="../images/librarykct.png"
+            src="/images/librarykct.png"
             className="h-16 w-16 rounded-xl"
             alt=""
           />
@@ -80,7 +81,7 @@ const NavBars = () => {
       </div>
 
       <ul
-        className={`md:flex cursor-pointer md:pb-0 pb-2 absolute md:static bg-[#333]  md:z-auto z-[-1] left-0 w-full md:w-auto md:pl-0 pl-6 transition-all duration-500 ease-in ${
+        className={`md:flex cursor-pointer md:pb-0 pb-2 absolute md:static bg-[#252525]  md:z-auto z-[-1] left-0 w-full md:w-auto md:pl-0 pl-6 transition-all duration-500 ease-in ${
           open ? "top-[148px] z-[1] rotate-[360deg]" : "top-[-500px]"
         }`}
       >
@@ -88,9 +89,11 @@ const NavBars = () => {
           const { id, src, span, link } = currentNavItems;
           return (
             <Link to={link} key={id}>
-            <li  className="md:my-2 my-[95px]">
-              <img src={src} alt="" />
-              <span className="text-white p-2 tracking-wide">{span}</span>
+            <li  className="md:my-2 my-[95px] flex flex-col justify-center items-center">
+              {React.createElement(icons[i%icons.length], {className:"text-[#999] text-2xl "})}
+              <span className="text-white p-1 tracking-wide">{span}</span>
+
+            
             </li>
             </Link>
             

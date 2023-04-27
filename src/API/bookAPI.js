@@ -52,3 +52,13 @@ export const getBookDetails = async(id)=>{
         console.log(err)
     }
 }
+
+
+// get books by category
+export const getBookbyCategory = async(cat)=>{
+    try{
+        return await axios.get(`${API}/books/${cat}`)
+    }catch(err){
+        console.log(err)
+    }
+}

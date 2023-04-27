@@ -35,7 +35,7 @@ const Books = () => {
   return (
     <>
       {/* <div className="container"> */}
-        <div className=" grid grid-cols-2 px-5   sm:flex gap-3 p-3 justify-center items-center ">
+        {/* <div className=" grid grid-cols-2 px-5   sm:flex gap-3 p-3 justify-center items-center ">
           <button
             className="py-2 bg-slate-600 rounded-md px-2 text-white tracking-widest"
             onClick={() => filterItem()}
@@ -48,9 +48,9 @@ const Books = () => {
           >
             All Books
           </button>
-        </div>
+        </div> */}
 
-        <div className="px-5  sm:grid md:grid-cols-2 xl:grid-cols-4 3xl:flex flex-wrap justify-center bg-[#111]">
+        <div className="px-5  sm:grid md:grid-cols-2 xl:grid-cols-4 3xl:flex flex-wrap justify-center bg-[#131313]">
           {books.map((result) => (
             <ThumbNail key={result.isbn} result={result} />
           ))}
