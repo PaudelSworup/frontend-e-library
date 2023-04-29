@@ -19,16 +19,17 @@ const Featured = () => {
 
   return (
     <>
-        <h2 className="text-white tracking-widest capitalize font-serif text-center text-3xl">
+        <h2 className=" p-2 text-white tracking-widest capitalize font-serif text-2xl">
           Featured Item (Rating based)
         </h2>
-        <div className="px-5 sm:grid md:grid-cols-2 xl:flex justify-center  bg-[#202020]">
+        <div className="px-5 sm:grid md:grid-cols-2 xl:flex justify-center  bg-[#212121]">
           {featured?.map((data) => (
             <div key={data.isbn} className="p-2 my-10 cursor-pointer  hover:z-50 ">
               <img
                 src={`http://localhost:8000/${data?.image}`}
                 alt=""
                 className="w-[90%] sm:w-[80%] max-h-[300px] md:rounded-md"
+                loading="lazy"
               />
               <div className="p-2">
                 <h2 className="mt-1 text-white transition-all duration-100 ease-in-out text-2xl group-hover:font-bold  ">

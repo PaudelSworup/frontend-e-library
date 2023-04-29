@@ -86,12 +86,12 @@ const NavBars = () => {
         }`}
       >
         {items.map((currentNavItems , i) => {
-          const { id, src, span, link } = currentNavItems;
+          const { id,span, link } = currentNavItems;
           return (
             <Link to={link} key={id}>
-            <li  className="md:my-2 my-[95px] flex flex-col justify-center items-center">
+            <li  className="md:my-2 my-[95px] flex flex-col  justify-center items-center">
               {React.createElement(icons[i%icons.length], {className:"text-[#999] text-2xl "})}
-              <span className="text-white p-1 tracking-wide">{span}</span>
+              <span className="text-white p-1 tracking-widest">{span}</span>
 
             
             </li>
