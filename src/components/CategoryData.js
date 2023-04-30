@@ -41,12 +41,6 @@ const CategoryData = () => {
       <div>
         <NavBars />
         <Generes />
-        <div className="flex flex-col w-52 gap-6 p-4">
-          <select className="p-1 border-none outline-none tracking-widest font-serif text-xl" >
-            <option>Sort By(all)</option>
-            <option>New Arrival</option>
-          </select>
-        </div>
         <div className="px-5  sm:grid md:grid-cols-2 xl:grid-cols-4 3xl:flex flex-wrap justify-center bg-[#2E2E2E]">
           {genre.map((result) => (
             <ThumbNail key={result?.isbn} result={result} />

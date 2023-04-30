@@ -62,3 +62,23 @@ export const getBookbyCategory = async(cat)=>{
         console.log(err)
     }
 }
+
+
+// get books by userChoosed category (recommendation)
+export const getUserRecommendation = async(id)=>{
+    try{
+        return await axios.get(`${API}/categoryrecommendation/${id}`)
+    }catch(err){
+        console.log(err)
+    }
+}
+
+
+// get/show books related to category (on recommendation section)
+export const listBooks = async(id)=>{
+    try{
+        return await axios.get(`${API}/listcatbooks/${id}`)
+    }catch(err){
+        console.log(err)
+    }
+}

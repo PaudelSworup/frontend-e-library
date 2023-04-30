@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { recommendedBooks } from "../API/bookAPI";
 import { overFlow } from "../reusuableFunctions/overFlow";
+import { useNavigate } from "react-router-dom";
 
 const Featured = () => {
   const [featured, setFeatured] = useState([]);
+  const navigate = useNavigate()
 
   const userId = "641dc56c922e371e855635d7";
   useEffect(() => {
@@ -22,9 +24,9 @@ const Featured = () => {
         <h2 className=" p-2 text-white tracking-widest capitalize font-serif text-2xl">
           Featured Item (Rating based)
         </h2>
-        <div className="px-5 sm:grid md:grid-cols-2 xl:flex justify-center  bg-[#212121]">
+        <div className="px-5 sm:grid md:grid-cols-2 xl:flex justify-center  ">
           {featured?.map((data) => (
-            <div key={data.isbn} className="p-2 my-10 cursor-pointer  hover:z-50 ">
+            <div key={data.isbn} className="p-2 my-10 cursor-pointer  hover:z-50 " onClick={()=>navigate(`book/detail/${data?._id}`)}>
               <img
                 src={`http://localhost:8000/${data?.image}`}
                 alt=""
