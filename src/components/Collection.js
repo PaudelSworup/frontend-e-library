@@ -17,6 +17,7 @@ const Collection = () => {
   });
 
   useEffect(() => {
+    // window.location.reload()
     getAllBooks().then((res) => {
       setBooks(res?.data?.books);
     });
@@ -27,6 +28,19 @@ const Collection = () => {
     localStorage.setItem("limit", limit);
   }, [books, limit]);
 
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      localStorage.removeItem("books");
+      localStorage.removeItem("limit");
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
+
   const load = () => {
     setLoading(true);
     setTimeout(() => {
@@ -34,7 +48,6 @@ const Collection = () => {
       if (books.length > limit) {
         setLimit(limit + 2);
       } else {
-        console.log("loading state", loading);
         return toast("All books are loaded 📖", {
           position: "top-center",
           autoClose: 3000,
@@ -49,6 +62,8 @@ const Collection = () => {
     }, 1000);
   };
 
+
+  
   const data = books.slice(0, limit);
 
   return (

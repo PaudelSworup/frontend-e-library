@@ -1,16 +1,25 @@
 import React, { useState } from "react";
 import items from "./NavItem";
-import { FaBars, FaBell, FaEnvelope, FaHistory, FaHome, FaUser } from "react-icons/fa";
+import {
+  FaBars,
+  FaBell,
+  FaEnvelope,
+  FaHistory,
+  FaHome,
+  FaUser,
+  FaSignOutAlt,
+} from "react-icons/fa";
 import { BiSearch } from "react-icons/bi";
 import { ToastContainer, toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
-
+import { drop } from "./dropMenu";
 
 const NavBars = () => {
-  const icons = [FaHome , FaHistory , FaEnvelope , FaBell]
+  const icons = [FaHome, FaHistory, FaEnvelope, FaBell];
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState("");
+  const [showDropdown, setShowDropdown] = useState(false);
 
   const navigate = useNavigate();
 
@@ -28,10 +37,17 @@ const NavBars = () => {
       });
     }
     e.preventDefault();
-    console.log("hello");
-    console.log(search);
     navigate(`/search?name=${search}`);
   };
+
+  const handleDropdownClick = () => {
+    setShowDropdown(!showDropdown);
+  };
+
+  const handleLogoutClick = () => {
+    // handle logout logic
+  };
+
   return (
     // <div className="shadow-xl w-full fixed top-0 left-0">
     <div className="md:flex items-center justify-between bg-[#252525]  py-2  md:px-10 px-7">
@@ -85,26 +101,47 @@ const NavBars = () => {
           open ? "top-[148px] z-[1] rotate-[360deg]" : "top-[-500px]"
         }`}
       >
-        {items.map((currentNavItems , i) => {
-          const { id,span, link } = currentNavItems;
+        {items.map((currentNavItems, i) => {
+          const { id, span, link } = currentNavItems;
           return (
             <Link to={link} key={id}>
-            <li  className="md:my-2 my-[95px] flex flex-col  justify-center items-center">
-              {React.createElement(icons[i%icons.length], {className:"text-[#999] text-2xl "})}
-              <span className="text-white p-1 tracking-widest">{span}</span>
-
-            
-            </li>
+              <li className="md:my-2 my-[95px] flex flex-col  justify-center items-center">
+                {React.createElement(icons[i % icons.length], {
+                  className: "text-[#999] text-2xl ",
+                })}
+                <span className="text-white p-1 tracking-widest">{span}</span>
+              </li>
             </Link>
-            
           );
         })}
       </ul>
-      <Link to="/profile">
+      {/* <Link to="/profile">
         <div className="sm:border md:rounded-full p-2 ">
           <FaUser className="text-white md:m-0 ml-2 text-xl cursor-pointer" />
         </div>
-      </Link>
+      </Link> */}
+      <div className="flex justify-end items-center">
+        <div className="relative md:border md:rounded-full p-2 ">
+          <FaUser
+            className="text-white md:m-0 ml-2 text-xl cursor-pointer"
+            onClick={handleDropdownClick}
+          />
+          {showDropdown && (
+            <div className="absolute z-10  top-10 right-0 bg-white rounded-md shadow-lg py-2">
+              {drop.map((data) => {
+                return (
+                  
+                    <div className="px-4 py-2 w-48 cursor-pointer flex items-center" key={data.id}>
+                      <span>{data.icon}</span>
+                      <span onClick={data.click}>{data.span}</span>
+                    </div>
+                  
+                );
+              })}
+            </div>
+          )}
+        </div>
+      </div>
     </div>
 
     // </div>

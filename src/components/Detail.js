@@ -99,23 +99,25 @@ const Detail = ({ result }) => {
           Other info
         </h2>
         <div className="flex justify-center mt-3 gap-2 cursor-pointer">
-          <div className="w-36 h-28 p-2 flex flex-col gap-2 rounded-md  items-center text-white  border bg-[#212121]">
+          <div className="w-40 h-28 p-2 flex flex-col gap-2 rounded-md  items-center text-white  border bg-[#212121]">
             <h2 className="uppercase">isbn</h2>
-            <FaBarcode/>
+            <FaBarcode className="text-xl"/>
             <h2>{result?.isbn}</h2>
           </div>
 
-          <div className="w-36 h-28 p-2 text-white flex flex-col gap-2 rounded-md  items-center  border bg-[#212121]">
+          <div className="w-40 h-28 p-2 text-white flex flex-col gap-2 rounded-md  items-center  border bg-[#212121]">
             <h2 className="capitalize">Language</h2>
-            <FaGlobe />
+            <FaGlobe className="text-xl" />
             <h2>English</h2>
           </div>
 
-          <div className="w-36 h-28 p-2 text-white flex flex-col gap-2 rounded-md  items-center  border bg-[#212121]">
+          <div className="w-40 h-28 p-2 text-white flex flex-col gap-2 rounded-md  items-center  border bg-[#212121]">
             <h2 className="capitalize">Publisher</h2>
-            <FaBook />
-            <h2>{result?.publisher}</h2>
+            <FaBook className="text-xl" />
+            <h2 className="text-center truncate ">{result?.publisher}</h2>
           </div>
+
+         
         </div>
         <hr className="my-5 border border-[#313131]" />
 
