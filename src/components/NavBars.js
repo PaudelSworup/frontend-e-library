@@ -3,11 +3,9 @@ import items from "./NavItem";
 import {
   FaBars,
   FaBell,
-  FaEnvelope,
   FaHistory,
   FaHome,
   FaUser,
-  FaSignOutAlt,
 } from "react-icons/fa";
 import { BiSearch } from "react-icons/bi";
 import { ToastContainer, toast } from "react-toastify";
@@ -16,7 +14,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { drop } from "./dropMenu";
 
 const NavBars = () => {
-  const icons = [FaHome, FaHistory, FaEnvelope, FaBell];
+  const icons = [FaHome, FaHistory,  FaBell];
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
@@ -44,9 +42,7 @@ const NavBars = () => {
     setShowDropdown(!showDropdown);
   };
 
-  const handleLogoutClick = () => {
-    // handle logout logic
-  };
+  
 
   return (
     // <div className="shadow-xl w-full fixed top-0 left-0">
@@ -115,11 +111,7 @@ const NavBars = () => {
           );
         })}
       </ul>
-      {/* <Link to="/profile">
-        <div className="sm:border md:rounded-full p-2 ">
-          <FaUser className="text-white md:m-0 ml-2 text-xl cursor-pointer" />
-        </div>
-      </Link> */}
+     
       <div className="flex justify-end items-center">
         <div className="relative md:border md:rounded-full p-2 ">
           <FaUser

@@ -1,4 +1,4 @@
-import { FaCog, FaSignOutAlt } from "react-icons/fa";
+import { FaCog, FaEnvelope, FaHeart, FaSignOutAlt } from "react-icons/fa";
 
 const handleLogoutClick = () => {
   console.log("hello");
@@ -6,6 +6,11 @@ const handleLogoutClick = () => {
 
 const handleAccount = () => {
   console.log("account settings");
+};
+
+
+const savedItems = () => {
+  console.log("saved items");
 };
 
 export const drop = [
@@ -25,6 +30,24 @@ export const drop = [
     link: "",
     icon: <FaCog className="mr-2" />,
     click: handleAccount,
+  },
+
+
+  {
+    id: 5,
+    idName: "saved",
+    span: "Saved Items",
+    link: "",
+    icon: <FaHeart className="mr-2" />,
+    click: savedItems,
+  },
+  {
+    id: 6,
+    idName: "request",
+    span: "Request History",
+    link: "",
+    icon: <FaEnvelope className="mr-2" />,
+    click: savedItems,
   },
 
 

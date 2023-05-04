@@ -36,7 +36,7 @@ const ThumbNail = ({ result }) => {
           ) : (
             <button
               onClick={showStatus}
-              className="py-2 ml-2 bg-slate-600 rounded-md px-2 text-white tracking-widest hover:bg-slate-800"
+              className="py-[10px] ml-2 bg-slate-600 rounded-md px-8 text-white tracking-widest hover:bg-slate-800"
             >
              <div className="flex gap-1">
               <span><RiDownloadCloud2Line className=" text-xl" /></span> <span>Request</span>
