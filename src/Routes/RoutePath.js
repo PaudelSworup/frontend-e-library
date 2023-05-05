@@ -6,6 +6,7 @@ import Profile from '../components/Profile'
 import BookDetail from '../components/BookDetail'
 import CategoryData from '../components/CategoryData'
 import Collection from '../components/Collection'
+import SavedItems from '../components/SavedItems'
 // import NavBars from '../components/NavBars'
 
 const RoutePath = () => {
@@ -17,6 +18,7 @@ const RoutePath = () => {
         <Route path='/book/detail/:id' element={<BookDetail/>} />
         <Route path='/book/genre/:name/:id' element={<CategoryData/>} />
         <Route path='/collection' element={<Collection />} />
+        <Route path='/book/saved' element={<SavedItems />} />
     </Routes>
   )
 }

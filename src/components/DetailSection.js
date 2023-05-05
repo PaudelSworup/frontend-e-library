@@ -1,12 +1,57 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { icons } from "./Ricons";
 import { Link } from "react-router-dom";
 
 import { useNavigate } from "react-router-dom";
 import Detail from "./Detail";
+import { toast } from "react-toastify";
 
 const DetailSection = ({ result }) => {
   const navigate = useNavigate();
+
+  const [saved, setSaved] = useState(true);
+
+  useEffect(() => {
+    let status = JSON.parse(localStorage.getItem(result.isbn));
+    if(status){
+      if (status.isbn === result.isbn) {
+        setSaved(false);
+      }
+    }
+     
+    
+    
+  },[result]);
+
+  const saveItems = () => {
+    console.log("saved item value is", saved);
+    setSaved(!saved);
+    if (saved) {
+      localStorage.setItem(result.isbn, JSON.stringify(result));
+      return toast("The book has been added to your wishlist 📖", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } else {
+      localStorage.removeItem(result._id);
+      return toast("The book has been removed from your wishlist📖", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+  };
 
   return (
     <>
@@ -31,7 +76,12 @@ const DetailSection = ({ result }) => {
               key={data.id}
               className="bg-[#444] cursor-pointer p-2 rounded-full"
             >
-              {data.icon}
+              <span
+                className={`${saved ? "text-white" : "text-red-600"}`}
+                onClick={saveItems}
+              >
+                {data.icon}
+              </span>
             </div>
           ))}
         </div>
@@ -51,7 +101,7 @@ const DetailSection = ({ result }) => {
         </div>
       </div>
       <Detail result={result} />
-          </>
+    </>
   );
 };
 

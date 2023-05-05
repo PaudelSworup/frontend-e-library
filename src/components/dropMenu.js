@@ -37,7 +37,7 @@ export const drop = [
     id: 5,
     idName: "saved",
     span: "Saved Items",
-    link: "",
+    link: "/book/saved",
     icon: <FaHeart className="mr-2" />,
     click: savedItems,
   },

@@ -25,15 +25,13 @@ const Detail = ({ result }) => {
     });
   }, [userId]);
 
-  let arr = [1,2,3,4,5]  
+  let arr = [1, 2, 3, 4, 5];
 
   useEffect(() => {
     listBooks(id).then((res) => {
       setSimilar(res?.data?.book);
     });
   }, [id]);
-
-  
 
   const newRecommendation = recommendations.filter((data) => {
     return data?._id !== id;
@@ -88,19 +86,24 @@ const Detail = ({ result }) => {
             </div>
 
             <div>
-              <p className="text-white tracking-widest">Stock:{result?.stock}</p>
+              <p className="text-white tracking-widest">
+                Stock:{result?.stock}
+              </p>
             </div>
           </div>
         )}
         <div className="flex flex-col items-start gap-3">
-        <p className="text-white tracking-widest">Provided by KCT Library</p>
-        {result?.stock !==0 &&   <button
-              className="py-[10px] ml-2 bg-slate-600 rounded-md px-8 text-white tracking-widest hover:bg-slate-800"
-            >
-             <div className="flex gap-1">
-              <span><RiDownloadCloud2Line className=" text-xl" /></span> <span>Request</span>
+          <p className="text-white tracking-widest">Provided by KCT Library</p>
+          {result?.stock !== 0 && (
+            <button className="py-[10px] ml-2 bg-slate-600 rounded-md px-8 text-white tracking-widest hover:bg-slate-800">
+              <div className="flex gap-1">
+                <span>
+                  <RiDownloadCloud2Line className=" text-xl" />
+                </span>{" "}
+                <span>Request</span>
               </div>
-            </button>}
+            </button>
+          )}
         </div>
 
         <hr className="my-5 border border-[#313131]" />
@@ -142,20 +145,23 @@ const Detail = ({ result }) => {
             </h2>
             <div className="flex  text-3xl gap-5 text-[#212121] ">
               <div className="flex gap-2">
-              {arr.map((data)=>{
-               return(
-                <span key={data}>
-                  <FaStar  className={`cursor-pointer   ${data<= rating ? "text-yellow-400" : "text-[#9E9E9E]"}` } onMouseEnter={() => handleStarHover(data)} />
-                </span>
-               )
-              })}
+                {arr.map((data) => {
+                  return (
+                    <span key={data}>
+                      <FaStar
+                        className={`cursor-pointer   ${
+                          data <= rating ? "text-yellow-400" : "text-[#9E9E9E]"
+                        }`}
+                        onMouseEnter={() => handleStarHover(data)}
+                      />
+                    </span>
+                  );
+                })}
               </div>
               <div>
-              <p className="text-black text-xl font-light">{`${rating}.0`}</p>
+                <p className="text-black text-xl font-light">{`${rating}.0`}</p>
               </div>
-             
             </div>
-           
           </div>
         </div>
 

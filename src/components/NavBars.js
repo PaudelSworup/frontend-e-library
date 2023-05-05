@@ -1,12 +1,6 @@
 import React, { useState } from "react";
 import items from "./NavItem";
-import {
-  FaBars,
-  FaBell,
-  FaHistory,
-  FaHome,
-  FaUser,
-} from "react-icons/fa";
+import { FaBars, FaBell, FaHistory, FaHome, FaUser } from "react-icons/fa";
 import { BiSearch } from "react-icons/bi";
 import { ToastContainer, toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
@@ -14,7 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { drop } from "./dropMenu";
 
 const NavBars = () => {
-  const icons = [FaHome, FaHistory,  FaBell];
+  const icons = [FaHome, FaHistory, FaBell];
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
@@ -41,8 +35,6 @@ const NavBars = () => {
   const handleDropdownClick = () => {
     setShowDropdown(!showDropdown);
   };
-
-  
 
   return (
     // <div className="shadow-xl w-full fixed top-0 left-0">
@@ -111,7 +103,7 @@ const NavBars = () => {
           );
         })}
       </ul>
-     
+
       <div className="flex justify-end items-center">
         <div className="relative md:border md:rounded-full p-2 ">
           <FaUser
@@ -122,12 +114,15 @@ const NavBars = () => {
             <div className="absolute z-10  top-10 right-0 bg-white rounded-md shadow-lg py-2">
               {drop.map((data) => {
                 return (
-                  
-                    <div className="px-4 py-2 w-48 cursor-pointer flex items-center" key={data.id}>
+                  <Link to={data.link} key={data.id}>
+                    <div
+                      className="px-4 py-2 w-48 cursor-pointer flex items-center"
+                      
+                    >
                       <span>{data.icon}</span>
                       <span onClick={data.click}>{data.span}</span>
                     </div>
-                  
+                  </Link>
                 );
               })}
             </div>
