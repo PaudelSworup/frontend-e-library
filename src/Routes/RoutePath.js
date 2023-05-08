@@ -7,18 +7,20 @@ import BookDetail from '../components/BookDetail'
 import CategoryData from '../components/CategoryData'
 import Collection from '../components/Collection'
 import SavedItems from '../components/SavedItems'
+import Login from '../components/Login'
 // import NavBars from '../components/NavBars'
 
 const RoutePath = () => {
   return (
     <Routes>
-        <Route path="/" element={<Home/>} />
+      <Route path='/' element={<Login />} />
+         <Route path="/home" element={<Home/>} />
         <Route path='/search' element={<SearchedItem/>} />
         <Route path='/profile' element={<Profile/>} />
         <Route path='/book/detail/:id' element={<BookDetail/>} />
         <Route path='/book/genre/:name/:id' element={<CategoryData/>} />
         <Route path='/collection' element={<Collection />} />
-        <Route path='/book/saved' element={<SavedItems />} />
+        <Route path='/book/saved' element={<SavedItems />} /> 
     </Routes>
   )
 }
