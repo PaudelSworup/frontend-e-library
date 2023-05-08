@@ -3,16 +3,24 @@ import { icons } from "./Ricons";
 import { Link } from "react-router-dom";
 
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import Detail from "./Detail";
 import { toast } from "react-toastify";
+import jwtDecode from "jwt-decode";
 
 const DetailSection = ({ result }) => {
   const navigate = useNavigate();
 
+  const {token} = useSelector((state)=>state.users)
+  const decodeToken = jwtDecode(token)
+
+
   const [saved, setSaved] = useState(true);
 
+  const favoritesKey = `${decodeToken.id}-${result.isbn}`;
+
   useEffect(() => {
-    let status = JSON.parse(localStorage.getItem(result.isbn));
+    let status = JSON.parse(localStorage.getItem(favoritesKey));
     if(status){
       if (status.isbn === result.isbn) {
         setSaved(false);
@@ -27,7 +35,7 @@ const DetailSection = ({ result }) => {
     console.log("saved item value is", saved);
     setSaved(!saved);
     if (saved) {
-      localStorage.setItem(result.isbn, JSON.stringify(result));
+      localStorage.setItem(favoritesKey, JSON.stringify(result));
       return toast("The book has been added to your wishlist 📖", {
         position: "top-center",
         autoClose: 3000,
@@ -39,7 +47,7 @@ const DetailSection = ({ result }) => {
         theme: "light",
       });
     } else {
-      localStorage.removeItem(result._id);
+      localStorage.removeItem(favoritesKey);
       return toast("The book has been removed from your wishlist📖", {
         position: "top-center",
         autoClose: 3000,

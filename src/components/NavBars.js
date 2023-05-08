@@ -44,17 +44,17 @@ const NavBars = () => {
     <div className="md:flex items-center justify-between bg-[#252525]  py-2  md:px-10 px-7">
       <div className="font-bold text-2xl cursor-pointer ">
         {fullname ? (
-          <Link to="/">
+          <Link to="/home">
             {" "}
             <img
-              src="/images/librarykct.png"
+              src="/images/kct.png"
               className="h-16 w-16 rounded-xl"
               alt=""
             />{" "}
           </Link>
         ) : (
           <img
-            src="/images/librarykct.png"
+            src="/images/kct.png"
             className="h-16 w-16 rounded-xl"
             alt=""
           />

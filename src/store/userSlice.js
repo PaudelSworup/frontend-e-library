@@ -9,7 +9,9 @@ console.log(userInfo);
 const userSlice = createSlice({
   name: "users",
   initialState: {
+    id:userInfo.id,
     token:userInfo.token,
+    role:userInfo.role,
     fullname:userInfo.fullname,
     email: userInfo.email,
     address: userInfo.address,
@@ -19,8 +21,10 @@ const userSlice = createSlice({
 
   reducers: {
     setLogin: (state, action) => {
+      state.id = action.payload.id
       state.token = action.payload.token;
       state.fullname = action.payload.fullname;
+      state.role = action.payload.role
       state.email = action.payload.email;
       state.address = action.payload.address;
       state.mobilenum = action.payload.mobilenum;
@@ -29,8 +33,10 @@ const userSlice = createSlice({
     },
 
     setLogout: (state) => {
+      state.id=null
       state.token = null;
       state.fullname = null;
+      state.role = null
       state.email = null;
       state.address = null;
       state.mobilenum = null;

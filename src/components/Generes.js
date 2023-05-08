@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getGenre } from "../API/bookAPI";
 import { useNavigate } from "react-router-dom";
-import {FaCompass , FaPlayCircle , FaHatWizard  , FaSquareRootAlt , FaCode , FaPen, FaPaintRoller, FaPaintBrush} from "react-icons/fa"
+import {FaCompass , FaPlayCircle , FaHatWizard  , FaSquareRootAlt , FaCode , FaPen, FaPaintBrush} from "react-icons/fa"
 import { GiRobotGolem } from 'react-icons/gi';
 import { BiDna, BiGlobe } from 'react-icons/bi';
 

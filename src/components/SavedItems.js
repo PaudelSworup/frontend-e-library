@@ -29,6 +29,8 @@ const SavedItems = () => {
     (item, index, self) => index === self.findIndex((t) => t.key === item.key)
   );
 
+  console.log(uniqueItems)
+
   return (
     <>
       <NavBars />

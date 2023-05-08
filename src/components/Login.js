@@ -34,7 +34,9 @@ const Login = () => {
       } else {
         dispatch(setLogin({
             token: data.token,
+            id:data.user._id,
             fullname:data.user.fullname,
+            role:data.user.role,
             email:data.user.email,
             categories:data.user.choosedCatgoeirs,
             address:data.user.address,
