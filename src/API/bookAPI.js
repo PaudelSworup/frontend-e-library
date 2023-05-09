@@ -82,3 +82,13 @@ export const listBooks = async(id)=>{
         console.log(err)
     }
 }
+
+
+// get ratings detail 
+export const getRating = async(bookId)=>{
+    try{
+        return await axios.get(`${API}/rate/check/${bookId}`)
+    }catch(err){
+        console.log(err)
+    }
+}

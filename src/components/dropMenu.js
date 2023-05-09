@@ -1,17 +1,25 @@
 import { FaCog, FaEnvelope, FaHeart, FaSignOutAlt } from "react-icons/fa";
-
-const handleLogoutClick = () => {
-  console.log("hello");
-};
-
-const handleAccount = () => {
-  console.log("account settings");
-};
+import { useDispatch } from "react-redux";
+import { setLogout } from "../store/userSlice";
+import { Navigate } from "react-router-dom";
 
 
-const savedItems = () => {
-  console.log("saved items");
-};
+
+// const handleLogoutClick = () => {
+//   const dispatch = useDispatch()
+//   console.log("hello");
+//   dispatch(setLogout())
+//   return <Navigate to="/" />
+// };
+
+// const handleAccount = () => {
+//   console.log("account settings");
+// };
+
+
+// const savedItems = () => {
+//   console.log("saved items");
+// };
 
 export const drop = [
   {
@@ -20,7 +28,6 @@ export const drop = [
     span: "Logout",
     link: "",
     icon: <FaSignOutAlt className="mr-2" />,
-    click: handleLogoutClick,
   },
 
   {
@@ -29,7 +36,6 @@ export const drop = [
     span: "Account Settings",
     link: "",
     icon: <FaCog className="mr-2" />,
-    click: handleAccount,
   },
 
 
@@ -39,7 +45,6 @@ export const drop = [
     span: "Saved Items",
     link: "/book/saved",
     icon: <FaHeart className="mr-2" />,
-    click: savedItems,
   },
   {
     id: 6,
@@ -47,7 +52,6 @@ export const drop = [
     span: "Request History",
     link: "",
     icon: <FaEnvelope className="mr-2" />,
-    click: savedItems,
   },
 
 

@@ -7,23 +7,24 @@ import {
   FaStar,
   FaTimesCircle,
 } from "react-icons/fa";
-import { getUserRecommendation, listBooks } from "../API/bookAPI";
+import { getRating, getUserRecommendation, listBooks } from "../API/bookAPI";
 import { useParams } from "react-router-dom";
 import RecommendationSection from "./RecommendationSection";
 import { RiDownloadCloud2Line } from "react-icons/ri";
+import { useSelector } from "react-redux";
 
 const Detail = ({ result }) => {
   const { id } = useParams();
   const [recommendations, setRecommendations] = useState([]);
   const [similar, setSimilar] = useState([]);
   const [rating, setRating] = useState(0);
-  const userId = "641dc56c922e371e855635d7";
+  const {userid} = useSelector((state)=>state.users)
 
   useEffect(() => {
-    getUserRecommendation(userId).then((res) => {
+    getUserRecommendation(userid).then((res) => {
       setRecommendations(res?.data?.recommendedBooks);
     });
-  }, [userId]);
+  }, [userid]);
 
   let arr = [1, 2, 3, 4, 5];
 
@@ -33,12 +34,20 @@ const Detail = ({ result }) => {
     });
   }, [id]);
 
+
+  useEffect(()=>{
+    getRating(id).then((res)=>{
+      console.log(res)
+    })
+  },[id])
+
   const newRecommendation = recommendations.filter((data) => {
     return data?._id !== id;
   });
 
   const handleStarHover = (hoverRating) => {
     setRating(hoverRating);
+    console.log(hoverRating)
   };
 
   return (

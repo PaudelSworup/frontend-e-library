@@ -2,20 +2,21 @@ import React, { useEffect, useState } from "react";
 import { recommendedBooks } from "../API/bookAPI";
 import { overFlow } from "../reusuableFunctions/overFlow";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Featured = () => {
   const [featured, setFeatured] = useState([]);
   const navigate = useNavigate()
 
-  const userId = "641dc56c922e371e855635d7";
+  const {userid} = useSelector((state)=>state.users)
   useEffect(() => {
     const recommendation = () => {
-      recommendedBooks(userId).then((res) => {
+      recommendedBooks(userid).then((res) => {
         setFeatured(res?.data?.recommendations);
       });
     };
     recommendation();
-  }, [userId]);
+  }, [userid]);
 
   
 

@@ -9,7 +9,7 @@ console.log(userInfo);
 const userSlice = createSlice({
   name: "users",
   initialState: {
-    id:userInfo.id,
+    userid:userInfo.id,
     token:userInfo.token,
     role:userInfo.role,
     fullname:userInfo.fullname,
@@ -21,7 +21,7 @@ const userSlice = createSlice({
 
   reducers: {
     setLogin: (state, action) => {
-      state.id = action.payload.id
+      state.userid = action.payload.userid
       state.token = action.payload.token;
       state.fullname = action.payload.fullname;
       state.role = action.payload.role
@@ -33,7 +33,7 @@ const userSlice = createSlice({
     },
 
     setLogout: (state) => {
-      state.id=null
+      state.userid=null
       state.token = null;
       state.fullname = null;
       state.role = null
