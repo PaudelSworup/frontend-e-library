@@ -3,20 +3,21 @@ import { recommendedBooks } from "../API/bookAPI";
 import { overFlow } from "../reusuableFunctions/overFlow";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import LazyImage from "./LazyImage";
 
 const Featured = () => {
   const [featured, setFeatured] = useState([]);
   const navigate = useNavigate()
 
   const {userid} = useSelector((state)=>state.users)
+
+  
+
   useEffect(() => {
-    const recommendation = () => {
       recommendedBooks(userid).then((res) => {
         setFeatured(res?.data?.recommendations);
       });
-    };
-    recommendation();
-  }, [userid]);
+  },[]);
 
   
 
@@ -28,11 +29,10 @@ const Featured = () => {
         <div className="px-5 sm:grid md:grid-cols-2 xl:flex justify-center  ">
           {featured?.map((data) => (
             <div key={data.isbn} className="p-2 my-10 cursor-pointer  hover:z-50 " onClick={()=>navigate(`book/detail/${data?._id}`)}>
-              <img
+              <LazyImage
                 src={`http://localhost:8000/${data?.image}`}
                 alt=""
                 className="w-[90%] sm:w-[80%] max-h-[300px] md:rounded-md"
-                loading="lazy"
               />
               <div className="p-2">
                 <h2 className="mt-1 text-white transition-all duration-100 ease-in-out text-2xl group-hover:font-bold  ">

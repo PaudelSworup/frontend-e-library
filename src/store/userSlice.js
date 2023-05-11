@@ -1,15 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const userInfo =
-  localStorage.getItem("userInfo") != null
-    ? JSON.parse(localStorage.getItem("userInfo"))
+  sessionStorage.getItem("userInfo") != null
+    ? JSON.parse(sessionStorage.getItem("userInfo"))
     : "";
 console.log(userInfo);
 
 const userSlice = createSlice({
   name: "users",
   initialState: {
-    userid:userInfo.id,
+    userid:userInfo.userid,
     token:userInfo.token,
     role:userInfo.role,
     fullname:userInfo.fullname,
@@ -29,7 +29,7 @@ const userSlice = createSlice({
       state.address = action.payload.address;
       state.mobilenum = action.payload.mobilenum;
       state.categories = action.payload.categories;
-      localStorage.setItem("userInfo", JSON.stringify(state));
+      sessionStorage.setItem("userInfo", JSON.stringify(state));
     },
 
     setLogout: (state) => {
@@ -41,7 +41,7 @@ const userSlice = createSlice({
       state.address = null;
       state.mobilenum = null;
       state.categories = null;
-      localStorage.removeItem("userInfo");
+      sessionStorage.removeItem("userInfo");
     },
   },
 });

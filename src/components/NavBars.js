@@ -5,7 +5,7 @@ import { BiSearch } from "react-icons/bi";
 import { ToastContainer, toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
-import { drop } from "./dropMenu";
+import DropMenu, { drop } from "./DropMenu";
 import { useSelector } from "react-redux";
 
 const NavBars = () => {
@@ -39,6 +39,8 @@ const NavBars = () => {
     setShowDropdown(!showDropdown);
   };
 
+
+ 
   return (
     // <div className="shadow-xl w-full fixed top-0 left-0">
     <div className="md:flex items-center justify-between bg-[#252525]  py-2  md:px-10 px-7">
@@ -132,18 +134,7 @@ const NavBars = () => {
                 onClick={handleDropdownClick}
               />
               {showDropdown && (
-                <div className="absolute z-10  top-10 right-0 bg-white rounded-md shadow-lg py-2">
-                  {drop.map((data) => {
-                    return (
-                      <Link to={data.link} key={data.id}>
-                        <div className="px-4 py-2 w-48 cursor-pointer flex items-center">
-                          <span>{data.icon}</span>
-                          <span onClick={data.click}>{data.span}</span>
-                        </div>
-                      </Link>
-                    );
-                  })}
-                </div>
+                <DropMenu />
               )}
             </div>
           </div>

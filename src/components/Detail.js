@@ -7,18 +7,19 @@ import {
   FaStar,
   FaTimesCircle,
 } from "react-icons/fa";
-import { getRating, getUserRecommendation, listBooks } from "../API/bookAPI";
+import { getRating, getUserRecommendation, listBooks, recordRating } from "../API/bookAPI";
 import { useParams } from "react-router-dom";
 import RecommendationSection from "./RecommendationSection";
 import { RiDownloadCloud2Line } from "react-icons/ri";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 const Detail = ({ result }) => {
   const { id } = useParams();
   const [recommendations, setRecommendations] = useState([]);
   const [similar, setSimilar] = useState([]);
   const [rating, setRating] = useState(0);
-  const {userid} = useSelector((state)=>state.users)
+  const { userid } = useSelector((state) => state.users);
 
   useEffect(() => {
     getUserRecommendation(userid).then((res) => {
@@ -34,12 +35,15 @@ const Detail = ({ result }) => {
     });
   }, [id]);
 
-
-  useEffect(()=>{
-    getRating(id).then((res)=>{
-      console.log(res)
-    })
-  },[id])
+  useEffect(() => {
+    getRating(id).then((res) => {
+      const ratingData = res?.data?.books.find((data)=>{
+        return data?.user === userid && data?.book?._id === id;
+      })
+      setRating(ratingData?.rating)
+    });
+  }, [userid, id]);
+  // console.log(rating)
 
   const newRecommendation = recommendations.filter((data) => {
     return data?._id !== id;
@@ -47,7 +51,29 @@ const Detail = ({ result }) => {
 
   const handleStarHover = (hoverRating) => {
     setRating(hoverRating);
-    console.log(hoverRating)
+  };
+
+  const handleStarClick = (rating) => {
+    recordRating({rating,book:id,user:userid}).then((data)=>{
+      console.log(data);
+      if (data.error) {
+        return toast(data.error, {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }else{
+        return toast(data.message , {
+          position:"top-center"
+        })
+      }
+    })
+  
   };
 
   return (
@@ -161,14 +187,15 @@ const Detail = ({ result }) => {
                         className={`cursor-pointer   ${
                           data <= rating ? "text-yellow-400" : "text-[#9E9E9E]"
                         }`}
-                        onMouseEnter={() => handleStarHover(data)}
+                        onMouseOver={() => handleStarHover(data)}
+                        onClick={()=>handleStarClick(data)}
                       />
                     </span>
                   );
                 })}
               </div>
               <div>
-                <p className="text-black text-xl font-light">{`${rating}.0`}</p>
+                <p className="text-black text-xl font-light">{`${typeof rating === "undefined" ? "0" : rating}.0`}</p>
               </div>
             </div>
           </div>

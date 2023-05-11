@@ -35,7 +35,7 @@ const SavedItems = () => {
     <>
       <NavBars />
 
-      <div>
+      <div className="p-2">
         <h2 className="text-white">Saved Items</h2>
         <p className="text-[#9E9E9E]">
           Saved Books. Save books to keep track of the books you want to Request

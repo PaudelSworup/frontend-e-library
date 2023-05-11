@@ -92,3 +92,20 @@ export const getRating = async(bookId)=>{
         console.log(err)
     }
 }
+
+
+// post a book rating
+export const recordRating = async(ratingData)=>{    
+    return await fetch(`${API}/rate`,{
+        method:"POST",
+        headers:{
+            Accept:"application/json",
+            "Content-Type":"application/json"
+        },
+        body:JSON.stringify(ratingData)
+    }).then(res=>{
+        return res.json()
+    }).catch(err=>{
+        return console.log(err)
+    })
+}

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import LazyImage from "./LazyImage";
 
 const RecommendationSection = ({ newRecommendation, h2, category }) => {
   return (
@@ -15,7 +15,7 @@ const RecommendationSection = ({ newRecommendation, h2, category }) => {
             {newRecommendation?.map((data) => {
               return (
                 <div key={data?.isbn} className="p-2 my-10 cursor-pointer  hover:z-50 ">
-                  <img
+                  <LazyImage
                     src={`http://localhost:8000/${data?.image}`}
                     alt=""
                     className="w-[90%] sm:w-[80%] max-h-[300px] md:rounded-md"

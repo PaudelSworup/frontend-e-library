@@ -2,6 +2,7 @@ import React from "react";
 import { overFlow } from "../reusuableFunctions/overFlow";
 import { Link } from "react-router-dom";
 import { RiDownloadCloud2Line } from 'react-icons/ri';
+import LazyImage from "./LazyImage";
 
 const ThumbNail = ({ result }) => {
   const showStatus = () => {
@@ -12,7 +13,7 @@ const ThumbNail = ({ result }) => {
     <>
       <Link to={{ pathname: `/book/detail/${result?._id}` }}>
         <div className="p-2 my-10 cursor-pointer  hover:z-50 ">
-          <img
+          <LazyImage
             src={`http://localhost:8000/${result?.image}`}
             alt=""
             className="w-[100%] sm:w-[75%] max-h-[300px] md:rounded-lg"
