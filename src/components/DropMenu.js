@@ -17,7 +17,7 @@ const DropMenu = () => {
     // Dispatch your account settings action here
   };
 
-  const handleSavedItems = () => {
+  const handleSavedItems = () => {        
     navigate("/book/saved")
   };
 
