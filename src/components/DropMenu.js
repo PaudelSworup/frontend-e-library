@@ -2,9 +2,11 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { setLogout } from "../store/userSlice";
 import { FaCog, FaEnvelope, FaHeart, FaSignOutAlt } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const DropMenu = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
 
   const handleLogout = () => {
     // Dispatch your logout action here
@@ -16,14 +18,14 @@ const DropMenu = () => {
   };
 
   const handleSavedItems = () => {
-    // Dispatch your saved items action here
+    navigate("/book/saved")
   };
 
   const handleRequestHistory = () => {
     // Dispatch your request history action here
   };
 
-  const drop = [
+const drop = [
     {
       id: 1,
       idName: "Logout",

@@ -15,9 +15,6 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-
-
-
   const togglePasswordVisibility = () => {
     setShowPassword((prevState) => !prevState);
   };
@@ -30,11 +27,6 @@ const Login = () => {
         return toast(data.error, {
           position: "top-center",
           autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
           theme: "light",
         });
       } else {
@@ -82,6 +74,7 @@ const Login = () => {
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="email"
+              size={35}
               type="email"
               placeholder="Enter your email"
               value={email}
@@ -98,20 +91,21 @@ const Login = () => {
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="password"
+              size={35}
               type={showPassword ? "text" : "password"}
               placeholder="Enter your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
             <div className="absolute inset-y-0 right-0 pr-3 top-6 flex items-center">
-            <button type="button" onClick={togglePasswordVisibility}>
-              {showPassword ? (
-                <RiEyeOffFill className="text-gray-600" />
-              ) : (
-                <RiEyeFill className="text-gray-600" />
-              )}
-            </button>
-          </div>
+              <button type="button" onClick={togglePasswordVisibility}>
+                {showPassword ? (
+                  <RiEyeOffFill className="text-gray-600" />
+                ) : (
+                  <RiEyeFill className="text-gray-600" />
+                )}
+              </button>
+            </div>
           </div>
           <div className="flex items-center justify-between">
             <button

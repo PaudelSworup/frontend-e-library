@@ -11,3 +11,30 @@ body{
     display: none;
 }
 
+/* max-width */
+@media(max-width:991px){
+   .main_container{
+        display: flex;
+        flex-direction: column;
+        padding: 30px;
+    }
+
+    .user_detail_container{
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+@media(max-width:475px){
+    .user_detail_container{
+        display: flex;
+        flex-direction: column;
+        gap:4px;
+    }
+
+    .saved_items{
+        display: none;
+    }
+}
+
+

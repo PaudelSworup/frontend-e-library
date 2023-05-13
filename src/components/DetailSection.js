@@ -11,9 +11,8 @@ import jwtDecode from "jwt-decode";
 const DetailSection = ({ result }) => {
   const navigate = useNavigate();
 
-  const {token} = useSelector((state)=>state.users)
-  const decodeToken = jwtDecode(token)
-
+  const { token } = useSelector((state) => state.users);
+  const decodeToken = jwtDecode(token);
 
   const [saved, setSaved] = useState(true);
 
@@ -21,15 +20,12 @@ const DetailSection = ({ result }) => {
 
   useEffect(() => {
     let status = JSON.parse(localStorage.getItem(favoritesKey));
-    if(status){
+    if (status) {
       if (status.isbn === result.isbn) {
         setSaved(false);
       }
     }
-     
-    
-    
-  },[result]);
+  }, [result]);
 
   const saveItems = () => {
     console.log("saved item value is", saved);
@@ -66,7 +62,7 @@ const DetailSection = ({ result }) => {
       <div className="p-2 my-10 hover:z-50 ">
         <div className="py-3 px-2">
           <p className="text-white tracking-wider">
-            <Link to="/">Home</Link> /{" "}
+            <Link to="/home">Home</Link> /{" "}
             <Link>{result?.category?.category_name}</Link> /{" "}
             <span>{result?.title}</span>{" "}
           </p>
