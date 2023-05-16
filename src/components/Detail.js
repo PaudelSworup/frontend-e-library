@@ -7,7 +7,7 @@ import {
   FaStar,
   FaTimesCircle,
 } from "react-icons/fa";
-import { getRating, getUserRecommendation, listBooks, recordRating } from "../API/bookAPI";
+import { getRating, getUserRecommendation, issueRequest, listBooks, recordRating } from "../API/bookAPI";
 import { useParams } from "react-router-dom";
 import RecommendationSection from "./RecommendationSection";
 import { RiDownloadCloud2Line } from "react-icons/ri";
@@ -60,12 +60,6 @@ const Detail = ({ result }) => {
         return toast(data.error, {
           position: "top-center",
           autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
         });
       }else{
         return toast(data.message , {
@@ -75,6 +69,23 @@ const Detail = ({ result }) => {
     })
   
   };
+
+
+  const showStatus = (id) => {
+    issueRequest({books_id:id , user_id:userid}).then((data)=>{
+        if(data.error){
+          return toast(data.error, {
+            position: "top-center",
+            autoClose: 3000,
+          });
+        }else{
+          return toast(data.message , {
+            position:"top-center"
+          })
+        }
+    })
+  };
+
 
   return (
     <>
@@ -130,7 +141,7 @@ const Detail = ({ result }) => {
         <div className="flex flex-col items-start gap-3">
           <p className="text-white tracking-widest">Provided by KCT Library</p>
           {result?.stock !== 0 && (
-            <button className="py-[10px] ml-2 bg-slate-600 rounded-md px-8 text-white tracking-widest hover:bg-slate-800">
+            <button className="py-[10px] ml-2 bg-slate-600 rounded-md px-8 text-white tracking-widest hover:bg-slate-800" onClick={()=>showStatus(result?._id)}>
               <div className="flex gap-1">
                 <span>
                   <RiDownloadCloud2Line className=" text-xl" />

@@ -109,3 +109,21 @@ export const recordRating = async(ratingData)=>{
         return console.log(err)
     })
 }
+
+
+
+// issue a book request
+export const issueRequest = async(data)=>{
+    return await fetch(`${API}/reports`,{
+        method:"POST",
+        headers:{
+            Accept:"application/json",
+            "Content-Type":"application/json"
+        },
+        body:JSON.stringify(data)
+    }).then(res=>{
+        return res.json()
+    }).catch(err=>{
+        return console.log(err)
+    })
+}

@@ -3,7 +3,7 @@
         id:1,
         idName:"home",
         span:"Home",
-        link:"/"
+        link:"/home"
     },
 
     {

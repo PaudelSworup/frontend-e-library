@@ -5,10 +5,7 @@ import { RiDownloadCloud2Line } from 'react-icons/ri';
 import LazyImage from "./LazyImage";
 
 const ThumbNail = ({ result }) => {
-  const showStatus = () => {
-    console.log("hello");
-  };
-
+  
   return (
     <>
       <Link to={{ pathname: `/book/detail/${result?._id}` }}>
@@ -27,7 +24,7 @@ const ThumbNail = ({ result }) => {
               {overFlow(result?.desc, 55)}
             </p>
           </div>
-          {result?.stock === 0 ? (
+          {/* {result?.stock === 0 ? (
             <button
               disabled
               className=" pl-3 py-2 bg-slate-600 rounded-md px-2 text-white tracking-widest"
@@ -43,7 +40,7 @@ const ThumbNail = ({ result }) => {
               <span><RiDownloadCloud2Line className=" text-xl" /></span> <span>Request</span>
               </div>
             </button>
-          )}
+          )} */}
         </div>
       </Link>
     </>
