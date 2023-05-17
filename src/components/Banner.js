@@ -34,10 +34,13 @@ const Banner = () => {
           }}
         />
       ))}
-      <p className="absolute text-white md:text-3xl sm:text-3xl text-[20px] capitalize tracking-widest sm:absolute md:absolute top-56 right-20">
-        An educated mind is  <br />
-        <span className="md:pl-5 sm:pl-5">better than an empty one.</span>
+      {/* absolute text-white text-center md:text-3xl sm:text-3xl text-[20px] capitalize tracking-widest sm:absolute md:absolute top-56 right-20 */}
+      <div className="absolute  text-[#FFFFF7] tracking-widest text-xl capitalize lg:left-[30%] top-[40%] lg:text-2xl p-2">
+      <p>
+        <span>Inspiring minds, unlocking potential. Education: the gateway to success.</span>
       </p>
+      </div>
+      
     </div>
 
     <Generes />

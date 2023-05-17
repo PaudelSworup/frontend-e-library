@@ -75,7 +75,7 @@ const Detail = ({ result }) => {
     issueRequest({books_id:id , user_id:userid}).then((data)=>{
         if(data.error){
           return toast(data.error, {
-            position: "top-center",
+            position: "top-right",
             autoClose: 3000,
           });
         }else{

@@ -1,7 +1,6 @@
 import React from "react";
 import { overFlow } from "../reusuableFunctions/overFlow";
 import { Link } from "react-router-dom";
-import { RiDownloadCloud2Line } from 'react-icons/ri';
 import LazyImage from "./LazyImage";
 
 const ThumbNail = ({ result }) => {
@@ -24,23 +23,6 @@ const ThumbNail = ({ result }) => {
               {overFlow(result?.desc, 55)}
             </p>
           </div>
-          {/* {result?.stock === 0 ? (
-            <button
-              disabled
-              className=" pl-3 py-2 bg-slate-600 rounded-md px-2 text-white tracking-widest"
-            >
-              Hold Request
-            </button>
-          ) : (
-            <button
-              onClick={showStatus}
-              className="py-[10px] ml-2 bg-slate-600 rounded-md px-8 text-white tracking-widest hover:bg-slate-800"
-            >
-             <div className="flex gap-1">
-              <span><RiDownloadCloud2Line className=" text-xl" /></span> <span>Request</span>
-              </div>
-            </button>
-          )} */}
         </div>
       </Link>
     </>

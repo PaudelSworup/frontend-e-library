@@ -38,7 +38,6 @@ body{
 @media(max-width:475px){
     .user_detail_container{
         display: flex;
-        flex-direction: column;
         gap:4px;
     }
 
@@ -48,11 +47,23 @@ body{
 
     .items_data{
         display: flex;
-        flex-direction: column;
     }
 
 
 
+}
+
+
+@media(max-width:320px){
+    .items_data{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .user_detail{
+        display: flex;
+        flex-direction: column;
+    }
 }
 
 

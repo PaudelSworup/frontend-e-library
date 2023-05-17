@@ -3,6 +3,7 @@ import NavBars from "./NavBars";
 import { useSelector } from "react-redux";
 import ThumbNail from "./ThumbNail";
 import items from "./NavItem";
+import { drop } from "./Menus";
 
 const SavedItems = () => {
   const { userid } = useSelector((state) => state.users);
@@ -28,7 +29,7 @@ const SavedItems = () => {
       <NavBars />
       <div className="lg:mx-40 flex gap-9 main_container ">
         <div className="p-2 user_detail_container">
-          <div className="user_detail">
+          <div className="user_detail ">
             <div className="text-white border w-20 h-20 flex justify-center items-center rounded-full transition-all duration-150 cursor-pointer hover:opacity-100 lg:w-44 lg:h-44 ">
               <span className="text-center opacity-0 hover:opacity-100 ">
                 Uplaod
@@ -43,11 +44,13 @@ const SavedItems = () => {
             </div>
           </div>
 
-          <div className="flex gap-3 lg:flex-col  mt-3 items_data p-2 ">
-            {items?.map((data) => (
+          <div className="flex gap-2 lg:flex-col mt-2 items_data  ">
+          
+            
+            {drop?.map((data) => (
               <span
                 key={data.id}
-                className={`text-white cursor-pointer rounded-md p-2 hover:bg-[#222] transition-all duration-100  ${
+                className={`text-white cursor-pointer rounded-md  p-2 hover:bg-[#222] transition-all duration-100  ${
                   bg === data.id ? "bg-[#222]" : ""
                 }`}
                 onClick={() => setBg(data.id)}

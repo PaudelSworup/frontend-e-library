@@ -19,7 +19,7 @@
         id:5,
         idName:"movie",
         span:"notification",
-        link:"book/status"
+        link:"/book/status"
     },
 
    
