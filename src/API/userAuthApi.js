@@ -1,3 +1,4 @@
+import axios from "axios";
 import { API } from "../config";
 
 // login API
@@ -32,4 +33,14 @@ export const upload = async(data)=>{
       .catch((err) => {
         console.log(err);
       });
+}
+
+
+// get profile Image
+export const getProfile = async()=>{
+    try{
+        return await axios.get(`${API}/profile`)
+    }catch(err){
+        console.log(err)
+    }
 }

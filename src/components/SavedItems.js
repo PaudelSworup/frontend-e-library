@@ -2,15 +2,15 @@ import React, { useEffect, useState } from "react";
 import NavBars from "./NavBars";
 import { useSelector } from "react-redux";
 import ThumbNail from "./ThumbNail";
-import items from "./NavItem";
 import { drop } from "./Menus";
-import { upload } from "../API/userAuthApi";
+import { getProfile, upload } from "../API/userAuthApi";
 import { toast } from "react-toastify";
 
 const SavedItems = () => {
   const { userid, fullname, email } = useSelector((state) => state.users);
   const [Isbn, setIsbn] = useState();
   const [bg, setback] = useState(null);
+  const [profile, setProfile] = useState([]);
 
   useEffect(() => {
     const matchingValues = [];
@@ -22,13 +22,22 @@ const SavedItems = () => {
     setIsbn(matchingValues);
   }, [userid]);
 
+  useEffect(() => {
+    getProfile().then((user) => {
+      setProfile(user?.data?.profile);
+    });
+  }, []);
+
+  const profileData = profile.filter((data) => data?.userId?._id === userid);
+
   const setBg = (data) => {
     setback(data);
   };
 
   const uploadProfile = () => {
+    console.log("asdf");
     const handleImageUpload = (event) => {
-      const image = event.target.files[0]; // Replace with the actual user ID
+      const image = event.target.files[0];
       const formData = new FormData();
       formData.append("image", image);
       formData.append("userid", userid);
@@ -36,8 +45,11 @@ const SavedItems = () => {
       upload(formData).then((data) => {
         if (data.error) {
           return toast(data.error, { position: "top-center", autoClose: 3000 });
-        }else{
-          return toast(data.message, { position: "top-center", autoClose: 3000 });
+        } else {
+          return toast(data.message, {
+            position: "top-center",
+            autoClose: 3000,
+          });
         }
       });
     };
@@ -56,13 +68,25 @@ const SavedItems = () => {
         <div className="p-2 user_detail_container">
           <div className="user_detail ">
             <div className="text-white border w-20 h-20 flex justify-center items-center rounded-full transition-all duration-150 cursor-pointer hover:opacity-100 lg:w-44 lg:h-44 ">
-              <span
-                className="text-center opacity-0 hover:opacity-100 "
-                onClick={uploadProfile}
-              >
-                Uplaod
-                <br />
-                Image
+              <span className="text-center" onClick={uploadProfile}>
+                {profileData.length > 0 ? (
+                  profileData?.map((data) => {
+                    return (
+                      <img
+                        key={data?._id}
+                        src={`http://localhost:8000/${data?.profileImage}`}
+                        alt=""
+                        className="rounded-full w-20 h-20 lg:w-[165px] lg:h-[165px]"
+                      />
+                    );
+                  })
+                ) : (
+                  <span>
+                    Uplaod
+                    <br />
+                    Image
+                  </span>
+                )}
               </span>
             </div>
 
