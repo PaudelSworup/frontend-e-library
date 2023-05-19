@@ -4,9 +4,11 @@ import { useSelector } from "react-redux";
 import ThumbNail from "./ThumbNail";
 import items from "./NavItem";
 import { drop } from "./Menus";
+import { upload } from "../API/userAuthApi";
+import { toast } from "react-toastify";
 
 const SavedItems = () => {
-  const { userid } = useSelector((state) => state.users);
+  const { userid, fullname, email } = useSelector((state) => state.users);
   const [Isbn, setIsbn] = useState();
   const [bg, setback] = useState(null);
 
@@ -24,6 +26,29 @@ const SavedItems = () => {
     setback(data);
   };
 
+  const uploadProfile = () => {
+    const handleImageUpload = (event) => {
+      const image = event.target.files[0]; // Replace with the actual user ID
+      const formData = new FormData();
+      formData.append("image", image);
+      formData.append("userid", userid);
+
+      upload(formData).then((data) => {
+        if (data.error) {
+          return toast(data.error, { position: "top-center", autoClose: 3000 });
+        }else{
+          return toast(data.message, { position: "top-center", autoClose: 3000 });
+        }
+      });
+    };
+
+    const fileInput = document.createElement("input");
+    fileInput.type = "file";
+    fileInput.accept = "image/*";
+    fileInput.addEventListener("change", handleImageUpload);
+    fileInput.click();
+  };
+
   return (
     <>
       <NavBars />
@@ -31,7 +56,10 @@ const SavedItems = () => {
         <div className="p-2 user_detail_container">
           <div className="user_detail ">
             <div className="text-white border w-20 h-20 flex justify-center items-center rounded-full transition-all duration-150 cursor-pointer hover:opacity-100 lg:w-44 lg:h-44 ">
-              <span className="text-center opacity-0 hover:opacity-100 ">
+              <span
+                className="text-center opacity-0 hover:opacity-100 "
+                onClick={uploadProfile}
+              >
                 Uplaod
                 <br />
                 Image
@@ -39,14 +67,12 @@ const SavedItems = () => {
             </div>
 
             <div className="text-white flex flex-col ">
-              <span>Sworup kc</span>
-              <span>sk@gmail.com</span>
+              <span>{fullname}</span>
+              <span>{email}</span>
             </div>
           </div>
 
           <div className="flex gap-2 lg:flex-col mt-2 items_data  ">
-          
-            
             {drop?.map((data) => (
               <span
                 key={data.id}

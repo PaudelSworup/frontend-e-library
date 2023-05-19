@@ -15,3 +15,21 @@ export const login = async(user)=>{
         return console.log(err)
     })
 }
+
+
+// upload profile Image
+export const upload = async(data)=>{
+    return await fetch(`${API}/profile`,{
+        method:"POST",
+        headers: {
+            Accept: "application/json",
+        },
+        body: data,
+    })
+    .then((res) => {
+        return res.json();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+}
