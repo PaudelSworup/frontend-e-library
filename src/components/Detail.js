@@ -2,23 +2,33 @@ import React, { useEffect, useState } from "react";
 import {
   FaBarcode,
   FaBook,
+  FaCalendar,
   FaCheckCircle,
   FaGlobe,
   FaStar,
   FaTimesCircle,
 } from "react-icons/fa";
-import { getRating, getUserRecommendation, issueRequest, listBooks, recordRating } from "../API/bookAPI";
+import {
+  getRating,
+  getUserRecommendation,
+  issueRequest,
+  listBooks,
+  recordRating,
+} from "../API/bookAPI";
 import { useParams } from "react-router-dom";
 import RecommendationSection from "./RecommendationSection";
 import { RiDownloadCloud2Line } from "react-icons/ri";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import Knn from "./Knn";
+import OtherInfo from "./OtherInfo";
 
 const Detail = ({ result }) => {
   const { id } = useParams();
   const [recommendations, setRecommendations] = useState([]);
   const [similar, setSimilar] = useState([]);
   const [rating, setRating] = useState(0);
+  const [knn, setKnn] = useState([]);
   const { userid } = useSelector((state) => state.users);
 
   useEffect(() => {
@@ -37,13 +47,20 @@ const Detail = ({ result }) => {
 
   useEffect(() => {
     getRating(id).then((res) => {
-      const ratingData = res?.data?.books.find((data)=>{
+      const ratingData = res?.data?.books.find((data) => {
         return data?.user === userid && data?.book?._id === id;
-      })
-      setRating(ratingData?.rating)
+      });
+      setRating(ratingData?.rating);
     });
   }, [userid, id]);
   // console.log(rating)
+
+  useEffect(() => {
+    let status = JSON.parse(localStorage.getItem(userid));
+    if (status) {
+      setKnn(status);
+    }
+  }, [userid]);
 
   const newRecommendation = recommendations.filter((data) => {
     return data?._id !== id;
@@ -54,38 +71,35 @@ const Detail = ({ result }) => {
   };
 
   const handleStarClick = (rating) => {
-    recordRating({rating,book:id,user:userid}).then((data)=>{
-      console.log(data);
+    recordRating({ rating, book: id, user: userid }).then((data) => {
+      localStorage.setItem(userid, JSON.stringify(data?.recommendations));
       if (data.error) {
         return toast(data.error, {
           position: "top-center",
           autoClose: 3000,
         });
-      }else{
-        return toast(data.message , {
-          position:"top-center"
-        })
+      } else {
+        return toast(data.message, {
+          position: "top-center",
+        });
       }
-    })
-  
+    });
   };
-
 
   const showStatus = (id) => {
-    issueRequest({books_id:id , user_id:userid}).then((data)=>{
-        if(data.error){
-          return toast(data.error, {
-            position: "top-right",
-            autoClose: 3000,
-          });
-        }else{
-          return toast(data.message , {
-            position:"top-center"
-          })
-        }
-    })
+    issueRequest({ books_id: id, user_id: userid }).then((data) => {
+      if (data.error) {
+        return toast(data.error, {
+          position: "top-right",
+          autoClose: 3000,
+        });
+      } else {
+        return toast(data.message, {
+          position: "top-center",
+        });
+      }
+    });
   };
-
 
   return (
     <>
@@ -141,7 +155,10 @@ const Detail = ({ result }) => {
         <div className="flex flex-col items-start gap-3">
           <p className="text-white tracking-widest">Provided by KCT Library</p>
           {result?.stock !== 0 && (
-            <button className="py-[10px] ml-2 bg-slate-600 rounded-md px-8 text-white tracking-widest hover:bg-slate-800" onClick={()=>showStatus(result?._id)}>
+            <button
+              className="py-[10px] ml-2 bg-slate-600 rounded-md px-8 text-white tracking-widest hover:bg-slate-800"
+              onClick={() => showStatus(result?._id)}
+            >
               <div className="flex gap-1">
                 <span>
                   <RiDownloadCloud2Line className=" text-xl" />
@@ -162,24 +179,31 @@ const Detail = ({ result }) => {
         <h2 className="text-white text-2xl capitalize tracking-widest font-bold">
           Other info
         </h2>
-        <div className="flex justify-center mt-3 gap-2 cursor-pointer">
-          <div className="w-40 h-28 p-2 flex flex-col gap-2 rounded-md  items-center text-white  border bg-[#212121]">
-            <h2 className="uppercase">isbn</h2>
-            <FaBarcode className="text-xl" />
-            <h2>{result?.isbn}</h2>
-          </div>
-
-          <div className="w-40 h-28 p-2 text-white flex flex-col gap-2 rounded-md  items-center  border bg-[#212121]">
-            <h2 className="capitalize">Language</h2>
-            <FaGlobe className="text-xl" />
-            <h2>English</h2>
-          </div>
-
-          <div className="w-40 h-28 p-2 text-white flex flex-col gap-2 rounded-md  items-center  border bg-[#212121]">
-            <h2 className="capitalize">Publisher</h2>
-            <FaBook className="text-xl" />
-            <h2 className="text-center truncate ">{result?.publisher}</h2>
-          </div>
+        <div className=" flex-wrap flex justify-center  mt-3 gap-2 cursor-pointer">
+          <OtherInfo
+            one={"isbn"}
+            two={result?.isbn}
+            Icon={<FaBarcode className="text-xl" />}
+          />
+          <OtherInfo
+            one={"Language"}
+            two={"English"}
+            Icon={<FaGlobe className="text-xl" />}
+          />
+          <OtherInfo
+            one={"Publisher"}
+            two={result?.publisher}
+            Icon={<FaBook className="text-xl" />}
+          />
+          <OtherInfo
+            one={"Pub Date"}
+            two={`${new Date(
+              result?.yearofpublication
+            ).getFullYear()}/${new Date(
+              result?.yearofpublication
+            ).getMonth()}/${new Date(result?.yearofpublication).getDate()} `}
+            Icon={<FaCalendar className="text-xl" />}
+          />
         </div>
         <hr className="my-5 border border-[#313131]" />
 
@@ -199,14 +223,16 @@ const Detail = ({ result }) => {
                           data <= rating ? "text-yellow-400" : "text-[#9E9E9E]"
                         }`}
                         onMouseOver={() => handleStarHover(data)}
-                        onClick={()=>handleStarClick(data)}
+                        onClick={() => handleStarClick(data)}
                       />
                     </span>
                   );
                 })}
               </div>
               <div>
-                <p className="text-black text-xl font-light">{`${typeof rating === "undefined" ? "0" : rating}.0`}</p>
+                <p className="text-black text-xl font-light">{`${
+                  typeof rating === "undefined" ? "0" : rating
+                }.0`}</p>
               </div>
             </div>
           </div>
@@ -216,6 +242,9 @@ const Detail = ({ result }) => {
           newRecommendation={newRecommendation}
           h2="You May Like"
         />
+
+        <Knn newRecommendation={knn} h2="Recommended to you" />
+
         <RecommendationSection
           newRecommendation={similar}
           h2="See similar books"

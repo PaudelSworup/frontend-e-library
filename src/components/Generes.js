@@ -23,7 +23,7 @@ const Generes = () => {
     <>
     <div className="flex flex-col p-4">
       <h2 className="text-white font-bold text-2xl">Generes</h2>
-      <div className="flex xl:justify-center gap-3 py-3 overflow-x-scroll scrollbar-hide">
+      <div className="flex xl:justify-center gap-7 py-3 overflow-x-scroll scrollbar-hide">
         {genre.map((data,i) => {
           return (
             <div key={data?._id} onClick={()=>navigate(`/book/genre/${data?.category_name}/${data?._id}`)}>
@@ -33,7 +33,7 @@ const Generes = () => {
                   {React.createElement(icons[i%icons.length], {className:"text-[#F2F1F7] text-2xl "})}
                   </div>
                  
-                 <span className="text-white">{data?.category_name}</span> 
+                 <span className="text-white transition duration-100 hover:scale-125">{data?.category_name}</span> 
                 </div> 
                
               </span>

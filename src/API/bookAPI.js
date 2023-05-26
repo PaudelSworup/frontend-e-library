@@ -127,3 +127,29 @@ export const issueRequest = async(data)=>{
         return console.log(err)
     })
 }
+
+
+// like a book
+export const likeBook = async(data)=>{
+    return await fetch(`${API}/like`,{
+        method:"POST",
+        headers:{
+            Accept:"application/json",
+            "Content-Type":"application/json"
+        },
+        body:JSON.stringify(data)
+    }).then(res=>{
+        return res.json()
+    }).catch(err=>{
+        return console.log(err)
+    })
+}
+
+
+export const getLikes = async()=>{
+    try{
+        return await axios.get(`${API}/like`)
+    }catch(err){
+        console.log(err)
+    }
+}

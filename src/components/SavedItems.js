@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import NavBars from "./NavBars";
 import { useSelector } from "react-redux";
 import ThumbNail from "./ThumbNail";
+import { FaUser } from "react-icons/fa";
 import { drop } from "./Menus";
 import { getProfile, upload } from "../API/userAuthApi";
 import { toast } from "react-toastify";
@@ -35,7 +36,6 @@ const SavedItems = () => {
   };
 
   const uploadProfile = () => {
-    console.log("asdf");
     const handleImageUpload = (event) => {
       const image = event.target.files[0];
       const formData = new FormData();
@@ -76,15 +76,16 @@ const SavedItems = () => {
                         key={data?._id}
                         src={`http://localhost:8000/${data?.profileImage}`}
                         alt=""
-                        className="rounded-full w-20 h-20 lg:w-[165px] lg:h-[165px]"
+                        className="rounded-full object-cover lg:w-[165px] lg:h-[165px]"
                       />
                     );
                   })
                 ) : (
                   <span>
-                    Uplaod
+                    {/* Uplaod
                     <br />
-                    Image
+                    Image */}
+                    <FaUser className="text-white text-[35px] lg:text-[80px] " />
                   </span>
                 )}
               </span>
