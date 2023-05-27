@@ -42,7 +42,6 @@ const NavBars = () => {
 
  
   return (
-    // <div className="shadow-xl w-full fixed top-0 left-0">
     <div className="md:flex items-center justify-between bg-[#252525]  py-2  md:px-10 px-7">
       <div className="font-bold text-2xl cursor-pointer ">
         {fullname ? (

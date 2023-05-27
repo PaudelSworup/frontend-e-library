@@ -19,33 +19,25 @@ const Banner = () => {
 
   return (
     <>
-
-<div className="relative md:h-[650px] sm:h[600px] h-[500px]">
-      {img_container.map((image, i) => (
-        <div
-          key={i}
-          className={`absolute  inset-0 h-full w-full transition-opacity duration-500 ${
-            i === index ? "opacity-100" : "opacity-0"
-          }`}
-          style={{
-            backgroundImage: `url(${image})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
+      <div className="relative">
+        <img
+          src="https://images2.alphacoders.com/261/26102.jpg"
+          alt="Library"
+          className="w-full h-auto"
         />
-      ))}
-      {/* absolute text-white text-center md:text-3xl sm:text-3xl text-[20px] capitalize tracking-widest sm:absolute md:absolute top-56 right-20 */}
-      <div className="absolute  text-[#FFFFF7] tracking-widest text-xl capitalize lg:left-[30%] top-[40%] lg:text-2xl p-2">
-      <p>
-        <span>Inspiring minds, unlocking potential. Education: the gateway to success.</span>
-      </p>
+        <div className="absolute inset-0 flex flex-col justify-center items-center">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl tracking-widest font-bold text-white mb-6">
+          E-Library Management System
+        </h1>
+          <div className="text-xl md:text-2xl lg:text-3xl font-medium text-white tracking-widest">
+            <p>Unlock the World of Knowledge!</p>
+            <p>Efficiency meets Exploration.</p>
+            <p>Connecting Readers, Empowering Minds.</p>
+            {/* Add more slogans here */}
+          </div>
+        </div>
       </div>
-      
-    </div>
-
-    <Generes />
     </>
-    
   );
 };
 

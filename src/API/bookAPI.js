@@ -139,7 +139,8 @@ export const likeBook = async(data)=>{
         },
         body:JSON.stringify(data)
     }).then(res=>{
-        return res.json()
+        res.json()
+        return getLikes()
     }).catch(err=>{
         return console.log(err)
     })
