@@ -45,7 +45,7 @@ const Detail = ({ result }) => {
         // Handle error
       });
 
-      Promise.all([getRating(id)])
+    Promise.all([getRating(id)])
       .then(([ratingRes]) => {
         const ratingData = ratingRes?.data?.books.find((data) => {
           return data?.user === userid && data?.book?._id === id;
@@ -57,13 +57,11 @@ const Detail = ({ result }) => {
       });
   }, [userid, id]);
 
-  useEffect(()=>{
-    getKnn(userid , id).then((res)=>{
-      setKnn(res?.data.recommendations)
-    })
-
-},[])
-
+  useEffect(() => {
+    getKnn(userid, id).then((res) => {
+      setKnn(res?.data.recommendations);
+    });
+  }, []);
 
   const newRecommendation = recommendations.filter((data) => {
     return data?._id !== id;
