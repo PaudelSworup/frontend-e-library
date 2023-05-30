@@ -10,13 +10,15 @@ import SavedItems from "../components/SavedItems";
 import Login from "../components/Login";
 import Register from "../components/Register";
 import PrivateRoute from "../auth/PrivateRoute";
+import LandingPage from "../components/LandingPage";
 
 const RoutePath = () => {
 
 
   return (
     <Routes>
-      <Route path="/" element={<Login />} />
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       
 

@@ -42,7 +42,7 @@ const NavBars = () => {
 
  
   return (
-    <div className="md:flex items-center justify-between bg-[#252525]  py-2  md:px-10 px-7">
+    <div className="md:flex items-center  justify-between bg-black  py-2  md:px-10 px-7">
       <div className="font-bold text-2xl cursor-pointer ">
         {fullname ? (
           <Link to="/home">
@@ -54,11 +54,14 @@ const NavBars = () => {
             />{" "}
           </Link>
         ) : (
+          <Link to="/">
           <img
             src="/images/kct.png"
             className="h-16 w-16 rounded-xl"
             alt=""
           />
+          </Link>
+          
         )}
       </div>
 
@@ -98,7 +101,7 @@ const NavBars = () => {
           </div>
 
           <ul
-            className={`md:flex cursor-pointer md:pb-0 pb-2 absolute md:static bg-[#252525]  md:z-auto z-[-1] left-0 w-full md:w-auto md:pl-0 pl-6 transition-all duration-500 ease-in ${
+            className={`md:flex cursor-pointer md:pb-0 pb-2 absolute md:static bg-black  md:z-auto z-[-1] left-0 w-full md:w-auto md:pl-0 pl-6 transition-all duration-500 ease-in ${
               open ? "top-[148px] z-[1] rotate-[360deg]" : "top-[-500px]"
             }`}
           >
@@ -108,7 +111,7 @@ const NavBars = () => {
                 <Link to={link} key={id}>
                   <li className="md:my-2 my-[95px] flex flex-col  justify-center items-center">
                     {React.createElement(icons[i % icons.length], {
-                      className: "text-[#999] text-2xl ",
+                      className: "text-[#fff] text-2xl ",
                     })}
                     <span className="text-white p-1 tracking-widest">
                       {span}

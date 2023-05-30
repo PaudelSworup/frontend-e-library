@@ -96,7 +96,7 @@ export const getRating = async(bookId)=>{
 
 // post a book rating
 export const recordRating = async(ratingData)=>{    
-    return await fetch(`${API}/rate`,{
+     return await fetch(`${API}/rate`,{
         method:"POST",
         headers:{
             Accept:"application/json",
@@ -104,10 +104,21 @@ export const recordRating = async(ratingData)=>{
         },
         body:JSON.stringify(ratingData)
     }).then(res=>{
-        return res.json()
+         return res.json()
     }).catch(err=>{
         return console.log(err)
     })
+     
+}
+
+
+export const getKnn = async(userid , bookid)=>{
+    console.log(userid , bookid)
+    try{
+        return await axios.get(`${API}/knn/${userid}/${bookid}`)
+    }catch(err){
+        console.log(err)
+    }
 }
 
 
@@ -147,6 +158,7 @@ export const likeBook = async(data)=>{
 }
 
 
+// get likes of a book
 export const getLikes = async()=>{
     try{
         return await axios.get(`${API}/like`)
@@ -154,3 +166,5 @@ export const getLikes = async()=>{
         console.log(err)
     }
 }
+
+

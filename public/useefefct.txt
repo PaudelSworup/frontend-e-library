@@ -1,0 +1,38 @@
+// useEffect(() => {
+//   getUserRecommendation(userid).then((res) => {
+//     setRecommendations(res?.data?.recommendedBooks);
+//   });
+// }, [userid]);
+
+// useEffect(() => {
+//   listBooks(id).then((res) => {
+//     setSimilar(res?.data?.book);
+//   });
+// }, [id]);
+
+// useEffect(() => {
+//   getRating(id).then((res) => {
+//     const ratingData = res?.data?.books.find((data) => {
+//       return data?.user === userid && data?.book?._id === id;
+//     });
+//     setRating(ratingData?.rating);
+//   });
+
+// }, [userid, id]);
+// // console.log(rating)
+
+// useEffect(()=>{
+//     getKnn(userid , id).then((res)=>{
+//       setKnn(res?.data.recommendations)
+//     })
+
+// },[])
+
+
+
+// useEffect(() => {
+  //   let status = JSON.parse(localStorage.getItem(userid));
+  //   if (status) {
+  //     setKnn(status);
+  //   }
+  // }, [userid]);

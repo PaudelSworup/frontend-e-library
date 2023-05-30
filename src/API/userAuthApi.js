@@ -1,6 +1,26 @@
 import axios from "axios";
 import { API } from "../config";
 
+
+
+
+// register api
+
+export const createAccount = async(userInfo)=>{
+    return await fetch(`${API}/users`, {
+        method:"POST",
+        headers:{
+            Accept:"application/json",
+            "Content-Type":"application/json"
+        },
+        body:JSON.stringify(userInfo)
+    }).then(res=>{
+        return res.json()
+    }).catch(err=>{
+        return console.log(err)
+    })
+}
+
 // login API
 export const login = async(user)=>{
     return await fetch(`${API}/login`,{

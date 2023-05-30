@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useDispatch } from "react-redux";
 import { setLogin } from "../store/userSlice";
 import { RiEyeFill, RiEyeOffFill } from "react-icons/ri";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import NavBars from "./NavBars";
 
 const Login = () => {
@@ -127,7 +127,12 @@ const Login = () => {
               theme="light"
             />
           </div>
+          <div className="flex flex-col justify-center items-center">
           <p className="text-blue-500 mt-4 cursor-pointer">Forgot Password?</p>
+          <hr className="border border-red-600"/>
+          <p className="text-blue-500 mt-4 cursor-pointer"><Link to="/register">create new account</Link></p>
+          </div>
+         
         </form>
       </div>
     </>

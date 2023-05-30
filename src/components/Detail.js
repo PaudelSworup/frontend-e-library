@@ -9,6 +9,7 @@ import {
   FaTimesCircle,
 } from "react-icons/fa";
 import {
+  getKnn,
   getRating,
   getUserRecommendation,
   issueRequest,
@@ -30,37 +31,39 @@ const Detail = ({ result }) => {
   const [rating, setRating] = useState(0);
   const [knn, setKnn] = useState([]);
   const { userid } = useSelector((state) => state.users);
-
   useEffect(() => {
-    getUserRecommendation(userid).then((res) => {
-      setRecommendations(res?.data?.recommendedBooks);
-    });
-  }, [userid]);
+    Promise.all([getUserRecommendation(userid), listBooks(id)])
+      .then(([recommendationRes, bookRes]) => {
+        const recommendationData =
+          recommendationRes?.data?.recommendedBooks || [];
+        const similarData = bookRes?.data?.book || [];
 
-  let arr = [1, 2, 3, 4, 5];
-
-  useEffect(() => {
-    listBooks(id).then((res) => {
-      setSimilar(res?.data?.book);
-    });
-  }, [id]);
-
-  useEffect(() => {
-    getRating(id).then((res) => {
-      const ratingData = res?.data?.books.find((data) => {
-        return data?.user === userid && data?.book?._id === id;
+        setRecommendations(recommendationData);
+        setSimilar(similarData);
+      })
+      .catch((error) => {
+        // Handle error
       });
-      setRating(ratingData?.rating);
-    });
-  }, [userid, id]);
-  // console.log(rating)
 
-  useEffect(() => {
-    let status = JSON.parse(localStorage.getItem(userid));
-    if (status) {
-      setKnn(status);
-    }
-  }, [userid]);
+      Promise.all([getRating(id)])
+      .then(([ratingRes]) => {
+        const ratingData = ratingRes?.data?.books.find((data) => {
+          return data?.user === userid && data?.book?._id === id;
+        });
+        setRating(ratingData?.rating);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [userid, id]);
+
+  useEffect(()=>{
+    getKnn(userid , id).then((res)=>{
+      setKnn(res?.data.recommendations)
+    })
+
+},[])
+
 
   const newRecommendation = recommendations.filter((data) => {
     return data?._id !== id;
@@ -72,7 +75,6 @@ const Detail = ({ result }) => {
 
   const handleStarClick = (rating) => {
     recordRating({ rating, book: id, user: userid }).then((data) => {
-      localStorage.setItem(userid, JSON.stringify(data?.recommendations));
       if (data.error) {
         return toast(data.error, {
           position: "top-center",
@@ -215,7 +217,7 @@ const Detail = ({ result }) => {
             </h2>
             <div className="flex  text-3xl gap-5 text-[#212121] ">
               <div className="flex gap-2">
-                {arr.map((data) => {
+                {[1, 2, 3, 4, 5].map((data) => {
                   return (
                     <span key={data}>
                       <FaStar
