@@ -17,7 +17,6 @@ const Collection = () => {
   });
 
   useEffect(() => {
-    // window.location.reload()
     getAllBooks().then((res) => {
       setBooks(res?.data?.books);
     });
@@ -62,8 +61,6 @@ const Collection = () => {
     }, 1000);
   };
 
-
-  
   const data = books.slice(0, limit);
 
   return (

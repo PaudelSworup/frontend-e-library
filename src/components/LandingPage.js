@@ -21,7 +21,7 @@ const LandingPage = () => {
             className="h-16 w-16 rounded-xl"
           />
           <h1 className="text-2xl font-bold text-gray-400 ml-2">
-            LBM with recommendations
+            LBM
           </h1>
         </div>
         <div className="flex items-center mt-4 sm:mt-0">
@@ -41,7 +41,7 @@ const LandingPage = () => {
       </nav>
       <div className="container flex-grow mx-auto py-16 px-5">
         <h1 className="text-4xl font-bold text-center text-white mb-8">
-          Welcome to the Library Management System with recommendations
+          Get your favorite Books with some recommendation
         </h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <LandingComponents
@@ -60,6 +60,11 @@ const LandingPage = () => {
           <LandingComponents
             h2="Discover Genres"
             p=" Discover Your favorite genres books and search for your book with binary search algorithm"
+          />
+
+          <LandingComponents
+            h2="Strong Recommendations Algorithms"
+            p="Our system ensures you get recommendation based on your ratings, your choosed categories and some of the strong recommendations technique used are KNN, Cosine similarity, Naive bayes classifier from NLP and Binary search for searching"
           />
         </div>
       </div>

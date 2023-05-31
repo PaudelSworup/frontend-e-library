@@ -64,3 +64,16 @@ export const getProfile = async()=>{
         console.log(err)
     }
 }
+
+
+// get history of the books issued/rejected/accepted
+export const getHistory = async()=>{
+    try{
+        return await axios.get(`${API}/history`)
+    }catch(err){
+        console.log(err)
+    }
+}
+
+
+

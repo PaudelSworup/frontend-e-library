@@ -61,7 +61,7 @@ const Detail = ({ result }) => {
     getKnn(userid, id).then((res) => {
       setKnn(res?.data.recommendations);
     });
-  }, []);
+  }, [id, userid]);
 
   const newRecommendation = recommendations.filter((data) => {
     return data?._id !== id;

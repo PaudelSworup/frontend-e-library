@@ -7,16 +7,6 @@ const Books = () => {
   const [books, setBooks] = useState([]);
   const [recent, setRecent] = useState([]);
 
-  useEffect(() => {
-    getAllBooks().then((res) => {
-      setBooks(res?.data?.books);
-    });
-  }, []);
-
-  useEffect(() => {
-    filterItem();
-  }, [books]);
-
   const filterItem = () => {
     const recentlyAdded = books.map((data) => {
       return { ...data, timestamps: new Date(data.createdAt).getTime() };
@@ -26,6 +16,16 @@ const Books = () => {
 
     setRecent(recentlyAdded.slice(0, 4));
   };
+
+  useEffect(() => {
+    getAllBooks().then((res) => {
+      setBooks(res?.data?.books);
+    });
+    filterItem()
+  }, [books]);
+
+ 
+  
 
   const data = books.slice(0, 4);
 

@@ -11,6 +11,7 @@ import Login from "../components/Login";
 import Register from "../components/Register";
 import PrivateRoute from "../auth/PrivateRoute";
 import LandingPage from "../components/LandingPage";
+import RequestStatus from "../components/RequestStatus";
 
 const RoutePath = () => {
 
@@ -31,6 +32,7 @@ const RoutePath = () => {
         <Route path="/book/genre/:name/:id" element={<CategoryData />} />
         <Route path="/collection" element={<Collection />} />
         <Route path="/book/saved" element={<SavedItems />} />
+        <Route path="/book/requests" element={<RequestStatus/>} />
       </Route>
     </Routes>
   );

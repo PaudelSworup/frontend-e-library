@@ -23,7 +23,7 @@ const DropMenu = () => {
   };
 
   const handleRequestHistory = () => {
-    // Dispatch your request history action here
+    navigate("/book/requests")
   };
 
 const drop = [
