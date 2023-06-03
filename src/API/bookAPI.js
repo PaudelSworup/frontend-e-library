@@ -168,3 +168,13 @@ export const getLikes = async()=>{
 }
 
 
+// get most requested Books
+export const getMostRequested = async()=>{
+    try{
+        return await axios.get(`${API}/mostrequested`)
+    }catch(err){
+        console.log(err)
+    }
+}
+
+
