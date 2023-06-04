@@ -6,7 +6,7 @@ import Row from "./Row";
 const Books = () => {
   const [books, setBooks] = useState([]);
   const [recent, setRecent] = useState([]);
-  const[mostrequested , setMostRequested] = useState([])
+  const [mostrequested, setMostRequested] = useState([]);
 
   const filterItem = () => {
     const recentlyAdded = books.map((data) => {
@@ -18,23 +18,18 @@ const Books = () => {
     setRecent(recentlyAdded.slice(0, 4));
   };
 
-
-  useEffect(()=>{
-    Promise.all([getAllBooks() , getMostRequested()]).then(([bookData , mostrequestedData ])=>{
-      setBooks(bookData?.data?.books)
-      setMostRequested(mostrequestedData?.data?.mostRequestedBooks)
-      // console.log(filter)
-      // setMostRequested(mostrequestedData)
-    })
-    // filterItem()
-  },[])
+  useEffect(() => {
+    Promise.all([getAllBooks(), getMostRequested()]).then(
+      ([bookData, mostrequestedData]) => {
+        setBooks(bookData?.data?.books);
+        setMostRequested(mostrequestedData?.data?.mostRequestedBooks);
+      }
+    );
+  }, []);
 
   useEffect(() => {
-    filterItem()
+    filterItem();
   }, [books]);
-
- 
-  
 
   const data = books.slice(0, 4);
 

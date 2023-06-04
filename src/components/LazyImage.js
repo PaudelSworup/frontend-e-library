@@ -1,35 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {lazy} from 'react';
 
 const LazyImage = ({ src, alt, className }) => {
-  const imgRef = useRef(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.unobserve(entry.target);
-        }
-      });
-    });
-
-    if (imgRef.current) {
-      observer.observe(imgRef.current);
-    }
-
-    return () => {
-      if (imgRef.current) {
-        observer.unobserve(imgRef.current);
-      }
-    };
-  }, []);
-
   return (
     <img
-      ref={imgRef}
-      src={isVisible ? src : ''}
+      src={src}
       alt={alt}
+      loading={lazy}
       className={className}
     />
   );

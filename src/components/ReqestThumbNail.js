@@ -6,7 +6,7 @@ const ReqestThumbNail = ({ result }) => {
   const monthName = date.toLocaleString("default", { month: "long" });
   const monthName2 = approvedDate.toLocaleString("default", { month: "long" });
   return (
-    <div className="flex gap-3 ml-2 mb-2  p-3 rounded-md">
+    <div className="flex gap-3 ml-2 mb-2 h-[270px]  p-3 rounded-md bg-[#252525]">
       <div className="flex">
         <img
           src={`http://localhost:8000/${result?.books_id?.image}`}

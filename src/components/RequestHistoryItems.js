@@ -36,19 +36,21 @@ const RequestHistoryItems = ({ result }) => {
           <p className="tracking-widest">
             {" "}
             {result?.issueStatus === 1
-              ? "Approved"
+              ? "Approved ✅"
               : result?.issueStatus === 0
-              ? "pending"
-              : "Rejected"}
+              ? "pending 🟤"
+              : "Rejected ❎"}
           </p>
         </div>
 
-        <div className="flex ml-6 items-center cursor-pointer" onClick={() => setOpen(!open)}>
+        <div
+          className="flex ml-6 items-center cursor-pointer"
+          onClick={() => setOpen(!open)}
+        >
           <p>{!open ? "Show Request" : "Hide Request"}</p>
           <p>
             <FaArrowDown
               className={`text-white text-lg ${!open && "rotate-180"}`}
-              
             />
           </p>
         </div>
@@ -56,8 +58,8 @@ const RequestHistoryItems = ({ result }) => {
 
       <div
         className={`${
-          !open ? "hidden" : "flex justify-between"
-        } text-white border border-cyan-500`}
+          !open ? "hidden" : "flex flex-col"
+        } text-white border border-gray-600 p-4`}
       >
         <div className="flex p-3 gap-2">
           <div>
@@ -68,9 +70,33 @@ const RequestHistoryItems = ({ result }) => {
               alt=""
             />
           </div>
-          <p className="tracking-widest flex justify-center items-center">{result?.books_id?.title}</p>
-          <div className="border-b border-dotted"></div>
+          <p className="tracking-widest flex justify-center items-center">
+            {result?.books_id?.title}
+          </p>
         </div>
+        <div className="text-gray-700 border-b border-dashed p-2"></div>
+        <div className="flex justify-between">
+        <div className="flex ml-6 flex-col">
+          <p className="font-bold text-lg">Book Requested on</p>
+          <p className="tracking-widest">{`${date
+            .getDate()
+            .toString()}  ${monthName}  ${date
+            .getFullYear()
+            .toString()}, ${date.toLocaleTimeString()}`}</p>
+        </div>
+           {result?.issueStatus ===1 && <div className="flex ml-6 flex-col">
+          <p className="font-bold text-lg">Approved on</p>
+          <p className="tracking-widest">
+          <p className="tracking-widest">{`${approvedDate
+            .getDate()
+            .toString()}  ${monthName2}  ${approvedDate
+            .getFullYear()
+            .toString()}, ${approvedDate.toLocaleTimeString()}`}</p>
+          </p>
+        </div> }
+
+        </div>
+        
       </div>
     </div>
   );
