@@ -12,6 +12,7 @@ import Register from "../components/Register";
 import PrivateRoute from "../auth/PrivateRoute";
 import LandingPage from "../components/LandingPage";
 import RequestStatus from "../components/RequestStatus";
+import Notification from "../components/Notification";
 
 const RoutePath = () => {
 
@@ -33,6 +34,7 @@ const RoutePath = () => {
         <Route path="/collection" element={<Collection />} />
         <Route path="/book/saved" element={<SavedItems />} />
         <Route path="/book/requests" element={<RequestStatus/>} />
+        <Route path="/book/status" element={<Notification />} />
       </Route>
     </Routes>
   );

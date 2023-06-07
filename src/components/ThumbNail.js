@@ -22,7 +22,8 @@ const ThumbNail = ({ result }) => {
           setCount(like?.count);
           return true;
         }
-        return console.log("oh");
+        // return console.log("oh");
+        return
       });
     });
     setIsLiked(!isLiked);
@@ -32,18 +33,22 @@ const ThumbNail = ({ result }) => {
     getLikes().then((data) => {
       data?.data?.likes.find((data) => {
         if (data?.book === result?._id && data?.user === userid) {
+          console.log("hello like")
           setIsLiked(!isLiked);
           return true;
         }
-        return console.log("hey");
+        // return console.log("hey");
+        return
       });
 
       data?.data?.counts.find((data) => {
         if (data?._id === result?._id) {
+          console.log("hello count")
           setCount(data?.count);
           return true;
         }
-        return console.log("oh ye");
+        // return console.log("oh ye");
+        return
       });
     });
   }, []);

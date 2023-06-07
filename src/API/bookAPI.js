@@ -178,3 +178,13 @@ export const getMostRequested = async()=>{
 }
 
 
+// get Notification
+export const getNotified = async()=>{
+    try{
+        return await axios.get(`${API}/notify`)
+    }catch(err){
+        console.log(err)
+    }
+}
+
+

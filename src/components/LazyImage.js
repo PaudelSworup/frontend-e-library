@@ -1,11 +1,10 @@
-import React, {lazy} from 'react';
-
+import React from 'react';
 const LazyImage = ({ src, alt, className }) => {
   return (
     <img
       src={src}
       alt={alt}
-      loading={lazy}
+      loading="lazy"
       className={className}
     />
   );
