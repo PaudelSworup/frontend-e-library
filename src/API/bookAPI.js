@@ -179,9 +179,10 @@ export const getMostRequested = async()=>{
 
 
 // get Notification
-export const getNotified = async()=>{
+export const getNotified = async(userid)=>{
+    console.log(userid)
     try{
-        return await axios.get(`${API}/notify`)
+        return await axios.get(`${API}/notify/${userid}`)
     }catch(err){
         console.log(err)
     }
