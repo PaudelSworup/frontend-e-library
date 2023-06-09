@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import items from "./NavItem";
 import { FaBars, FaBell, FaHistory, FaHome, FaUser } from "react-icons/fa";
 import { BiSearch } from "react-icons/bi";
@@ -7,14 +7,18 @@ import { Link, useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import DropMenu from "./DropMenu";
 import { useSelector } from "react-redux";
+import Notification from "./Notification";
 
 const NavBars = () => {
   const icons = [FaHome, FaHistory, FaBell];
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
-
+  const [notification, setNotification] = useState(false);
   const { fullname } = useSelector((state) => state.users);
+  const { data } = useSelector((state) => state.notify);
+  const [count, setCount] = useState(data.length);
+  const [colour, setColour] = useState("bg-red-600");
 
   const navigate = useNavigate();
 
@@ -39,8 +43,12 @@ const NavBars = () => {
     setShowDropdown(!showDropdown);
   };
 
+  const handleNotication = () => {
+    setNotification(!notification);
+    setColour("bg-none");
+    setCount(null);
+  };
 
- 
   return (
     <div className="md:flex items-center  justify-between bg-black  py-2  md:px-10 px-7">
       <div className="font-bold text-2xl cursor-pointer ">
@@ -55,20 +63,17 @@ const NavBars = () => {
           </Link>
         ) : (
           <Link to="/">
-          <img
-            src="/images/kct.png"
-            className="h-16 w-16 rounded-xl"
-            alt=""
-          />
+            <img
+              src="/images/kct.png"
+              className="h-16 w-16 rounded-xl"
+              alt=""
+            />
           </Link>
-          
         )}
       </div>
 
       {!fullname ? (
-        <div>
-          {/* <div className="text-white">Login</div> */}
-        </div>
+        <div>{/* <div className="text-white">Login</div> */}</div>
       ) : (
         <>
           <div
@@ -107,17 +112,25 @@ const NavBars = () => {
           >
             {items.map((currentNavItems, i) => {
               const { id, span, link } = currentNavItems;
+
               return (
-                <Link to={link} key={id}>
-                  <li className="md:my-2 my-[95px] flex flex-col  justify-center items-center">
-                    {React.createElement(icons[i % icons.length], {
-                      className: "text-[#fff] text-2xl ",
-                    })}
-                    <span className="text-white p-1 tracking-widest">
-                      {span}
-                    </span>
-                  </li>
-                </Link>
+                <li key={id} onClick={()=>navigate(link)} className="md:my-2 my-[95px] flex flex-col  justify-center items-center">
+                  {React.createElement(icons[i % icons.length], {
+                    className: "text-[#fff] text-2xl ",
+                  })}
+                  <span className="text-white relative p-1 tracking-widest">
+                   <span>{span}</span> 
+
+                    {span === "notification" && data.length > 0 && (
+                      <span
+                        className={`absolute ${colour} p-1 h-6 w-6 rounded-full bottom-9 right-7 flex items-center justify-center`}
+                        onClick={handleNotication}
+                      >
+                        {count} {notification && <Notification />}
+                      </span>
+                    )}
+                  </span>
+                </li>
               );
             })}
           </ul>
@@ -128,9 +141,7 @@ const NavBars = () => {
                 className="text-white md:m-0 ml-2 text-xl cursor-pointer"
                 onClick={handleDropdownClick}
               />
-              {showDropdown && (
-                <DropMenu />
-              )}
+              {showDropdown && <DropMenu />}
             </div>
           </div>
         </>
