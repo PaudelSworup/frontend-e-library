@@ -113,7 +113,6 @@ export const recordRating = async(ratingData)=>{
 
 
 export const getKnn = async(userid , bookid)=>{
-    console.log(userid , bookid)
     try{
         return await axios.get(`${API}/knn/${userid}/${bookid}`)
     }catch(err){
@@ -190,7 +189,6 @@ export const getNotified = async(userid)=>{
 
 // update notification status
 export const setStatus = async(data , userid)=>{
-    console.log(userid)
     return await fetch(`${API}/notifications/${userid}`,{
         method:"PUT",
         headers:{

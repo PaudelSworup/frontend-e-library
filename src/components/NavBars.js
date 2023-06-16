@@ -8,7 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import DropMenu from "./DropMenu";
 import { useDispatch, useSelector } from "react-redux";
 import Notification from "./Notification";
-import { setStatus } from "../API/bookAPI";
+import { getNotified, setStatus } from "../API/bookAPI";
 import { setNotify } from "../store/notifySlice";
 
 const NavBars = () => {
@@ -26,28 +26,39 @@ const NavBars = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  useEffect(()=>{
-    noti?.map((length)=>{
-      console.log(length?.data)
-     length?.data?.map((item)=>{
-      if(item.status === false){
-        setCount(length?.data?.length)
-      }
-     })
-     
-    })
-    // noti.map((datas)=>{
-    //    const dataCount =  datas?.data?.reduce((i,item)=>{
-    //     if(item.status === false){
-    //       return (count + datas?.data?.length)
-    //     }
-    //     return count
-        
-    //   },0)
-    //   setCount(dataCount)
 
-    // })
-  },[noti])
+
+  useEffect(() => {
+    noti?.map((length) => {
+      const falseCount = length?.data?.filter((item) => item.status === false).length;
+      setCount(falseCount);
+      if(falseCount === 0){
+        setCount(null)
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    const fetchNotifications = async () => {
+      try {
+        const response = await getNotified(userid);
+        if (response?.data.success && response?.data.notification.length > 0) {
+          const { notification } = response?.data;
+          dispatch(setNotify({ data: notification }));
+        }
+
+        if (response?.data?.notification.length === 0) {
+          sessionStorage.removeItem("notify");
+        }
+      } catch (error) {
+        console.log("Error fetching notifications:", error);
+      }
+    };
+
+    fetchNotifications();
+  }, [dispatch, userid]);
+
+ 
 
   const handleSubmit = (e) => {
     if (search === null || search === "") {
@@ -55,11 +66,6 @@ const NavBars = () => {
         position: "top-center",
         autoClose: 3000,
         hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
       });
     }
     e.preventDefault();
@@ -88,7 +94,6 @@ const NavBars = () => {
       });
     });
     setStatus({ newData }, userid).then((res) => {
-      console.log(res?.notification);
       if (res?.success === true && res?.notification.length > 0) {
         dispatch(
           setNotify({
@@ -97,12 +102,7 @@ const NavBars = () => {
         );
       }
     });
-
-    
-
   };
-
-
 
   return (
     <div className="md:flex items-center  justify-between bg-black  py-2  md:px-10 px-7">
@@ -182,12 +182,12 @@ const NavBars = () => {
 
                     {span === "notification" && noti.length > 0 && (
                       <span
-                        className={`absolute ${(count === null) ? "bg-none" :colour} p-1 h-6 w-6 rounded-full bottom-9 right-7 flex items-center justify-center`}
+                        className={`absolute ${
+                          count === null ? "bg-none" : colour
+                        } p-1 h-6 w-6 rounded-full bottom-9 right-7 flex items-center justify-center`}
                         onClick={handleNotication}
                       >
-                        {console.log("counts" , count)}
-                        {count}{" "}
-                        {notification && <Notification />}
+                        {count} {notification && <Notification />}
                       </span>
                     )}
                   </span>

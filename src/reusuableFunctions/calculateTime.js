@@ -1,6 +1,7 @@
 export const formatNotificationTime = (timestamp) => {
+  const notifiedTime = new Date(timestamp).getTime()
   const currentTime = Date.now();
-  const timeDifference = currentTime - timestamp;
+  const timeDifference = currentTime - notifiedTime;
 
   // Convert milliseconds to seconds, minutes, hours, and days
   const seconds = Math.floor(timeDifference / 1000);

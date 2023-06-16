@@ -1,9 +1,11 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { formatNotificationTime } from "../reusuableFunctions/calculateTime";
+import { overFlow } from "../reusuableFunctions/overFlow";
 
 const Notification = () => {
   const {noti} = useSelector((state)=>state.notify)
-  console.log("notifications" , noti)
+ 
   
 
   return (
@@ -15,7 +17,6 @@ const Notification = () => {
 
         {noti.map((data)=>{
           return data?.data?.map((notify , i)=>{
-            console.log(notify)
             return (
               <div
                 key={i}
@@ -27,9 +28,9 @@ const Notification = () => {
                   className="md:h-20 object-contain notify-image"
                 />
   
-                <p className="flex flex-col justify-center items-center">
-                  {notify?.messageNotification}
-                  <span>{notify?.date}</span>
+                <p className="flex flex-col justify-center items-start" title={notify?.messageNotification}>
+                  { overFlow(notify?.messageNotification , 50)}
+                  <span>{formatNotificationTime(notify?.date)}</span>
                 </p>
               </div>
             );
