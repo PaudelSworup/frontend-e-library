@@ -6,8 +6,10 @@ import { ToastContainer, toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import DropMenu from "./DropMenu";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Notification from "./Notification";
+import { setStatus } from "../API/bookAPI";
+import { setNotify } from "../store/notifySlice";
 
 const NavBars = () => {
   const icons = [FaHome, FaHistory, FaBell];
@@ -15,12 +17,37 @@ const NavBars = () => {
   const [search, setSearch] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
   const [notification, setNotification] = useState(false);
-  const { fullname } = useSelector((state) => state.users);
-  const { data } = useSelector((state) => state.notify);
-  const [count, setCount] = useState(data.length);
+  const { fullname, userid } = useSelector((state) => state.users);
+  const { noti } = useSelector((state) => state.notify);
+  // noti.map((data) => data?.data.length)
+  const [count, setCount] = useState(null);
   const [colour, setColour] = useState("bg-red-600");
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  useEffect(()=>{
+    noti?.map((length)=>{
+      console.log(length?.data)
+     length?.data?.map((item)=>{
+      if(item.status === false){
+        setCount(length?.data?.length)
+      }
+     })
+     
+    })
+    // noti.map((datas)=>{
+    //    const dataCount =  datas?.data?.reduce((i,item)=>{
+    //     if(item.status === false){
+    //       return (count + datas?.data?.length)
+    //     }
+    //     return count
+        
+    //   },0)
+    //   setCount(dataCount)
+
+    // })
+  },[noti])
 
   const handleSubmit = (e) => {
     if (search === null || search === "") {
@@ -44,10 +71,38 @@ const NavBars = () => {
   };
 
   const handleNotication = () => {
+    const newData = [];
     setNotification(!notification);
     setColour("bg-none");
     setCount(null);
+    noti.map((data) => {
+      return data?.data?.map((data) => {
+        const { message, books_id, user_id, status, date } = data;
+        return newData.push({
+          id: books_id?._id,
+          message,
+          user_id,
+          status,
+          date,
+        });
+      });
+    });
+    setStatus({ newData }, userid).then((res) => {
+      console.log(res?.notification);
+      if (res?.success === true && res?.notification.length > 0) {
+        dispatch(
+          setNotify({
+            data: res?.notification,
+          })
+        );
+      }
+    });
+
+    
+
   };
+
+
 
   return (
     <div className="md:flex items-center  justify-between bg-black  py-2  md:px-10 px-7">
@@ -114,19 +169,25 @@ const NavBars = () => {
               const { id, span, link } = currentNavItems;
 
               return (
-                <li key={id} onClick={()=>navigate(link)} className="md:my-2 my-[95px] flex flex-col  justify-center items-center">
+                <li
+                  key={id}
+                  onClick={() => navigate(link)}
+                  className="md:my-2 my-[95px] flex flex-col  justify-center items-center"
+                >
                   {React.createElement(icons[i % icons.length], {
                     className: "text-[#fff] text-2xl ",
                   })}
                   <span className="text-white relative p-1 tracking-widest">
-                   <span>{span}</span> 
+                    <span>{span}</span>
 
-                    {span === "notification" && data.length > 0 && (
+                    {span === "notification" && noti.length > 0 && (
                       <span
-                        className={`absolute ${colour} p-1 h-6 w-6 rounded-full bottom-9 right-7 flex items-center justify-center`}
+                        className={`absolute ${(count === null) ? "bg-none" :colour} p-1 h-6 w-6 rounded-full bottom-9 right-7 flex items-center justify-center`}
                         onClick={handleNotication}
                       >
-                        {count} {notification && <Notification />}
+                        {console.log("counts" , count)}
+                        {count}{" "}
+                        {notification && <Notification />}
                       </span>
                     )}
                   </span>

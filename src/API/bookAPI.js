@@ -180,12 +180,27 @@ export const getMostRequested = async()=>{
 
 // get Notification
 export const getNotified = async(userid)=>{
-    console.log(userid)
     try{
-        return await axios.get(`${API}/notify/${userid}`)
+        return await axios.get(`${API}/notifications/${userid}`)
     }catch(err){
         console.log(err)
     }
 }
 
 
+// update notification status
+export const setStatus = async(data , userid)=>{
+    console.log(userid)
+    return await fetch(`${API}/notifications/${userid}`,{
+        method:"PUT",
+        headers:{
+            Accept:"application/json",
+            "Content-Type":"application/json"
+        },
+        body:JSON.stringify(data)
+    }).then(res=>{
+        return res.json()
+    }).catch(err=>{
+        return console.log(err)
+    })
+}

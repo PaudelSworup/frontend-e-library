@@ -11,6 +11,7 @@ const DropMenu = () => {
 
   const handleLogout = () => {
     localStorage.removeItem(userid)
+    sessionStorage.removeItem("notify")
     dispatch(setLogout())
   };
 

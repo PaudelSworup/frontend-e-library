@@ -2,7 +2,9 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 const Notification = () => {
-  const { data } = useSelector((state) => state.notify);
+  const {noti} = useSelector((state)=>state.notify)
+  console.log("notifications" , noti)
+  
 
   return (
     <div className="absolute z-10 top-10 md:right-0 bg-black md:w-96 w-80 h-auto rounded-md shadow-lg py-2">
@@ -11,24 +13,27 @@ const Notification = () => {
           Notifications
         </h2>
 
-        {data?.map((notify) => {
-          console.log(notify);
-          return (
-            <div
-              key={notify?.data?.Date}
-              className="text-white h-auto w-full flex gap-3 max-w-full bg-slate-400 "
-            >
-              <img
-                src={`http://localhost:8000/${notify?.data?.books_id?.image}`}
-                alt=""
-                className="md:h-20 object-contain"
-              />
-
-              <p className="flex justify-center items-center">
-                {notify?.data?.message}
-              </p>
-            </div>
-          );
+        {noti.map((data)=>{
+          return data?.data?.map((notify , i)=>{
+            console.log(notify)
+            return (
+              <div
+                key={i}
+                className="text-white lg:h-auto w-full flex gap-3 max-w-full bg-slate-400 "
+              >
+                <img
+                  src={`http://localhost:8000/${notify?.book?.image}`}
+                  alt=""
+                  className="md:h-20 object-contain notify-image"
+                />
+  
+                <p className="flex flex-col justify-center items-center">
+                  {notify?.messageNotification}
+                  <span>{notify?.date}</span>
+                </p>
+              </div>
+            );
+          })
         })}
       </div>
     </div>

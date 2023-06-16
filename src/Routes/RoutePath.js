@@ -13,6 +13,7 @@ import PrivateRoute from "../auth/PrivateRoute";
 import LandingPage from "../components/LandingPage";
 import RequestStatus from "../components/RequestStatus";
 import Notification from "../components/Notification";
+import Confirmation from "../components/Confirmation";
 
 const RoutePath = () => {
 
@@ -22,6 +23,7 @@ const RoutePath = () => {
       <Route path="/" element={<LandingPage />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/confirmation/:token" element={<Confirmation />} />
       
 
       <Route path="/" element={<PrivateRoute />}>

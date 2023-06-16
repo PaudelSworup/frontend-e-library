@@ -54,6 +54,14 @@ body{
 }
 
 
+/* for notification images */
+@media(max-width:768px){
+    .notify-image{
+        height: 100px;
+    }
+}
+
+
 @media(max-width:320px){
     .items_data{
         display: flex;

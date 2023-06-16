@@ -21,6 +21,22 @@ export const createAccount = async(userInfo)=>{
     })
 }
 
+export const confirmAccount = async(token)=>{
+    console.log(token)
+    return await fetch(`${API}/confirmation/${token}`, {
+        method:"POST",
+        headers:{
+            Accept:"application/json",
+            // "Content-Type":"application/json"
+        },
+        body:JSON.stringify(token)
+    }).then(res=>{
+        return res.json()
+    }).catch(err=>{
+        return console.log(err)
+    })
+}
+
 // login API
 export const login = async(user)=>{
     return await fetch(`${API}/login`,{
@@ -70,6 +86,15 @@ export const getProfile = async()=>{
 export const getHistory = async()=>{
     try{
         return await axios.get(`${API}/history`)
+    }catch(err){
+        console.log(err)
+    }
+}
+
+
+export const getApprovalStatus = async (userid)=>{
+    try{
+        return await axios.post(`${API}/approve/${userid}`)
     }catch(err){
         console.log(err)
     }
