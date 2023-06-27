@@ -71,8 +71,6 @@ const Register = () => {
         .oneOf([Yup.ref("password")], "Passwords must match"),
     }),
     onSubmit: (values) => {
-      // TODO: Add your registration logic here
-      console.log(values);
       createAccount({
         fullname: values.fullName,
         email: values.email,
@@ -88,7 +86,6 @@ const Register = () => {
           toast(res.error, { position: "top-center" });
         }
       });
-      // Reset form fields
     },
   });
 

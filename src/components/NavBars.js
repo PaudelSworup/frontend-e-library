@@ -19,21 +19,20 @@ const NavBars = () => {
   const [notification, setNotification] = useState(false);
   const { fullname, userid } = useSelector((state) => state.users);
   const { noti } = useSelector((state) => state.notify);
-  // noti.map((data) => data?.data.length)
   const [count, setCount] = useState(null);
   const [colour, setColour] = useState("bg-red-600");
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-
-
   useEffect(() => {
     noti?.map((length) => {
-      const falseCount = length?.data?.filter((item) => item.status === false).length;
+      const falseCount = length?.data?.filter(
+        (item) => item.status === false
+      ).length;
       setCount(falseCount);
-      if(falseCount === 0){
-        setCount(null)
+      if (falseCount === 0) {
+        setCount(null);
       }
     });
   }, []);
@@ -57,8 +56,6 @@ const NavBars = () => {
 
     fetchNotifications();
   }, [dispatch, userid]);
-
- 
 
   const handleSubmit = (e) => {
     if (search === null || search === "") {

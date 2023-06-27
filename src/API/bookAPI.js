@@ -2,6 +2,8 @@ import axios from "axios";
 import {API} from "../config";
 
 
+
+
 // to search books and shows result on binary search
 export const searchBook = async (name)=>{
     try{
@@ -183,8 +185,12 @@ export const getNotified = async(userid)=>{
         return await axios.get(`${API}/notifications/${userid}`)
     }catch(err){
         console.log(err)
+        // throw new Error("Failed to get data, something went wrong")
     }
 }
+
+
+
 
 
 // update notification status

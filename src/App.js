@@ -1,15 +1,11 @@
-import React from 'react'
-import RoutePath from './Routes/RoutePath'
-
-// import NavBars from './components/NavBars'
-
+import React from "react";
+import RoutePath from "./Routes/RoutePath";
 const App = () => {
   return (
     <>
-   <RoutePath/>
-
+      <RoutePath />
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;

@@ -1,12 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { formatNotificationTime } from "../reusuableFunctions/calculateTime";
 import { overFlow } from "../reusuableFunctions/overFlow";
 
 const Notification = () => {
-  const {noti} = useSelector((state)=>state.notify)
+  const { noti } = useSelector((state) => state.notify);
  
-  
 
   return (
     <div className="absolute z-10 top-10 md:right-0 bg-black md:w-96 w-80 h-auto rounded-md shadow-lg py-2">
@@ -15,8 +14,8 @@ const Notification = () => {
           Notifications
         </h2>
 
-        {noti.map((data)=>{
-          return data?.data?.map((notify , i)=>{
+        {noti.map((data) => {
+          return data?.data?.map((notify, i) => {
             return (
               <div
                 key={i}
@@ -27,14 +26,19 @@ const Notification = () => {
                   alt=""
                   className="md:h-20 object-contain notify-image"
                 />
-  
-                <p className="flex flex-col justify-center items-start" title={notify?.messageNotification}>
-                  { overFlow(notify?.messageNotification , 50)}
+
+                <p
+                  className="flex flex-col justify-center items-start"
+                  title={notify?.messageNotification}
+                
+                >
+                  {overFlow(notify?.messageNotification, 55)}
+                  
                   <span>{formatNotificationTime(notify?.date)}</span>
                 </p>
               </div>
             );
-          })
+          });
         })}
       </div>
     </div>

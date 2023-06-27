@@ -1,5 +1,5 @@
 export const formatNotificationTime = (timestamp) => {
-  const notifiedTime = new Date(timestamp).getTime()
+  const notifiedTime = new Date(timestamp).getTime();
   const currentTime = Date.now();
   const timeDifference = currentTime - notifiedTime;
 
