@@ -43,6 +43,7 @@ const NavBars = () => {
         const response = await getNotified(userid);
         if (response?.data.success && response?.data.notification.length > 0) {
           const { notification } = response?.data;
+          console.log(notification)
           dispatch(setNotify({ data: notification }));
         }
 
@@ -53,8 +54,10 @@ const NavBars = () => {
         console.log("Error fetching notifications:", error);
       }
     };
-
-    fetchNotifications();
+    if(fullname && userid){
+      fetchNotifications();
+    }
+    
   }, [dispatch, userid]);
 
   const handleSubmit = (e) => {
@@ -90,15 +93,18 @@ const NavBars = () => {
         });
       });
     });
-    setStatus({ newData }, userid).then((res) => {
-      if (res?.success === true && res?.notification.length > 0) {
-        dispatch(
-          setNotify({
-            data: res?.notification,
-          })
-        );
-      }
-    });
+    // if(count !=null){
+      setStatus({ newData }, userid).then((res) => {
+        if (res?.success === true && res?.notification.length > 0) {
+          dispatch(
+            setNotify({
+              data: res?.notification,
+            })
+          );
+        }
+      });
+    // }
+    
   };
 
   return (
@@ -174,11 +180,12 @@ const NavBars = () => {
                   {React.createElement(icons[i % icons.length], {
                     className: "text-[#fff] text-2xl ",
                   })}
-                  <span className="text-white relative p-1 tracking-widest">
+                  <div className="text-white relative p-1 tracking-widest">
                     <span>{span}</span>
 
                     {span === "notification" && noti.length > 0 && (
-                      <span
+                      <div  >
+                        <span
                         className={`absolute ${
                           count === null ? "bg-none" : colour
                         } p-1 h-6 w-6 rounded-full bottom-9 right-7 flex items-center justify-center`}
@@ -186,8 +193,10 @@ const NavBars = () => {
                       >
                         {count} {notification && <Notification />}
                       </span>
+                      </div>
+                      
                     )}
-                  </span>
+                  </div>
                 </li>
               );
             })}
