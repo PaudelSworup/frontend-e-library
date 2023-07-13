@@ -32,14 +32,14 @@ const DetailSection = ({ result }) => {
     setSaved(!saved);
     if (saved) {
       localStorage.setItem(favoritesKey, JSON.stringify(result));
-      return toast("The book has been added to your wishlist 📖", {
+      return toast.success("The book has been added to your wishlist 📖", {
         position: "top-center",
         autoClose: 3000,
         hideProgressBar: false,
       });
     } else {
       localStorage.removeItem(favoritesKey);
-      return toast("The book has been removed from your wishlist📖", {
+      return toast.success("The book has been removed from your wishlist📖", {
         position: "top-center",
         autoClose: 3000,
         hideProgressBar: false,
@@ -70,12 +70,16 @@ const DetailSection = ({ result }) => {
               key={data.id}
               className="bg-[#444] cursor-pointer p-2 rounded-full"
             >
-              <span
-                className={`${saved ? "text-white" : "text-red-600"}`}
-                onClick={saveItems}
-              >
-                {data.icon}
-              </span>
+              {data.id === 4 ? (
+                <span
+                  className={`${saved ? "text-white" : "text-red-600"}`}
+                  onClick={saveItems}
+                >
+                  {data.icon}
+                </span>
+              ) : (
+                <span onClick={data.onclick} className="text-white">{data.icon}</span>
+              )}
             </div>
           ))}
         </div>

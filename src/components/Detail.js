@@ -74,12 +74,12 @@ const Detail = ({ result }) => {
   const handleStarClick = (rating) => {
     recordRating({ rating, book: id, user: userid }).then((data) => {
       if (data.error) {
-        return toast(data.error, {
+        return toast.error(data.error, {
           position: "top-center",
           autoClose: 3000,
         });
       } else {
-        return toast(data.message, {
+        return toast.success(data.message, {
           position: "top-center",
         });
       }
@@ -89,12 +89,12 @@ const Detail = ({ result }) => {
   const showStatus = (id) => {
     issueRequest({ books_id: id, user_id: userid }).then((data) => {
       if (data.error) {
-        return toast(data.error, {
+        return toast.error(data.error, {
           position: "top-right",
           autoClose: 3000,
         });
       } else {
-        return toast(data.message, {
+        return toast.success(data.message, {
           position: "top-center",
         });
       }

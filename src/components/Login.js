@@ -24,7 +24,7 @@ const Login = () => {
     login({ email, password }).then((data) => {
       console.log(data);
       if (data.error) {
-        return toast(data.error, {
+        return toast.error(data.error, {
           position: "top-center",
           autoClose: 3000,
           theme: "light",
@@ -116,19 +116,10 @@ const Login = () => {
             </button>{" "}
             <ToastContainer
               position="top-center"
-              autoClose={3000}
-              hideProgressBar={false}
-              newestOnTop={false}
-              closeOnClick
-              rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover
-              theme="light"
             />
           </div>
           <div className="flex flex-col justify-center items-center">
-          <p className="text-blue-500 mt-4 cursor-pointer">Forgot Password?</p>
+          <p className="text-blue-500 mt-4 cursor-pointer"><Link to="/forgot">Forgot Password?</Link></p>
           <hr className="border border-red-600"/>
           <p className="text-blue-500 mt-4 cursor-pointer"><Link to="/register">create new account</Link></p>
           </div>

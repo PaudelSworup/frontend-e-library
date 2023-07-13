@@ -80,10 +80,10 @@ const Register = () => {
         choosedCatgoeirs: values.categories,
       }).then((res) => {
         if (res.success === true) {
-          toast(res.message, { position: "top-center" });
+          toast.success(res.message, { position: "top-center" });
           resetForm();
         } else {
-          toast(res.error, { position: "top-center" });
+          toast.error(res.error, { position: "top-center" });
         }
       });
     },

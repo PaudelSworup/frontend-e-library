@@ -14,6 +14,7 @@ import LandingPage from "../components/LandingPage";
 import RequestStatus from "../components/RequestStatus";
 import Notification from "../components/Notification";
 import Confirmation from "../components/Confirmation";
+import Forgot from "../components/Forgot";
 
 const RoutePath = () => {
 
@@ -24,6 +25,7 @@ const RoutePath = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/confirmation/:token" element={<Confirmation />} />
+      <Route path="/forgot" element={<Forgot/>} />
       
 
       <Route path="/" element={<PrivateRoute />}>

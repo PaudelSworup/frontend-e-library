@@ -101,4 +101,23 @@ export const getApprovalStatus = async (userid)=>{
 }
 
 
+// forgot password 
+export const forgotPassword = async(email)=>{
+    console.log(email)
+    // console.log(token)
+    return await fetch(`${API}/forgot`, {
+        method:"POST",
+        headers:{
+            Accept:"application/json",
+            "Content-Type":"application/json"
+        },
+        body:JSON.stringify(email)
+    }).then(res=>{
+        return res.json()
+    }).catch(err=>{
+        return console.log(err)
+    })
+}
+
+
 

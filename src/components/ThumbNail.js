@@ -51,12 +51,12 @@ const ThumbNail = ({ result }) => {
         return ""
       });
     });
-  }, []);
+  }, [userid]);
 
   return (
     <>
       {/*  */}
-      <div className="p-2 group my-10 cursor-pointer transition duration-200 ease-in transform sm:hover:scale-105  hover:z-50 ">
+      <div className="p-2 group my-10 cursor-pointer transition duration-200 ease-in transform sm:hover:scale-105 hover:z-50 ">
         <Link to={{ pathname: `/book/detail/${result?._id}` }}>
           <LazyImage
             src={`http://localhost:8000/${result?.image}`}
