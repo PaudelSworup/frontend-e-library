@@ -1,25 +1,14 @@
 import React, { useState } from "react";
 import NavBars from "./NavBars";
-import { forgotPassword } from "../API/userAuthApi";
-import { ToastContainer, toast } from "react-toastify";
 import LabelComp from "./LabelComp";
+import { ToastContainer } from "react-toastify";
 
-const Forgot = () => {
-  const [email, setEmail] = useState("");
+const ResendVerification = () => {
+    const[email, setEmail] = useState("")
+    const handleSubmit = (e)=>{
+        e.preventDefault()
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    forgotPassword({ email }).then((res) => {
-      console.log(res);
-      if (res?.error) {
-        toast.error(res.error, {
-          position: "top-center",
-        });
-      } else {
-        return toast.success(res?.message, { position: "top-center" });
-      }
-    });
-  };
+    }
   return (
     <>
       <NavBars />
@@ -29,7 +18,7 @@ const Forgot = () => {
           onSubmit={handleSubmit}
         >
           <div className="mb-4">
-           <LabelComp labelForhtml="email"/>
+            <LabelComp labelForhtml="email" />
             <input
               className="shadow appearance-none border rounded w-full py-[14px] px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="email"
@@ -56,4 +45,4 @@ const Forgot = () => {
   );
 };
 
-export default Forgot;
+export default ResendVerification;

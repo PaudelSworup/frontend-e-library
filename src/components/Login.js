@@ -7,6 +7,7 @@ import { setLogin } from "../store/userSlice";
 import { RiEyeFill, RiEyeOffFill } from "react-icons/ri";
 import { Link, useNavigate } from "react-router-dom";
 import NavBars from "./NavBars";
+import LabelComp from "./LabelComp";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -50,7 +51,7 @@ const Login = () => {
   return (
     <>
       <NavBars />
-      <div className="flex flex-col gap-6  items-center justify-center h-screen">
+      <div className="flex flex-col gap-6  items-center justify-center m-5">
         <div className="flex flex-col gap-2 justify-center">
           <h2 className="text-white tracking-widest text-center font-serif text-2xl">
             KCT Login Portal
@@ -65,14 +66,9 @@ const Login = () => {
           onSubmit={handleSubmit}
         >
           <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="email"
-            >
-              Email
-            </label>
+           <LabelComp labelForhtml="email" />
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow appearance-none border rounded w-full py-[14px] px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="email"
               size={35}
               type="email"
@@ -82,14 +78,9 @@ const Login = () => {
             />
           </div>
           <div className="mb-6 relative">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="password"
-            >
-              Password
-            </label>
+            <LabelComp labelForhtml="password" />
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow appearance-none border rounded w-full py-[14px] px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="password"
               size={35}
               type={showPassword ? "text" : "password"}
@@ -107,23 +98,31 @@ const Login = () => {
               </button>
             </div>
           </div>
-          <div className="flex items-center justify-between">
+          <div className=" flex items-center justify-between">
             <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="w-full h-12 px-6 text-indigo-100 transition-colors duration-150 bg-blue-500 rounded-lg focus:shadow-outline hover:bg-blue-700"
               type="submit"
             >
               Sign In
             </button>{" "}
-            <ToastContainer
-              position="top-center"
-            />
+            <ToastContainer position="top-center" />
           </div>
-          <div className="flex flex-col justify-center items-center">
-          <p className="text-blue-500 mt-4 cursor-pointer"><Link to="/forgot">Forgot Password?</Link></p>
-          <hr className="border border-red-600"/>
-          <p className="text-blue-500 mt-4 cursor-pointer"><Link to="/register">create new account</Link></p>
+          <div className="flex flex-col items-start ml-2">
+          <p className="text-blue-500 text-center mt-4 cursor-pointer">
+            <Link to="/forgot">Forgot Password?</Link>
+          </p>
+          <p className="text-blue-500 text-center capitalize mt-4 cursor-pointer">
+            <Link to="/resendverification">email not verified?</Link>
+          </p>
           </div>
          
+          <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
+          <div className="grid place-items-center">
+          <button className=" h-12 px-6 capitalize text-white transition-colors duration-150 bg-green-600 rounded-lg focus:shadow-outline hover:bg-green-800">
+            <Link to="/register">create new account</Link>
+          </button>
+          </div>
+          
         </form>
       </div>
     </>
