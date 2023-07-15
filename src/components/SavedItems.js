@@ -53,7 +53,6 @@ const SavedItems = () => {
       <div className="lg:mx-40 flex gap-9 main_container ">
         <Saved2
           uploadProfile={handleUploadProfile}
-          // handleClick={handleClick}
           profileData={profileData}
           fullname={fullname}
           email={email}

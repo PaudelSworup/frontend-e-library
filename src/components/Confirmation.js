@@ -6,41 +6,17 @@ import { confirmAccount } from "../API/userAuthApi";
 
 const Confirmation = () => {
   const { token } = useParams();
-  const [message, setMessage] = useState();
 
   useEffect(() => {
-    confirmAccount(token).then(
-      (res) => {
-        console.log(res);
-      },
-      [token]
-    );
+    confirmAccount(token)
+      .then((res) => {
+        if (res?.error) {
+          return toast.error(res?.error,{position:"top-center"})
+        } else return toast.success(res?.message,{position:"top-center"})
+      })
+      .catch((err) => console.log(err));
   });
-  const showError = () => {
-    return toast("Enter book name 📖", {
-      position: "top-center",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-  };
 
-  const showSuccess = () => {
-    return toast("Enter book name 📖", {
-      position: "top-center",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-  };
   return (
     <>
       <NavBars />

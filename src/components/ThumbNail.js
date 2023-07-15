@@ -22,8 +22,7 @@ const ThumbNail = ({ result }) => {
           setCount(like?.count);
           return true;
         }
-        // return console.log("oh");
-        return ""
+        return "";
       });
     });
     setIsLiked(!isLiked);
@@ -33,29 +32,24 @@ const ThumbNail = ({ result }) => {
     getLikes().then((data) => {
       data?.data?.likes.find((data) => {
         if (data?.book === result?._id && data?.user === userid) {
-          // console.log("hello like")
           setIsLiked(!isLiked);
           return true;
         }
-        // return console.log("hey");
-        return ""
+        return "";
       });
 
       data?.data?.counts.find((data) => {
         if (data?._id === result?._id) {
-          // console.log("hello count")
           setCount(data?.count);
           return true;
         }
-        // return console.log("oh ye");
-        return ""
+        return "";
       });
     });
   }, [userid]);
 
   return (
     <>
-      {/*  */}
       <div className="p-2 group my-10 cursor-pointer transition duration-200 ease-in transform sm:hover:scale-105 hover:z-50 ">
         <Link to={{ pathname: `/book/detail/${result?._id}` }}>
           <LazyImage
@@ -96,7 +90,6 @@ const ThumbNail = ({ result }) => {
           </div>
         </div>
       </div>
-      {/*  */}
     </>
   );
 };

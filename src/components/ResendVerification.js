@@ -1,12 +1,21 @@
 import React, { useState } from "react";
 import NavBars from "./NavBars";
 import LabelComp from "./LabelComp";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
+import { resend } from "../API/userAuthApi";
 
 const ResendVerification = () => {
     const[email, setEmail] = useState("")
     const handleSubmit = (e)=>{
         e.preventDefault()
+        resend({email}).then((res)=>{
+          if(res?.error){
+            return toast.error(res.error,{position:"top-center"})
+          }else{
+            toast.success(res.message,{position:"top-center"})
+          }
+          console.log(res)
+        }).catch((err)=>console.log(err))
 
     }
   return (

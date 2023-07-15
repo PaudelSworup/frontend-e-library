@@ -76,27 +76,26 @@ const RequestHistoryItems = ({ result }) => {
         </div>
         <div className="text-gray-700 border-b border-dashed p-2"></div>
         <div className="flex justify-between">
-        <div className="flex ml-6 flex-col">
-          <p className="font-bold text-lg">Book Requested on</p>
-          <p className="tracking-widest">{`${date
-            .getDate()
-            .toString()}  ${monthName}  ${date
-            .getFullYear()
-            .toString()}, ${date.toLocaleTimeString()}`}</p>
-        </div>
-           {result?.issueStatus ===1 && <div className="flex ml-6 flex-col">
-          <p className="font-bold text-lg">Approved on</p>
-          <p className="tracking-widest">
-          <p className="tracking-widest">{`${approvedDate
-            .getDate()
-            .toString()}  ${monthName2}  ${approvedDate
-            .getFullYear()
-            .toString()}, ${approvedDate.toLocaleTimeString()}`}</p>
-          </p>
-        </div> }
+          <div className="flex ml-6 flex-col">
+            <p className="font-bold text-lg">Book Requested on</p>
+            <p className="tracking-widest">{`${date
+              .getDate()
+              .toString()}  ${monthName}  ${date
+              .getFullYear()
+              .toString()}, ${date.toLocaleTimeString()}`}</p>
+          </div>
+          {result?.issueStatus === 1 && (
+            <div className="flex ml-6 flex-col">
+              <p className="font-bold text-lg">Approved on</p>
 
+              <p className="tracking-widest">{`${approvedDate
+                .getDate()
+                .toString()}  ${monthName2}  ${approvedDate
+                .getFullYear()
+                .toString()}, ${approvedDate.toLocaleTimeString()}`}</p>
+            </div>
+          )}
         </div>
-        
       </div>
     </div>
   );

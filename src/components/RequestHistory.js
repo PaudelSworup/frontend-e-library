@@ -52,21 +52,4 @@ const RequestHistory = ({ data }) => {
 
 export default RequestHistory;
 
-{
-  /* <div className='ml-auto'>
-    <select>
-        <option>
-            All
-        </option>
-        <option>  
-            Approved request
-        </option>
-        <option>
-            Rejected request
-        </option>
-        <option>
-            pending request
-        </option>
-    </select>
-    </div> */
-}
+
