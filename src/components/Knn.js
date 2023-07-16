@@ -1,6 +1,7 @@
 import React from "react";
 import LazyImage from "./LazyImage";
 import { Link } from "react-router-dom";
+import { image } from "../config";
 
 const Knn = ({ newRecommendation, h2, category }) => {
   return (
@@ -21,7 +22,7 @@ const Knn = ({ newRecommendation, h2, category }) => {
                     className="p-2 my-10 cursor-pointer  hover:z-50 "
                   >
                     <LazyImage
-                      src={`http://localhost:8000/${data?.book?.image}`}
+                      src={`${image}/${data?.book?.image}`}
                       alt=""
                       className="w-[90%] sm:w-[80%] max-h-[300px] md:rounded-md"
                       loading="lazy"

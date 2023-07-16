@@ -8,11 +8,17 @@ import HeadingContent from "./HeadingContent";
 
 const Profile = () => {
   const { userid, fullname, email } = useSelector((state) => state.users);
-  const [profile, setProfile] = useState([]);
+  const [profile, setProfile] = useState();
 
   useEffect(() => {
     getProfile().then((user) => {
-      setProfile(user?.data?.profile);
+     user?.data?.profile.find((data)=>{
+      if(data?.userId?._id === userid){
+        return setProfile(data?.profileImage);
+      }
+      return setProfile(undefined)
+     })
+      
     });
   }, []);
   const handleFileChange = (event) => {

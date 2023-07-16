@@ -43,7 +43,7 @@ const NavBars = () => {
         const response = await getNotified(userid);
         if (response?.data.success && response?.data.notification.length > 0) {
           const { notification } = response?.data;
-          console.log(notification)
+          console.log(notification);
           dispatch(setNotify({ data: notification }));
         }
 
@@ -54,10 +54,9 @@ const NavBars = () => {
         console.log("Error fetching notifications:", error);
       }
     };
-    if(fullname && userid){
+    if (fullname && userid) {
       fetchNotifications();
     }
-    
   }, [dispatch, userid]);
 
   const handleSubmit = (e) => {
@@ -94,17 +93,16 @@ const NavBars = () => {
       });
     });
     // if(count !=null){
-      setStatus({ newData }, userid).then((res) => {
-        if (res?.success === true && res?.notification.length > 0) {
-          dispatch(
-            setNotify({
-              data: res?.notification,
-            })
-          );
-        }
-      });
+    setStatus({ newData }, userid).then((res) => {
+      if (res?.success === true && res?.notification.length > 0) {
+        dispatch(
+          setNotify({
+            data: res?.notification,
+          })
+        );
+      }
+    });
     // }
-    
   };
 
   return (
@@ -136,9 +134,9 @@ const NavBars = () => {
         <>
           <div
             onClick={() => setOpen(!open)}
-            className={`text-3xl absolute right-8 top-4 cursor-pointer duration-500 md:hidden ${
-              open ? "rotate-180" : "rotate-0"
-            }`}
+            className={`text-3xl absolute right-8 top-4 cursor-pointer duration-500 md:hidden 
+            ${open ? "rotate-180" : "rotate-0"}
+            `}
           >
             <FaBars className="text-white" />
           </div>
@@ -184,17 +182,16 @@ const NavBars = () => {
                     <span>{span}</span>
 
                     {span === "notification" && noti.length > 0 && (
-                      <div  >
+                      <div>
                         <span
-                        className={`absolute ${
-                          count === null ? "bg-none" : colour
-                        } p-1 h-6 w-6 rounded-full bottom-9 right-7 flex items-center justify-center`}
-                        onClick={handleNotication}
-                      >
-                        {count} {notification && <Notification />}
-                      </span>
+                          className={`absolute ${
+                            count === null ? "bg-none" : colour
+                          } p-1 h-6 w-6 rounded-full bottom-9 right-7 flex items-center justify-center`}
+                          onClick={handleNotication}
+                        >
+                          {count} {notification && <Notification />}
+                        </span>
                       </div>
-                      
                     )}
                   </div>
                 </li>

@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import Detail from "./Detail";
 import { toast } from "react-toastify";
 import jwtDecode from "jwt-decode";
+import { image } from "../config";
 
 const DetailSection = ({ result }) => {
   const navigate = useNavigate();
@@ -59,7 +60,7 @@ const DetailSection = ({ result }) => {
         </div>
 
         <img
-          src={`http://localhost:8000/${result?.image}`}
+          src={`${image}/${result?.image}`}
           alt=""
           className="w-[75%] max-w-[100%] max-h-[400px] md:rounded-lg cursor-pointer"
         />

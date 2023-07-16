@@ -5,6 +5,7 @@ import LazyImage from "./LazyImage";
 import { FaThumbsUp } from "react-icons/fa";
 import { getLikes, likeBook } from "../API/bookAPI";
 import { useSelector } from "react-redux";
+import { image } from "../config";
 
 const ThumbNail = ({ result }) => {
   const [isLiked, setIsLiked] = useState(false);
@@ -53,7 +54,7 @@ const ThumbNail = ({ result }) => {
       <div className="p-2 group my-10 cursor-pointer transition duration-200 ease-in transform sm:hover:scale-105 hover:z-50 ">
         <Link to={{ pathname: `/book/detail/${result?._id}` }}>
           <LazyImage
-            src={`http://localhost:8000/${result?.image}`}
+            src={`${image}/${result?.image}`}
             alt=""
             className="w-full sm:w-[92%] max-h-[333px]"
             loading="lazy"

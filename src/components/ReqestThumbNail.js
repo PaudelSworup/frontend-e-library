@@ -1,4 +1,5 @@
 import React from "react";
+import { image } from "../config";
 
 const ReqestThumbNail = ({ result }) => {
   const date = new Date(result?.issueDate);
@@ -9,7 +10,7 @@ const ReqestThumbNail = ({ result }) => {
     <div className="flex gap-3 ml-2 mb-2 h-[270px]  p-3 rounded-md bg-[#252525]">
       <div className="flex">
         <img
-          src={`http://localhost:8000/${result?.books_id?.image}`}
+          src={`${image}/${result?.books_id?.image}`}
           className="w-48 h-auto"
           alt=""
         />

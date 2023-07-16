@@ -75,3 +75,10 @@ body{
 }
 
 
+@media(max-width:375px){
+    .drop_menu{
+        display: none;
+    }
+}
+
+

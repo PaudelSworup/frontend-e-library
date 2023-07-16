@@ -4,9 +4,13 @@ import { toast } from "react-toastify";
 
 const copyUrl = ()=>{
   const url = window.location.href
+  if(navigator.clipboard && typeof navigator.clipboard.writeText === 'function'){
   navigator.clipboard.writeText(url).then(()=>{
     return toast.success("Link Copied!!")
   }).catch((err)=>console.log(err))
+}else{
+ return toast.error("copying link is not supported", {position:"top-center"})
+}
 }
 
 

@@ -11,7 +11,7 @@ const SavedItems = () => {
   const { userid, fullname, email } = useSelector((state) => state.users);
   const [Isbn, setIsbn] = useState();
   
-  const [profile, setProfile] = useState([]);
+  const [profile, setProfile] = useState();
 
   useEffect(() => {
     const matchingValues = [];
@@ -25,11 +25,14 @@ const SavedItems = () => {
 
   useEffect(() => {
     getProfile().then((user) => {
-      setProfile(user?.data?.profile);
+      user?.data?.profile.find((data)=>{
+        if(data?.userId?._id === userid){
+          return setProfile(data?.profileImage);
+        }
+        return setProfile(undefined)
+       })
     });
   }, []);
-
-  const profileData = profile.filter((data) => data?.userId?._id === userid);
 
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
@@ -53,7 +56,7 @@ const SavedItems = () => {
       <div className="lg:mx-40 flex gap-9 main_container ">
         <Saved2
           uploadProfile={handleUploadProfile}
-          profileData={profileData}
+          profileData={profile}
           fullname={fullname}
           email={email}
         />

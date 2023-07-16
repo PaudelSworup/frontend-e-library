@@ -22,14 +22,18 @@ const RequestStatus = () => {
     });
   }, [userid]);
   
+  
 
   useEffect(() => {
     getProfile().then((user) => {
-      setProfile(user?.data?.profile);
+      user?.data?.profile.find((data)=>{
+        if(data?.userId?._id === userid){
+          return setProfile(data?.profileImage);
+        }
+        return setProfile(undefined)
+       })
     });
   }, []);
-
-  const profileData = profile.filter((data) => data?.userId?._id === userid);
 
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
@@ -54,7 +58,7 @@ const RequestStatus = () => {
         <Saved2
           uploadProfile={handleUploadProfile}
           // handleClick={handleClick}
-          profileData={profileData}
+          profileData={profile}
           fullname={fullname}
           email={email}
         />

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FaArrowDown } from "react-icons/fa";
+import { image } from "../config";
 
 const RequestHistoryItems = ({ result }) => {
   const [open, setOpen] = useState(false);
@@ -65,7 +66,7 @@ const RequestHistoryItems = ({ result }) => {
           <div>
             <h3 className="text-white text-lg font-bold">Requested Book</h3>
             <img
-              src={`http://localhost:8000/${result?.books_id?.image}`}
+              src={`${image}/${result?.books_id?.image}`}
               className="w-36 object-cover"
               alt=""
             />

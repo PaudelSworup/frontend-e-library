@@ -15,17 +15,19 @@ const Saved2 = ({uploadProfile,profileData,fullname,email}) => {
       <ProfileSection uploadProfile={uploadProfile} profileData={profileData} fullname={fullname} email={email} />
       <div className="flex gap-2 lg:flex-col mt-2 items_data  ">
         {drop?.map((data) => (
-          <span
+          <div
             key={data.id}
             className={`text-white cursor-pointer rounded-md  p-2 hover:bg-[#222] transition-all duration-100  ${
               bg === data.id ? "bg-[#222]" : ""
             }`}
             onClick={() => setBg(data.id, data?.link)}
           >
-            <span className="flex items-center">
-              {data?.icon} {data.span}
-            </span>
-          </span>
+            <div className="flex items-center">
+              <span>{data?.icon}</span>
+              <span className="drop_menu">{data?.span}</span>
+            </div>
+           
+          </div>
         ))}
       </div>
     </div>
