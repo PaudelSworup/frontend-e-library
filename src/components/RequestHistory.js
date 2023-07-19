@@ -22,7 +22,7 @@ const RequestHistory = ({ data }) => {
             <FaArrowAltCircleLeft className="text-white text-xl mt-1" />
             <p className="text-white text-lg">Back</p>
           </div>
-          {data.length > 0 && (
+          {data?.length > 0 && (
             <div>
               <p
                 className={`text-white cursor-pointer ${open && "hidden"}`}
