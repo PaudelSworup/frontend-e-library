@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Notification from "./Notification";
 import { getNotified, setStatus } from "../API/bookAPI";
 import { setNotify } from "../store/notifySlice";
+import { useQuery } from "react-query";
 
 const NavBars = () => {
   const icons = [FaHome, FaHistory, FaBell];
@@ -30,34 +31,68 @@ const NavBars = () => {
       const falseCount = length?.data?.filter(
         (item) => item.status === false
       ).length;
+      console.log(falseCount)
+
       setCount(falseCount);
       if (falseCount === 0) {
         setCount(null);
       }
     });
-  }, []);
+  }, [noti]);
 
-  useEffect(() => {
-    const fetchNotifications = async () => {
-      try {
-        const response = await getNotified(userid);
-        if (response?.data.success && response?.data.notification.length > 0) {
-          const { notification } = response?.data;
-          console.log(notification);
-          dispatch(setNotify({ data: notification }));
-        }
 
-        if (response?.data?.notification.length === 0) {
-          sessionStorage.removeItem("notify");
-        }
-      } catch (error) {
-        console.log("Error fetching notifications:", error);
-      }
-    };
-    if (fullname && userid) {
-      fetchNotifications();
+
+  const { data, isLoading, isError } = useQuery("notifications", async () => {
+    if(fullname && userid){
+      const response = await getNotified(userid);
+    if (response?.data.success && response?.data.notification.length > 0) {
+      const { notification } = response.data;
+      return dispatch(setNotify({ data: notification }));
     }
-  }, [dispatch, userid]);
+    return [];
+    }
+    
+  });
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (isError) {
+    return <div>Error: Unable to fetch notifications</div>;
+  }
+
+  // const falseCount = data?.filter((item) => item.status === false).length;
+  // dispatch(setNotify({ data:data  }));
+  // setCount(falseCount)
+  // if (falseCount === 0) {
+  //   setCount(null);
+  // }
+  // console.log(data)
+
+  
+
+  // useEffect(() => {
+  //   const fetchNotifications = async () => {
+  //     try {
+  //       const response = await getNotified(userid);
+  //       if (response?.data.success && response?.data.notification.length > 0) {
+  //         const { notification } = response?.data;
+  //         console.log(notification);
+  //         
+  //       }
+
+  //       if (response?.data?.notification.length === 0) {
+  //         sessionStorage.removeItem("notify");
+  //       }
+  //     } catch (error) {
+  //       console.log("Error fetching notifications:", error);
+  //     }
+  //   };
+  //   if (fullname && userid) {
+  //     fetchNotifications();
+  //   }
+  // }, [dispatch, userid]);
 
   const handleSubmit = (e) => {
     if (search === null || search === "") {
