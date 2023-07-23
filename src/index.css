@@ -49,8 +49,19 @@ body{
         display: flex;
     }
 
+    .req_thumb_image{
+        width: 100px;
+        max-width:50px;
+    }
 
 
+
+}
+
+@media(max-width:320px){
+    .main_div_width{
+        width: 225px;
+    }
 }
 
 

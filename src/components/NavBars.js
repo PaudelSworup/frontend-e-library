@@ -29,9 +29,8 @@ const NavBars = () => {
   useEffect(() => {
     noti?.map((length) => {
       const falseCount = length?.data?.filter(
-        (item) => item.status === false
+        (item) => item.notificationStatus === false
       ).length;
-      console.log(falseCount)
 
       setCount(falseCount);
       if (falseCount === 0) {
@@ -40,27 +39,25 @@ const NavBars = () => {
     });
   }, [noti]);
 
+  // const { data, isLoading, isError } = useQuery("notifications", async () => {
+  //   if (fullname && userid) {
+  //     const response = await getNotified(userid);
+  //     if (response?.data.success && response?.data.notification.length > 0) {
+  //       const { notification } = response.data;
+  //       console.log(notification)
+  //       return dispatch(setNotify({ data: notification }));
+  //     }
+  //     return [];
+  //   }
+  // });
 
+  // if (isLoading) {
+  //   return <div>Loading...</div>;
+  // }
 
-  const { data, isLoading, isError } = useQuery("notifications", async () => {
-    if(fullname && userid){
-      const response = await getNotified(userid);
-    if (response?.data.success && response?.data.notification.length > 0) {
-      const { notification } = response.data;
-      return dispatch(setNotify({ data: notification }));
-    }
-    return [];
-    }
-    
-  });
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (isError) {
-    return <div>Error: Unable to fetch notifications</div>;
-  }
+  // if (isError) {
+  //   return <div>Error: Unable to fetch notifications</div>;
+  // }
 
   // const falseCount = data?.filter((item) => item.status === false).length;
   // dispatch(setNotify({ data:data  }));
@@ -70,29 +67,28 @@ const NavBars = () => {
   // }
   // console.log(data)
 
+  useEffect(() => {
+    const fetchNotifications = async () => {
+      try {
+        const response = await getNotified(userid);
+        if (response?.data.success && response?.data.notification.length > 0) {
+          const { notification } = response?.data;
+          console.log(notification);
+          dispatch(setNotify({ data: notification }))
   
+        }
 
-  // useEffect(() => {
-  //   const fetchNotifications = async () => {
-  //     try {
-  //       const response = await getNotified(userid);
-  //       if (response?.data.success && response?.data.notification.length > 0) {
-  //         const { notification } = response?.data;
-  //         console.log(notification);
-  //         
-  //       }
-
-  //       if (response?.data?.notification.length === 0) {
-  //         sessionStorage.removeItem("notify");
-  //       }
-  //     } catch (error) {
-  //       console.log("Error fetching notifications:", error);
-  //     }
-  //   };
-  //   if (fullname && userid) {
-  //     fetchNotifications();
-  //   }
-  // }, [dispatch, userid]);
+        if (response?.data?.notification.length === 0) {
+          sessionStorage.removeItem("notify");
+        }
+      } catch (error) {
+        console.log("Error fetching notifications:", error);
+      }
+    };
+    if (fullname && userid) {
+      fetchNotifications();
+    }
+  }, [dispatch, userid]);
 
   const handleSubmit = (e) => {
     if (search === null || search === "") {
@@ -111,19 +107,20 @@ const NavBars = () => {
   };
 
   const handleNotication = () => {
+    console.log("hello")
     const newData = [];
     setNotification(!notification);
     setColour("bg-none");
     setCount(null);
     noti.map((data) => {
+      console.log("HELLO", data)
       return data?.data?.map((data) => {
-        const { message, books_id, user_id, status, date } = data;
         return newData.push({
-          id: books_id?._id,
-          message,
-          user_id,
-          status,
-          date,
+          id: data?.book?._id,
+          message: data?.messageNotification,
+          user_id: data?.user?._id ?data?.user?._id : null ,
+          status: data?.notificationStatus,
+          date: data?.date,
         });
       });
     });

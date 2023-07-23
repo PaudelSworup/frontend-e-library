@@ -12,6 +12,7 @@ const notifySlice = createSlice({
   },
   reducers: {
     setNotify: (state, action) => {
+      
       const existingBook = state.noti.find(
         (data) =>
           data.books_id === action.payload.books_id &&
@@ -19,13 +20,15 @@ const notifySlice = createSlice({
       );
 
       if (!existingBook) {
-        console.log("hello");
+        console.log(action)
         const updates = [...state.noti, action.payload];
         state.noti = updates;
         sessionStorage.setItem("notify", JSON.stringify(updates));
       } else {
+        console.log(action.payload)
         const updates = [action.payload];
         state.noti = updates;
+        console.log(updates)
         sessionStorage.setItem("notify", JSON.stringify(updates));
       }
     },
