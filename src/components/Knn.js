@@ -13,7 +13,7 @@ const Knn = ({ newRecommendation, h2, category }) => {
               <p className="text-white underline tracking-widest">{category}</p>
             )}
         
-            <div className="grid sm:flex overflow-x-scroll scrollbar-hide ">
+            <div className="flex items-center sm:flex overflow-x-scroll scrollbar-hide ">
               {newRecommendation?.map((data) => {
                 return (
                   <Link to={`/book/detail/${data?.book?._id}`} key={data?.book?.isbn}>

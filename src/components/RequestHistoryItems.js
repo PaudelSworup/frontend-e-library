@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { FaArrowDown } from "react-icons/fa";
+import { FaArrowDown, FaDownload } from "react-icons/fa";
 import { image } from "../config";
+import { downloadBook } from "../API/bookAPI";
 
 const RequestHistoryItems = ({ result }) => {
   const [open, setOpen] = useState(false);
@@ -8,6 +9,10 @@ const RequestHistoryItems = ({ result }) => {
   const approvedDate = new Date(result?.approvedDate);
   const monthName = date.toLocaleString("default", { month: "long" });
   const monthName2 = approvedDate.toLocaleString("default", { month: "long" });
+
+  const download = (bookid)=>{
+    downloadBook(bookid)
+  }
   return (
     <div className="flex flex-col m-2">
       <div className="bg-[#252525] flex flex-wrap justify-between rounded-lg text-white p-3">
@@ -96,6 +101,8 @@ const RequestHistoryItems = ({ result }) => {
                 .toString()}, ${approvedDate.toLocaleTimeString()}`}</p>
             </div>
           )}
+          {result?.issueStatus === 1 && <FaDownload onClick={()=>download(result?.books_id?._id)} className="font-bold text-3xl mt-4" />
+ }
         </div>
       </div>
     </div>

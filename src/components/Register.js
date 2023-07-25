@@ -7,6 +7,7 @@ import Select from "react-select";
 import { createAccount } from "../API/userAuthApi";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import LabelComp from "./LabelComp";
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -115,9 +116,7 @@ const Register = () => {
           <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
             <div className="rounded-md shadow-sm -space-y-px">
               <div>
-                <label htmlFor="fullName" className="sr-only">
-                  Full Name
-                </label>
+              <LabelComp labelForhtml="Full name"/>
                 <input
                   id="fullName"
                   name="fullName"
@@ -139,9 +138,7 @@ const Register = () => {
                 )}
               </div>
               <div>
-                <label htmlFor="email" className="sr-only">
-                  Email address
-                </label>
+              <LabelComp labelForhtml="Email Address"/>
                 <input
                   id="email"
                   name="email"
@@ -164,9 +161,7 @@ const Register = () => {
               </div>
 
               <div>
-                <label className="sr-only" htmlFor="address">
-                  Address
-                </label>
+              <LabelComp labelForhtml="Address"/>
                 <input
                   id="address"
                   type="text"
@@ -186,9 +181,7 @@ const Register = () => {
               </div>
 
               <div>
-                <label className="sr-only" htmlFor="mobile number">
-                  mobile number
-                </label>
+              <LabelComp labelForhtml="Mobile number"/>
                 <input
                   id="mobileNumber"
                   type="number"
@@ -211,9 +204,7 @@ const Register = () => {
               </div>
 
               <div>
-                <label htmlFor="password" className="sr-only">
-                  Password
-                </label>
+              <LabelComp labelForhtml="Password"/>
                 <input
                   id="password"
                   name="password"
@@ -235,9 +226,7 @@ const Register = () => {
                 )}
               </div>
               <div>
-                <label htmlFor="confirmPassword" className="sr-only">
-                  Confirm Password
-                </label>
+              <LabelComp labelForhtml="Confirm password"/>
                 <input
                   id="confirmPassword"
                   name="confirmPassword"

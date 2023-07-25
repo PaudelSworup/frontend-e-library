@@ -134,3 +134,36 @@ export const resend = async (email) => {
       return console.log(err);
     });
 };
+
+
+export const getUser = async () => {
+  try {
+    return await axios.get(`${API}/users`);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const updateDetails = async (data, id) => {
+  try {
+    const response = await fetch(`${API}/users/${id}`, {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    const responseData = await response.json();
+
+    if (!response.ok) {
+      throw new Error(responseData.message || "Something went wrong");
+    }
+
+    return responseData; // Return the JSON response data if everything is fine
+  } catch (error) {
+    console.log("Error:", error.message);
+    return { error: error.message, success: false }; // Return an error object with the error message
+  }
+};

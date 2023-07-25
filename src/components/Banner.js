@@ -33,7 +33,7 @@ const Banner = () => {
       />
       <div className="absolute inset-0 flex flex-col justify-center items-center">
         <h1 className="text-4xl md:text-5xl lg:text-6xl tracking-widest font-bold text-white mb-6">
-          E-Library Management System
+          Recommendation Based Online Library
         </h1>
         <div className="text-xl md:text-2xl lg:text-3xl font-medium text-white tracking-widest">
           <p>Unlock the World of Knowledge!</p>

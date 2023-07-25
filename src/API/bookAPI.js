@@ -191,41 +191,33 @@ export const setStatus = async (data, userid) => {
     });
 };
 
-// download book
-// export const downloadBook = async (bookId) => {
-//   try {
-//     const response = await axios.get(`${API}/download/${bookId}`, {
-//       responseType: "blob",
-//     });
-//     console.log(response.headers)
-
-//     const fileName =
-//       response.headers["content-disposition"].split("filename=")[1];
-//     const url = window.URL.createObjectURL(new Blob([response.data]));
-//     const link = document.createElement("a");
-//     link.href = url;
-//     link.setAttribute("download", fileName);
-//     document.body.appendChild(link);
-//     link.click();
-//   } catch (error) {
-//     console.error("Error downloading the file:", error);
-//   }
-// };
-
 export const downloadBook = async (bookId) => {
-    fetch(`${API}/download/${bookId}`, {
-        method: 'GET',
-        headers: {
-          'Accept': 'application/pdf'
-        }
-      })
-        .then(response => response.blob())
-        .then(blob => {
-          const url = URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = 'file.pdf';
-          a.click();
-        })
-        .catch(error => console.error(error));
-  };
+  try {
+    const response = await fetch(`${API}/download/${bookId}`, {
+      method: "GET",
+      headers: {
+        Accept: "application/pdf",
+      },
+    });
+
+    const contentDisposition = response.headers.get("Content-Disposition");
+    const fileName =
+      getFileNameFromContentDisposition(contentDisposition) || "file.pdf";
+
+    const blob = await response.blob();
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = fileName;
+    a.click();
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+function getFileNameFromContentDisposition(contentDisposition) {
+  const fileNameMatch =
+    contentDisposition && contentDisposition.match(/filename="(.+)"/);
+  return fileNameMatch && fileNameMatch[1] ? fileNameMatch[1] : null;
+}
