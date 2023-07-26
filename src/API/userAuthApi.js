@@ -167,3 +167,47 @@ export const updateDetails = async (data, id) => {
     return { error: error.message, success: false }; // Return an error object with the error message
   }
 };
+
+// reset password
+export const resetPassword = async(data,token)=>{
+  try {
+    const response = await fetch(`${API}/resetpassword/${token}`, {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    const responseData = await response.json();
+
+    if (!response.ok) {
+      throw new Error(responseData.message || "Something went wrong");
+    }
+
+    return responseData; // Return the JSON response data if everything is fine
+  } catch (error) {
+    console.log("Error:", error.message);
+    return { error: error.message, success: false }; // Return an error object with the error message
+  }
+}
+
+
+// change password
+export const changePassword = async(data,id)=>{
+  return await fetch(`${API}/changepassword/${id}`, {
+    method: "PUT",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .catch((err) => {
+      return console.log(err);
+    });
+}

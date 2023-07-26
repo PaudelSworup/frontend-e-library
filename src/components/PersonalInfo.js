@@ -3,6 +3,8 @@ import LabelComp from "./LabelComp";
 import { useSelector } from "react-redux";
 import { updateDetails } from "../API/userAuthApi";
 import { toast } from "react-toastify";
+import { FaEdit, FaSave } from "react-icons/fa";
+
 
 const PersonalInfo = ({ name, email, phone, address, onChanges }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -18,15 +20,15 @@ const PersonalInfo = ({ name, email, phone, address, onChanges }) => {
     updateDetails({ name, email, phone, address }, userid).then((res) => {
       if (res?.error && res?.success === false) {
         toast.error(res?.error, { position: "top-right" });
-      } else{
-        toast.success(res?.message,{position:"top-center"})
+      } else {
+        toast.success(res?.message, { position: "top-center" });
       }
     });
   };
   return (
     <div className="ml-3">
       <div className="flex justify-between flex-wrap">
-        <h3 className="text-white text-lg font-bold tracking-wider">
+        <h3 className="text-white text-xl font-serif font-bold tracking-widest">
           Personal Information
         </h3>
 
@@ -35,24 +37,36 @@ const PersonalInfo = ({ name, email, phone, address, onChanges }) => {
             onClick={handleSaveClick}
             className="mt-2 px-4 py-2 tracking-wide text-white rounded bg-green-500 hover:bg-green-600 focus:outline-none"
           >
-            Save details
+           <span className="flex items-center gap-3">
+              Save
+              <FaSave />
+            </span>
           </button>
         ) : (
           <button
             onClick={handleEditClick}
             className="mt-2 px-4 py-2 tracking-wide text-white rounded bg-blue-500 hover:bg-blue-700 focus:outline-none"
           >
-            Edit details
+            <span className="flex items-center gap-3">
+              Edit
+              <FaEdit />
+            </span>
           </button>
         )}
       </div>
 
-      <div className="flex gap-5 flex-wrap text-white tracking-widest">
+      <div
+        className={`flex gap-5 flex-wrap ${
+          !isEditing ? "text-white" : "text-black"
+        }  tracking-widest`}
+      >
         <div>
           <LabelComp labelForhtml="Name:" />
           <input
             id="name"
-            className="w-full px-3 py-2 border-none rounded bg-[#555] focus:outline-none focus:border-blue-500"
+            className={`w-full px-3 py-2 border-none rounded ${
+              !isEditing ? "bg-[#555]" : "bg-white"
+            }  focus:outline-none focus:border-blue-500`}
             type="text"
             value={name}
             disabled={!isEditing}
@@ -63,7 +77,9 @@ const PersonalInfo = ({ name, email, phone, address, onChanges }) => {
           <LabelComp labelForhtml="Email:" />
           <input
             id="email"
-            className="w-full px-3 py-2 border-none bg-[#555] rounded focus:outline-none focus:border-blue-500"
+            className={`w-full px-3 py-2 border-none rounded ${
+              !isEditing ? "bg-[#555]" : "bg-white"
+            }  focus:outline-none focus:border-blue-500`}
             type="email"
             value={email}
             disabled={!isEditing}
@@ -74,7 +90,9 @@ const PersonalInfo = ({ name, email, phone, address, onChanges }) => {
           <LabelComp labelForhtml="Phone:" />
           <input
             id="phone"
-            className="w-full px-3 py-2 border-none bg-[#555] rounded focus:outline-none focus:border-blue-500"
+            className={`w-full px-3 py-2 border-none rounded ${
+              !isEditing ? "bg-[#555]" : "bg-white"
+            }  focus:outline-none focus:border-blue-500`}
             type="tel"
             value={phone}
             disabled={!isEditing}
@@ -85,7 +103,9 @@ const PersonalInfo = ({ name, email, phone, address, onChanges }) => {
           <LabelComp labelForhtml="Address:" />
           <input
             id="address"
-            className="w-full px-3 py-2 border-none bg-[#555] rounded focus:outline-none focus:border-blue-500"
+            className={`w-full px-3 py-2 border-none rounded ${
+              !isEditing ? "bg-[#555]" : "bg-white"
+            }  focus:outline-none focus:border-blue-500`}
             type="text"
             value={address}
             disabled={!isEditing}
@@ -93,6 +113,7 @@ const PersonalInfo = ({ name, email, phone, address, onChanges }) => {
           />
         </div>
       </div>
+      
     </div>
   );
 };

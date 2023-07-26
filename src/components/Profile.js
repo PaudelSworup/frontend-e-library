@@ -7,6 +7,7 @@ import NavBars from "./NavBars";
 import HeadingContent from "./HeadingContent";
 import PersonalInfo from "./PersonalInfo";
 import FavouriteGenres from "./FavouriteGenres";
+import ChangePassword from "./ChangePassword";
 
 const Profile = () => {
   const { userid, fullname, email } = useSelector((state) => state.users);
@@ -101,6 +102,8 @@ const Profile = () => {
           />
 
           <FavouriteGenres genre={genre} />
+
+          <ChangePassword/>
         </div>
       </div>
     </>

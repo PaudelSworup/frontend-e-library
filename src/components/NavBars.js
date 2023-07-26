@@ -39,34 +39,6 @@ const NavBars = () => {
     });
   }, [noti]);
 
-  // const { data, isLoading, isError } = useQuery("notifications", async () => {
-  //   if (fullname && userid) {
-  //     const response = await getNotified(userid);
-  //     if (response?.data.success && response?.data.notification.length > 0) {
-  //       const { notification } = response.data;
-  //       console.log(notification)
-  //       return dispatch(setNotify({ data: notification }));
-  //     }
-  //     return [];
-  //   }
-  // });
-
-  // if (isLoading) {
-  //   return <div>Loading...</div>;
-  // }
-
-  // if (isError) {
-  //   return <div>Error: Unable to fetch notifications</div>;
-  // }
-
-  // const falseCount = data?.filter((item) => item.status === false).length;
-  // dispatch(setNotify({ data:data  }));
-  // setCount(falseCount)
-  // if (falseCount === 0) {
-  //   setCount(null);
-  // }
-  // console.log(data)
-
   useEffect(() => {
     const fetchNotifications = async () => {
       try {
@@ -74,8 +46,7 @@ const NavBars = () => {
         if (response?.data.success && response?.data.notification.length > 0) {
           const { notification } = response?.data;
           console.log(notification);
-          dispatch(setNotify({ data: notification }))
-  
+          dispatch(setNotify({ data: notification }));
         }
 
         if (response?.data?.notification.length === 0) {
@@ -107,18 +78,18 @@ const NavBars = () => {
   };
 
   const handleNotication = () => {
-    console.log("hello")
+    console.log("hello");
     const newData = [];
     setNotification(!notification);
     setColour("bg-none");
     setCount(null);
     noti.map((data) => {
-      console.log("HELLO", data)
+      console.log("HELLO", data);
       return data?.data?.map((data) => {
         return newData.push({
           id: data?.book?._id,
           message: data?.messageNotification,
-          user_id: data?.user?._id ?data?.user?._id : null ,
+          user_id: data?.user?._id ? data?.user?._id : null,
           status: data?.notificationStatus,
           date: data?.date,
         });
