@@ -221,3 +221,20 @@ function getFileNameFromContentDisposition(contentDisposition) {
     contentDisposition && contentDisposition.match(/filename="(.+)"/);
   return fileNameMatch && fileNameMatch[1] ? fileNameMatch[1] : null;
 }
+
+// add books for admin
+export const addBooks = async (data) => { 
+  return await fetch(`${API}/books`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+    },
+    body: data,
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .catch((err) => {
+      return console.log(err);
+    });
+};

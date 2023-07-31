@@ -10,10 +10,10 @@ export const uploadProfile = (userid, onChangeCallback) => {
     console.log(image);
 
     upload(formData).then((data) => {
-      if (data.error) {
-        return toast(data.error, { position: "top-center", autoClose: 3000 });
+      if (data?.error) {
+        return toast.error(data.error, { position: "top-center", autoClose: 3000 });
       } else {
-        return toast(data.message, {
+        return toast.success(data.message, {
           position: "top-center",
           autoClose: 3000,
         });

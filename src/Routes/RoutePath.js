@@ -16,6 +16,7 @@ import Notification from "../components/Notification";
 import Confirmation from "../components/Confirmation";
 import Forgot from "../components/Forgot";
 import ResendVerification from "../components/ResendVerification";
+import AddBook from "../components/Admin/AddBook";
 
 const RoutePath = () => {
   return (
@@ -26,6 +27,7 @@ const RoutePath = () => {
       <Route path="/confirmation/:token" element={<Confirmation />} />
       <Route path="/forgot" element={<Forgot />} />
       <Route path="/resendverification" element={<ResendVerification />} />
+      <Route path="/admin" element={<AddBook/>} />
 
       <Route path="/" element={<PrivateRoute />}>
         <Route path="/home" element={<Home />} />
