@@ -62,7 +62,7 @@ const AddBook = () => {
     });
   };
   return (
-    <div className="min-h-screen bg-gray-400 flex justify-center items-center">
+    <div className="min-h-screen px-2 py-2 sm:px-5 bg-gray-400 flex justify-center items-center">
       <form className="w-full max-w-4xl bg-gray-200 shadow-md rounded-lg px-8 pt-6 pb-8">
         <h2 className="text-2xl font-semibold mb-6">Add Book Description</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -72,7 +72,7 @@ const AddBook = () => {
                 {!image && (
                   <FaFileImage
                     title="upload book image"
-                    className="text-9xl cursor-pointer mt-16"
+                    className="text-9xl text-gray-600 cursor-pointer mt-16"
                     onClick={() => document.getElementById("fileInput").click()}
                   />
                 )}
@@ -81,24 +81,25 @@ const AddBook = () => {
                 <img
                   src={URL.createObjectURL(image)}
                   alt="Book Cover"
-                  className="object-cover h-full w-full"
+                  className="object-cover h-auto w-full"
                 />
               )}
-              <input
+             
+            </div>
+            <input
                 type="file"
                 id="fileInput"
                 accept="image/*"
-                style={{ display: "none" }}
+                // style={{ display: "none" }}
                 onChange={(e) => setImage(e.target.files[0])}
               />
-            </div>
 
             <div className="h-64 w-full border  border-gray-300 rounded-lg overflow-hidden">
               <div className="flex p-3 items-center justify-center">
                 {!pdf && (
                   <FaFilePdf
                     title="upload book file/pdf"
-                    className="text-9xl cursor-pointer mt-16"
+                    className="text-9xl text-gray-600 cursor-pointer mt-16"
                     onClick={() => document.getElementById("pdf").click()}
                   />
                 )}
@@ -111,14 +112,18 @@ const AddBook = () => {
                   />
                 </div>
               )}
-              <input
+              
+            </div>
+            
+            <input  
                 type="file"
                 id="pdf"
-                style={{ display: "none" }}
+                // style={{ display: "none" }}
                 accept="application/pdf"
                 onChange={(e) => setPdf(e.target.files[0])}
               />
-            </div>
+           
+           
           </div>
           <div>
             <div>

@@ -6,6 +6,7 @@ import { confirmAccount } from "../API/userAuthApi";
 
 const Confirmation = () => {
   const { token } = useParams();
+  let [isOpen, setIsOpen] = useState(true)
 
   useEffect(() => {
     confirmAccount(token)
@@ -20,6 +21,10 @@ const Confirmation = () => {
   return (
     <>
       <NavBars />
+    
+      
+    
+      
       <ToastContainer position="top-center" autoClose={3000} theme="light" />
     </>
   );

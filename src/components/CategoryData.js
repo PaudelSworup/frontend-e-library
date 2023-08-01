@@ -11,30 +11,17 @@ const CategoryData = () => {
   const { id } = useParams();
   const [genre, setGenre] = useState([]);
 
-
   // get the books by category
   useEffect(() => {
     getBookbyCategory(id).then((res) => {
       if (res?.data.books.length < 1) {
-        return toast("Currently there are no books📖", {
+        return toast.error("No books has been added related to this genre", {
           position: "top-center",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
         });
       }
-
       setGenre(res?.data?.books);
     });
   }, [id]);
-
-  
- 
-
 
   return (
     <>

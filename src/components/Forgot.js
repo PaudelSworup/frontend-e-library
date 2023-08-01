@@ -28,8 +28,15 @@ const Forgot = () => {
           className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
           onSubmit={handleSubmit}
         >
+          <div className=" flex flex-col gap-4">
+            <h2 className="text-xl text-black tracking-wider">Enter Your Email</h2>
+            <p className="text-sm text-[#333] tracking-wider ">
+              Enter your email so that we can send to you a link to reset the
+              password{" "}
+            </p>
+          </div>
           <div className="mb-4">
-           <LabelComp labelForhtml="email"/>
+            <LabelComp labelForhtml="email" />
             <input
               className="shadow appearance-none border rounded w-full py-[14px] px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="email"

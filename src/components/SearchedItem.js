@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { searchBook } from "../API/bookAPI";
 import ThumbNail from "./ThumbNail";
 import NavBars from "./NavBars";
+import { toast } from "react-toastify";
 
 const SearchedItem = () => {
   const { search } = useLocation();
@@ -13,6 +14,9 @@ const SearchedItem = () => {
   useEffect(() => {
     const getSearchItem = () => {
       searchBook(name).then((res) => {
+        if(res?.data?.uniqueResults.length < 1){
+          return toast.error("Book not found",{position:"top-right"})
+        }
         setSearchItem(res?.data?.uniqueResults);
       });
     };

@@ -223,7 +223,7 @@ function getFileNameFromContentDisposition(contentDisposition) {
 }
 
 // add books for admin
-export const addBooks = async (data) => { 
+export const addBooks = async (data) => {
   return await fetch(`${API}/books`, {
     method: "POST",
     headers: {
@@ -238,3 +238,18 @@ export const addBooks = async (data) => {
       return console.log(err);
     });
 };
+
+// add books category for admin
+export const addCategory = async(data)=>{
+  
+  return await fetch(`${API}/category`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  })
+    .then((res) => {return res.json()})
+    .catch((err) => console.log(err));
+}
