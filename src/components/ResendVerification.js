@@ -1,55 +1,92 @@
 import React, { useState } from "react";
-import NavBars from "./NavBars";
 import LabelComp from "./LabelComp";
 import { ToastContainer, toast } from "react-toastify";
 import { resend } from "../API/userAuthApi";
+import { FaEnvelope } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const ResendVerification = () => {
-    const[email, setEmail] = useState("")
-    const handleSubmit = (e)=>{
-        e.preventDefault()
-        resend({email}).then((res)=>{
-          if(res?.error){
-            return toast.error(res.error,{position:"top-center"})
-          }else{
-            toast.success(res.message,{position:"top-center"})
-          }
-          console.log(res)
-        }).catch((err)=>console.log(err))
-
-    }
+  const [email, setEmail] = useState("");
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    resend({ email })
+      .then((res) => {
+        if (res?.error) {
+          return toast.error(res.error, { position: "top-center" });
+        } else {
+          toast.success(res.message, { position: "top-center" });
+        }
+        console.log(res);
+      })
+      .catch((err) => console.log(err));
+  };
   return (
     <>
-      <NavBars />
-      <div className="flex items-center justify-center m-8">
-        <form
-          className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
-          onSubmit={handleSubmit}
-        >
-          <div className="mb-4">
-            <LabelComp labelForhtml="email" />
-            <input
-              className="shadow appearance-none border rounded w-full py-[14px] px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="email"
-              size={35}
-              type="email"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
+      <div
+        className="relative z-10"
+        aria-labelledby="modal-title"
+        role="dialog"
+        aria-modal="true"
+      >
+        <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
 
-          <div className="flex items-center justify-between">
-            <button
-              className="w-full h-12 px-6 text-indigo-100 transition-colors duration-150 bg-blue-500 rounded-lg focus:shadow-outline hover:bg-blue-700"
-              type="submit"
-            >
-              Send
-            </button>{" "}
-            <ToastContainer position="top-center" />
+        <div className="fixed inset-0 z-10 overflow-y-auto">
+          <div className="flex min-h-full justify-center items-center p-4 text-center sm:items-center sm:p-0">
+            <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+              <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                <div className="sm:flex sm:items-start">
+                  <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10">
+                    <FaEnvelope className="text-2xl text-green-700" />
+                  </div>
+                  <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                    <h3
+                      className="text-base font-semibold leading-6 text-gray-900"
+                      id="modal-title"
+                    >
+                      Email not verified?
+                    </h3>
+                    <div className="mt-2">
+                      <p className="text-sm text-gray-500 tracking-wide">
+                        Enter your email to get the verification Link
+                      </p>
+                      <div className="mb-4">
+                        <LabelComp labelForhtml="email" />
+                        <input
+                          className="shadow appearance-none border rounded w-full py-[14px] px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                          id="email"
+                          size={35}
+                          type="email"
+                          placeholder="Enter your email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                <button
+                  onClick={handleSubmit}
+                  type="button"
+                  className="inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto"
+                >
+                  Resend
+                </button>
+                <Link to="/login">
+                  <button
+                    type="button"
+                    className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                  >
+                    Cancel
+                  </button>
+                </Link>
+              </div>
+            </div>
           </div>
-        </form>
+        </div>
       </div>
+      <ToastContainer position="top-center" />
     </>
   );
 };

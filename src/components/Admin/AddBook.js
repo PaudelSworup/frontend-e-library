@@ -35,6 +35,16 @@ const AddBook = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if(pdf === null || image === null){
+      return toast.error("Uplaod all the files correctly",{position:"top-right"})
+    }
+    if (pdf !=null && pdf.size > 5 * 1024 * 1024 || image!=null && image.size > 5 * 1024 * 1024) {
+      return toast.error(
+        "File size limit exceeded.\n Please ensure that your file is no larger than 5 MB.",
+        { position: "top-right" }
+      );
+    }
     let formData = new FormData();
     formData.append("title", title);
     formData.append("isbn", isbn);
@@ -45,6 +55,7 @@ const AddBook = () => {
     formData.append("desc", description);
     formData.append("publisher", publisher);
     formData.append("yearofpublication", publicationDate);
+
     addBooks(formData).then((res) => {
       if (res?.error && res.success === false) {
         return toast.error(res?.error, { position: "top-right" });
@@ -54,7 +65,7 @@ const AddBook = () => {
         setImage(null);
         setPdf(null);
         setDescription("");
-        setCategory("")
+        setCategory("");
         setPublisher("");
         setPublicationDate(null);
         return toast.success(res?.message, { position: "top-center" });
@@ -84,15 +95,19 @@ const AddBook = () => {
                   className="object-cover h-auto w-full"
                 />
               )}
-             
             </div>
-            <input
+            <div className="flex">
+              <input
                 type="file"
                 id="fileInput"
                 accept="image/*"
                 // style={{ display: "none" }}
                 onChange={(e) => setImage(e.target.files[0])}
               />
+              <p>{`${
+                image != null ? (image.size / 1000000).toFixed(2) : "0"
+              }MB`}</p>
+            </div>
 
             <div className="h-64 w-full border  border-gray-300 rounded-lg overflow-hidden">
               <div className="flex p-3 items-center justify-center">
@@ -112,18 +127,20 @@ const AddBook = () => {
                   />
                 </div>
               )}
-              
             </div>
-            
-            <input  
+            <div className="flex">
+              <input
                 type="file"
                 id="pdf"
                 // style={{ display: "none" }}
                 accept="application/pdf"
                 onChange={(e) => setPdf(e.target.files[0])}
               />
-           
-           
+
+              <p>{`${
+                pdf != null ? (pdf.size / 1000000).toFixed(2) : "0"
+              }MB`}</p>
+            </div>
           </div>
           <div>
             <div>

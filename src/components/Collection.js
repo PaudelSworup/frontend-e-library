@@ -48,15 +48,8 @@ const Collection = () => {
       if (books.length > limit) {
         setLimit(limit + 2);
       } else {
-        return toast("All books are loaded 📖", {
+        return toast.success("All books are loaded 📖", {
           position: "top-center",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
         });
       }
     }, 1000);

@@ -23,6 +23,7 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import Knn from "./Knn";
 import OtherInfo from "./OtherInfo";
+import Issue from "./Modals/Issue";
 
 const Detail = ({ result }) => {
   const { id } = useParams();
@@ -30,6 +31,7 @@ const Detail = ({ result }) => {
   const [similar, setSimilar] = useState([]);
   const [rating, setRating] = useState(0);
   const [knn, setKnn] = useState([]);
+  const[message,setMessage] = useState(null)
   const { userid } = useSelector((state) => state.users);
   useEffect(() => {
     Promise.all([getUserRecommendation(userid), listBooks(id)])
@@ -94,9 +96,10 @@ const Detail = ({ result }) => {
           autoClose: 3000,
         });
       } else {
-        return toast.success(data.message, {
-          position: "top-center",
-        });
+        return setMessage(data?.message)
+        // return toast.success(data.message, {
+        //   position: "top-center",
+        // });
       }
     });
   };
@@ -250,6 +253,7 @@ const Detail = ({ result }) => {
           h2="See similar books"
           category={result?.category?.category_name}
         />
+        {message!=null && <Issue message={message} id={id}  />}
       </div>
     </>
   );

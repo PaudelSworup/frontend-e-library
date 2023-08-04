@@ -16,7 +16,7 @@ const Generes = () => {
       <div className="flex flex-col p-4">
         <h2 className="text-white font-bold text-2xl">Generes</h2>
         <div className="flex xl:justify-center gap-7 py-3 overflow-x-scroll scrollbar-hide">
-          {genre.map((data, i) => {
+          {genre && genre.map((data, i) => {
             return (
               <div
                 key={data?._id}

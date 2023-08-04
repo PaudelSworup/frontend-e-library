@@ -43,7 +43,12 @@ const Login = () => {
             mobilenum: data.user.mobilenum,
           })
         );
-        navigate("/home");
+        if(data.user.role === 0){
+          navigate("/home");
+        }else{
+          navigate("/main")
+        }
+        
       }
     });
   };

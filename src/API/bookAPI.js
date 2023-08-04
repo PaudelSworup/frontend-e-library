@@ -199,7 +199,7 @@ export const downloadBook = async (bookId) => {
         Accept: "application/pdf",
       },
     });
-
+  
     const contentDisposition = response.headers.get("Content-Disposition");
     const fileName =
       getFileNameFromContentDisposition(contentDisposition) || "file.pdf";

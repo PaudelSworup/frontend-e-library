@@ -53,9 +53,9 @@ const DetailSection = ({ result }) => {
       <div className="p-2 my-10 hover:z-50 ">
         <div className="py-3 px-2">
           <p className="text-white tracking-wider">
-            <Link to="/home">Home</Link> /{" "}
-            <Link>{result?.category?.category_name}</Link> /{" "}
-            <span>{result?.title}</span>{" "}
+            <Link to="/home">Home</Link> /
+            <Link to={`/book/genre/${result?.category?.category_name}/${result?.category?._id}`}>{result?.category?.category_name}</Link>/
+            <span>{result?.title}</span>
           </p>
         </div>
 

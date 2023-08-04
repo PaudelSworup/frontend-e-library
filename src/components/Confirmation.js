@@ -3,28 +3,32 @@ import NavBars from "./NavBars";
 import { ToastContainer, toast } from "react-toastify";
 import { useParams } from "react-router-dom";
 import { confirmAccount } from "../API/userAuthApi";
+import Modal from "./Modals/Modal";
+
+// import { Modal } from "../reusuableFunctions/Modal";
 
 const Confirmation = () => {
   const { token } = useParams();
-  let [isOpen, setIsOpen] = useState(true)
+  let [message, setMessage] = useState("");
 
   useEffect(() => {
     confirmAccount(token)
       .then((res) => {
-        if (res?.error) {
-          return toast.error(res?.error,{position:"top-center"})
-        } else return toast.success(res?.message,{position:"top-center"})
+        if (res?.error && res.success === false) {
+          return setMessage(res?.error);
+        }
+
+        if (res?.message && res.success === true) {
+          return setMessage(res?.message);
+        }
       })
       .catch((err) => console.log(err));
-  });
+  }, []);
 
   return (
     <>
-      <NavBars />
-    
-      
-    
-      
+      {message != null && <Modal message={message} />}
+
       <ToastContainer position="top-center" autoClose={3000} theme="light" />
     </>
   );

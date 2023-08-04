@@ -16,7 +16,7 @@ const CategoryData = () => {
     getBookbyCategory(id).then((res) => {
       if (res?.data.books.length < 1) {
         return toast.error("No books has been added related to this genre", {
-          position: "top-center",
+          position: "top-right",
         });
       }
       setGenre(res?.data?.books);

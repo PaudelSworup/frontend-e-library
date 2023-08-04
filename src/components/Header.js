@@ -8,16 +8,45 @@ import Row from "./Row";
 const Header = () => {
   const [open, setOpen] = useState(false);
   const [submenuOpen, setsubmenuOpen] = useState(false);
+  const [showNav, setShowNav] = useState(false); // State to show/hide navigation on smaller screens
+
+  // Function to toggle navigation on smaller screens
+  const toggleNav = () => {
+    setShowNav(!showNav);
+  };
+
+  useEffect(() => {
+    // Close navigation when the window is resized to larger screens
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setShowNav(false);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
   
   
   return (
     <>
-    <div className={`flex ${open ? "gap-8" : "gap-2"}`}>
-      <div
-        className={`h-full bg-dark-purple  p-5 text-white pt-8 relative ${
-          open ? "w-72" : "w-20"
-        } duration-200 `}
-      >
+     <div className={`flex flex-col md:flex-row ${open ? "gap-8" : "gap-2"}`}>
+        {/* Toggle button for smaller screens */}
+        <button
+          className="md:hidden absolute top-2 z-10 right-2 text-white"
+          onClick={toggleNav}
+        >
+          {showNav ? "Close" : "Open"}
+        </button>
+
+        <div
+          className={`${
+            showNav ? "block" : "hidden"
+          } md:block md:h-full bg-dark-purple p-5 text-white pt-8 relative ${
+            open ? "w-72" : "w-20"
+          } md:w-1/4 duration-200`}
+        >
         <BsArrowLeftShort
           className={`bg-white text-dark-purple text-3xl rounded-full absolute -right-3 top-9 cursor-pointer ${
             !open && "rotate-180"
@@ -114,11 +143,11 @@ const Header = () => {
         </ul>
       </div>
 
-      <div className="w-full">
-        {/* <h1 className="text-2xl font-semibold">Home Page</h1> */}
-        <Banner/>
-        <Row/>
-      </div>
+      <div className="w-full md:w-3/4">
+          {/* <h1 className="text-2xl font-semibold">Home Page</h1> */}
+          <Banner />
+          <Row />
+        </div>
 
     </div>
     

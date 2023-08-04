@@ -37,21 +37,21 @@ const Books = () => {
     <>
       <div className="mt-4">
         <Row title="Our Collections" />
-        <div className="px-5  sm:grid md:grid-cols-2 xl:grid-cols-4 3xl:flex flex-wrap justify-center bg-[#131313]">
+        <div className="px-5  sm:grid md:grid-cols-2 xl:grid-cols-4 3xl:flex flex-wrap justify-center bg-[#222]">
           {data.map((result) => (
             <ThumbNail key={result.isbn} result={result} />
           ))}
         </div>
 
         <Row title="Recently Added/New Arrival" />
-        <div className="px-5  sm:grid md:grid-cols-2 xl:grid-cols-4 3xl:flex flex-wrap justify-center bg-[#131313]">
+        <div className="px-5  sm:grid md:grid-cols-2 xl:grid-cols-4 3xl:flex flex-wrap justify-center bg-[#222]">
           {recent.map((result) => (
             <ThumbNail key={result.isbn} result={result} />
           ))}
         </div>
 
         <Row title="Most Requested" />
-        <div className="px-5  sm:grid md:grid-cols-2 xl:grid-cols-4 3xl:flex flex-wrap justify-center bg-[#131313]">
+        <div className="px-5  sm:grid md:grid-cols-2 xl:grid-cols-4 3xl:flex flex-wrap justify-center bg-[#222]">
           {mostrequested?.map((result) => (
             <ThumbNail key={result.isbn} result={result} />
           ))}
