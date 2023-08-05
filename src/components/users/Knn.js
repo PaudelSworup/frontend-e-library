@@ -1,7 +1,7 @@
 import React from "react";
 import LazyImage from "./LazyImage";
 import { Link } from "react-router-dom";
-import { image } from "../config";
+import { image } from "../../config";
 
 const Knn = ({ newRecommendation, h2, category }) => {
   return (

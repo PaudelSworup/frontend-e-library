@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getGenre } from "../API/bookAPI";
+import { getGenre } from "../../API/bookAPI";
 import { useNavigate } from "react-router-dom";
 
 const Generes = () => {

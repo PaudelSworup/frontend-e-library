@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import NavBars from "./NavBars";
 import { useParams } from "react-router-dom";
-import { getBookDetails } from "../API/bookAPI";
+// import { getBookDetails } from "../API/bookAPI";
 import DetailSection from "./DetailSection";
+import { getBookDetails } from "../../API/bookAPI";
 
 const BookDetail = () => {
   const { id } = useParams();

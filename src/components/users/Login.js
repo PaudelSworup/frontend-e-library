@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { login } from "../API/userAuthApi";
+import { login } from "../../API/userAuthApi";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch } from "react-redux";
-import { setLogin } from "../store/userSlice";
+import { setLogin } from "../../store/userSlice";
 import { RiEyeFill, RiEyeOffFill } from "react-icons/ri";
 import { Link, useNavigate } from "react-router-dom";
 import NavBars from "./NavBars";

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import NavBars from "./NavBars";
 import ThumbNail from "./ThumbNail";
-import { getAllBooks } from "../API/bookAPI";
+import { getAllBooks } from "../../API/bookAPI";
 import { FaDownload, FaSpinner } from "react-icons/fa";
 import { toast } from "react-toastify";
 
@@ -68,7 +68,7 @@ const Collection = () => {
           <p>Our all book collection, updates everyday</p>
         </div>
 
-        <div className="sm:grid md:grid-cols-2 xl:grid-cols-3 3xl:flex flex-wrap ">
+        <div className="sm:grid md:grid-cols-2 xl:flex overflow-x-scroll scrollbar-hide flex-wrap ">
           {data?.map((result) => (
             <ThumbNail key={result.isbn} result={result} />
           ))}

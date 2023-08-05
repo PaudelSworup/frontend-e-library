@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FaArrowDown, FaDownload } from "react-icons/fa";
-import { image } from "../config";
-import { downloadBook } from "../API/bookAPI";
+import { image } from "../../config";
+import { downloadBook } from "../../API/bookAPI";
 
 const RequestHistoryItems = ({ result }) => {
   const [open, setOpen] = useState(false);

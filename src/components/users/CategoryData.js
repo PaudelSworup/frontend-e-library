@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import NavBars from "./NavBars";
 import { useParams } from "react-router-dom";
-import { getBookbyCategory } from "../API/bookAPI";
+// import { getBookbyCategory } from "../API/bookAPI";
 import Generes from "./Generes";
 import ThumbNail from "./ThumbNail";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { getBookbyCategory } from "../../API/bookAPI";
 
 const CategoryData = () => {
   const { id } = useParams();
@@ -28,7 +29,7 @@ const CategoryData = () => {
       <div>
         <NavBars />
         <Generes />
-        <div className="px-5  sm:grid md:grid-cols-2 xl:grid-cols-4 3xl:flex flex-wrap justify-center bg-[#2E2E2E]">
+        <div className="px-5  sm:grid md:grid-cols-2 xl:grid-cols-4 3xl:flex flex-wrap justify-center bg-[#111]">
           {genre.map((result) => (
             <ThumbNail key={result?.isbn} result={result} />
           ))}

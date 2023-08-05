@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import LabelComp from "./LabelComp";
 import { useSelector } from "react-redux";
-import { updateDetails } from "../API/userAuthApi";
+import { updateDetails } from "../../API/userAuthApi";
 import { toast } from "react-toastify";
 import { FaEdit, FaSave } from "react-icons/fa";
 

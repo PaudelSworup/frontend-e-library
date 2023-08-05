@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import LabelComp from "./LabelComp";
 import { FaSave } from "react-icons/fa";
-import { changePassword } from "../API/userAuthApi";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { changePassword } from "../../API/userAuthApi";
 
 const ChangePassword = () => {
   const [password, setPassword] = useState("");

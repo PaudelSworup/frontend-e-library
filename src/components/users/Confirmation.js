@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import NavBars from "./NavBars";
 import { ToastContainer, toast } from "react-toastify";
 import { useParams } from "react-router-dom";
-import { confirmAccount } from "../API/userAuthApi";
-import Modal from "./Modals/Modal";
+import { confirmAccount } from "../../API/userAuthApi";
+import Modal from "../Modals/Modal";
 
 // import { Modal } from "../reusuableFunctions/Modal";
 
@@ -15,7 +14,7 @@ const Confirmation = () => {
     confirmAccount(token)
       .then((res) => {
         if (res?.error && res.success === false) {
-          return setMessage(res?.error);
+          return toast.error(res?.error,{position:"top-right"})
         }
 
         if (res?.message && res.success === true) {

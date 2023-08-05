@@ -15,7 +15,7 @@ import {
   issueRequest,
   listBooks,
   recordRating,
-} from "../API/bookAPI";
+} from "../../API/bookAPI";
 import { useParams } from "react-router-dom";
 import RecommendationSection from "./RecommendationSection";
 import { RiDownloadCloud2Line } from "react-icons/ri";
@@ -23,7 +23,7 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import Knn from "./Knn";
 import OtherInfo from "./OtherInfo";
-import Issue from "./Modals/Issue";
+import Issue from "../Modals/Issue";
 
 const Detail = ({ result }) => {
   const { id } = useParams();

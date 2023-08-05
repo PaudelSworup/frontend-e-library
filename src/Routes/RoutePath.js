@@ -1,30 +1,29 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import SearchedItem from "../components/SearchedItem";
-import Home from "../components/Home";
-import Profile from "../components/Profile";
-import BookDetail from "../components/BookDetail";
-import CategoryData from "../components/CategoryData";
-import Collection from "../components/Collection";
-import SavedItems from "../components/SavedItems";
-import Login from "../components/Login";
-import Register from "../components/Register";
+import SearchedItem from "../components/users/SearchedItem";
+import Home from "../components/users/Home";
+import Profile from "../components/users/Profile";
+import BookDetail from "../components/users/BookDetail";
+import CategoryData from "../components/users/CategoryData";
+import Collection from "../components/users/Collection";
+import SavedItems from "../components/users/SavedItems";
+import Login from "../components/users/Login";
+import Register from "../components/users/Register";
 import PrivateRoute from "../auth/PrivateRoute";
-import LandingPage from "../components/LandingPage";
-import RequestStatus from "../components/RequestStatus";
-import Notification from "../components/Notification";
-import Confirmation from "../components/Confirmation";
-import Forgot from "../components/Forgot";
-import ResendVerification from "../components/ResendVerification";
+import LandingPage from "../components/users/LandingPage";
+import RequestStatus from "../components/users/RequestStatus";
+import Notification from "../components/users/Notification";
+import Confirmation from "../components/users/Confirmation";
+import Forgot from "../components/users/Forgot";
+import ResendVerification from "../components/users/ResendVerification";
 import AddBook from "../components/Admin/AddBook";
 import AddCategory from "../components/Admin/AddCategory";
 import AdminRoute from "../auth/AdminRoute";
-import Header from "../components/Header";
 import SideBar from "../components/Admin/SideBar";
-import Demos from "../components/Demos";
-import Modal from "../components/Modals/Modal";
-import Cards from "../components/Cards";
-import Navs from "../components/Navs";
+// import Demo from "../components/Demo";
+// import Modal from "../components/Modals/Modal";
+// import Cards from "../components/Cards";
+// import Navs from "../components/Navs";
 
 
 const RoutePath = () => {
@@ -37,10 +36,10 @@ const RoutePath = () => {
       <Route path="/forgot" element={<Forgot />} />
       <Route path="/resendverification" element={<ResendVerification />} />
       <Route path="/sidebar" element={<SideBar/>}/>
-      <Route path="/modal" element={<Modal/>} />
-      <Route path="/demo" element={<Demos/>} /> 
-      <Route path="/card" element={<Cards/>} />
-      <Route path="/nav" element={<Navs/>} />
+      {/* <Route path="/modal" element={<Modal/>} /> */}
+      {/* <Route path="/demo" element={<Demo/>} />  */}
+      {/* <Route path="/card" element={<Cards/>} />
+      <Route path="/nav" element={<Navs/>} /> */}
 
       <Route path="/" element={<PrivateRoute />}>
         <Route path="/home" element={<Home />} />

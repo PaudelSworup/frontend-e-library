@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setLogout } from "../store/userSlice";
+import { setLogout } from "../../store/userSlice";
 import { FaCog, FaEnvelope, FaHeart, FaSignOutAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 

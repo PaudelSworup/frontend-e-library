@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import Detail from "./Detail";
 import { toast } from "react-toastify";
 import jwtDecode from "jwt-decode";
-import { image } from "../config";
+import { image } from "../../config";
 
 const DetailSection = ({ result }) => {
   const navigate = useNavigate();
@@ -69,7 +69,7 @@ const DetailSection = ({ result }) => {
           {icons.map((data) => (
             <div
               key={data.id}
-              className="bg-[#444] cursor-pointer p-2 rounded-full"
+              className="bg-[#222] shadow-2xl cursor-pointer p-2 rounded-full"
             >
               {data.id === 4 ? (
                 <span

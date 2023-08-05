@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { searchBook } from "../API/bookAPI";
+import { searchBook } from "../../API/bookAPI";
 import ThumbNail from "./ThumbNail";
 import NavBars from "./NavBars";
 import { toast } from "react-toastify";
@@ -26,7 +26,7 @@ const SearchedItem = () => {
   return (
     <>
       <NavBars />
-      <div className="px-5  sm:grid md:grid-cols-2 xl:grid-cols-4 3xl:flex flex-wrap justify-center bg-[#2E2E2E]">
+      <div className="px-5  sm:grid md:grid-cols-2 xl:grid-cols-4 3xl:flex flex-wrap justify-center bg-[#111]">
         {searchItem.map((result) => (
           <ThumbNail key={result?.isbn} result={result} />
         ))}

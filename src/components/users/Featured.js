@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { recommendedBooks } from "../API/bookAPI";
+import { recommendedBooks } from "../../API/bookAPI";
 import { useSelector } from "react-redux";
 import ThumbNail from "./ThumbNail";
 

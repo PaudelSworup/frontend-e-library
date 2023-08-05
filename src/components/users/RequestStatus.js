@@ -1,27 +1,28 @@
 import React, { useEffect, useState } from "react";
 import NavBars from "./NavBars";
+import { getHistory, getProfile } from "../../API/userAuthApi";
 import { useSelector } from "react-redux";
-import { getProfile } from "../API/userAuthApi";
-import Saved from "./Saved";
+import { uploadProfile } from "../../reusuableFunctions/uploaPic";
 import Saved2 from "./Saved2";
-import { uploadProfile } from "../reusuableFunctions/uploaPic";
+import RequestHistory from "./RequestHistory";
 
-
-const SavedItems = () => {
+const RequestStatus = () => {
+  const [profile, setProfile] = useState([]);
   const { userid, fullname, email } = useSelector((state) => state.users);
-  const [Isbn, setIsbn] = useState();
-  
-  const [profile, setProfile] = useState();
+  const [filter, setFilter] = useState([]);
 
   useEffect(() => {
-    const matchingValues = [];
-    for (let key in localStorage) {
-      if (localStorage.hasOwnProperty(key) && key.startsWith(userid)) {
-        matchingValues.push(JSON.parse(localStorage.getItem(key)));
-      }
-    }
-    setIsbn(matchingValues);
+    getHistory().then((res) => {
+      console.log(res?.data?.filterData)
+      const filterData = res?.data?.filterData.filter((data) => {
+        return data?.user_id?._id === userid;
+      });
+      setFilter(filterData)
+
+    });
   }, [userid]);
+  
+  
 
   useEffect(() => {
     getProfile().then((user) => {
@@ -32,11 +33,11 @@ const SavedItems = () => {
         return setProfile(undefined)
        })
     });
-  }, []);
+  }, [userid]);
 
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
-  
+
     // Perform any validations or actions based on the selected file
     if (selectedFile) {
       console.log("Selected file:", selectedFile);
@@ -56,14 +57,15 @@ const SavedItems = () => {
       <div className="lg:mx-40 flex gap-9 main_container ">
         <Saved2
           uploadProfile={handleUploadProfile}
+          // handleClick={handleClick}
           profileData={profile}
           fullname={fullname}
           email={email}
         />
-        <Saved data={Isbn} />
+        <RequestHistory data={filter} />
       </div>
     </>
   );
 };
 
-export default SavedItems;
+export default RequestStatus;

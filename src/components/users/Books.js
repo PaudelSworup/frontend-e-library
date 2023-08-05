@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { getAllBooks, getMostRequested } from "../API/bookAPI";
 import ThumbNail from "./ThumbNail";
 import Row from "./Row";
+import { getAllBooks, getMostRequested } from "../../API/bookAPI";
 
 const Books = () => {
   const [books, setBooks] = useState([]);
@@ -37,21 +37,21 @@ const Books = () => {
     <>
       <div className="mt-4">
         <Row title="Our Collections" />
-        <div className="px-5  sm:grid md:grid-cols-2 xl:grid-cols-4 3xl:flex flex-wrap justify-center bg-[#222]">
+        <div className="px-5 sm:grid md:grid-cols-2 xl:grid-cols-4 xl:flex overflow-x-scroll scrollbar-hide bg-[#111]">
           {data.map((result) => (
             <ThumbNail key={result.isbn} result={result} />
           ))}
         </div>
 
         <Row title="Recently Added/New Arrival" />
-        <div className="px-5  sm:grid md:grid-cols-2 xl:grid-cols-4 3xl:flex flex-wrap justify-center bg-[#222]">
+        <div className="px-5  sm:grid md:grid-cols-2 xl:flex overflow-x-scroll scrollbar-hide bg-[#111]">
           {recent.map((result) => (
             <ThumbNail key={result.isbn} result={result} />
           ))}
         </div>
 
         <Row title="Most Requested" />
-        <div className="px-5  sm:grid md:grid-cols-2 xl:grid-cols-4 3xl:flex flex-wrap justify-center bg-[#222]">
+        <div className="px-5  sm:grid md:grid-cols-2 xl:flex overflow-x-scroll scrollbar-hide bg-[#111]">
           {mostrequested?.map((result) => (
             <ThumbNail key={result.isbn} result={result} />
           ))}

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import ProfileSection from "./ProfileSection";
-import { uploadProfile } from "../reusuableFunctions/uploaPic";
+import { uploadProfile } from "../../reusuableFunctions/uploaPic";
 import { useSelector } from "react-redux";
-import { getProfile, getUser } from "../API/userAuthApi";
+import { getProfile, getUser } from "../../API/userAuthApi";
 import NavBars from "./NavBars";
 import HeadingContent from "./HeadingContent";
 import PersonalInfo from "./PersonalInfo";

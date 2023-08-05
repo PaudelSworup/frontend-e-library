@@ -1,6 +1,6 @@
 import React from "react";
 import { FaUser } from "react-icons/fa";
-import { image } from "../config";
+import { image } from "../../config";
 
 const ProfileSection = ({ uploadProfile, profileData, fullname, email }) => {
   return (

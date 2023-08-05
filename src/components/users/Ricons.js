@@ -1,5 +1,5 @@
-import { FaFacebook, FaLink, FaTwitter } from "react-icons/fa";
-import { AiOutlineHeart } from "react-icons/ai";
+import { FaBookmark, FaFacebook, FaLink, FaTwitter } from "react-icons/fa";
+// import { AiOutlineHeart } from "react-icons/ai";
 import { toast } from "react-toastify";
 
 const copyUrl = ()=>{
@@ -17,7 +17,7 @@ const copyUrl = ()=>{
 export const icons = [
   {
     id: 4,
-    icon: <AiOutlineHeart title="favourite" className=" text-2xl" />,
+    icon: <FaBookmark title="favourite" className=" text-2xl" />,
   },
   {
     id: 1,

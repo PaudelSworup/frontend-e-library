@@ -1,7 +1,7 @@
 import React from "react";
-import { image } from "../config";
+import { image } from "../../config";
 import { FaDownload } from "react-icons/fa";
-import { downloadBook } from "../API/bookAPI";
+import { downloadBook } from "../../API/bookAPI";
 
 const ReqestThumbNail = ({ result }) => {
   const date = new Date(result?.issueDate);

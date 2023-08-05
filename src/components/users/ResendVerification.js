@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import LabelComp from "./LabelComp";
 import { ToastContainer, toast } from "react-toastify";
-import { resend } from "../API/userAuthApi";
+import { resend } from "../../API/userAuthApi";
 import { FaEnvelope } from "react-icons/fa";
 import { Link } from "react-router-dom";
 

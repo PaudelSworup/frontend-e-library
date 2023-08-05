@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import NavBars from "./NavBars";
-import { forgotPassword } from "../API/userAuthApi";
+import { forgotPassword } from "../../API/userAuthApi";
 import { ToastContainer, toast } from "react-toastify";
 import LabelComp from "./LabelComp";
 

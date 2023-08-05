@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { overFlow } from "../reusuableFunctions/overFlow";
+import { overFlow } from "../../reusuableFunctions/overFlow";
 import { Link } from "react-router-dom";
 import LazyImage from "./LazyImage";
 import { FaThumbsUp } from "react-icons/fa";
-import { getLikes, likeBook } from "../API/bookAPI";
+import { getLikes, likeBook } from "../../API/bookAPI";
 import { useSelector } from "react-redux";
-import { image } from "../config";
+import { image } from "../../config";
 
 const ThumbNail = ({ result }) => {
   const [isLiked, setIsLiked] = useState(false);
@@ -51,7 +51,7 @@ const ThumbNail = ({ result }) => {
 
   return (
     <>
-      <div className="ml-3 bg-[#333]  group rounded overflow-hidden shadow-lg max-w-sm my-10 cursor-pointer transition duration-[420ms] ease-in transform sm:hover:scale-105 hover:z-50 ">
+      <div className="ml-3 bg-[#222]  group rounded overflow-hidden shadow-lg max-w-sm my-10 cursor-pointer transition duration-[420ms] ease-in transform sm:hover:scale-105 hover:z-50 ">
         <Link to={{ pathname: `/book/detail/${result?._id}` }}>
           <LazyImage
             src={`${image}/${result?.image}`}
