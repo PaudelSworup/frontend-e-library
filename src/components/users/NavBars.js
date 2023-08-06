@@ -32,9 +32,6 @@ const NavBars = () => {
     setShowDrop(!showDrop);
   };
 
- 
- 
-
   useEffect(() => {
     noti?.map((length) => {
       const falseCount = length?.data?.filter(
@@ -69,7 +66,6 @@ const NavBars = () => {
       fetchNotifications();
     }
   }, [dispatch, userid]);
-
 
   const handleSubmit = (e) => {
     if (search === null || search === "") {
@@ -116,128 +112,149 @@ const NavBars = () => {
   return (
     <nav className="bg-gray-900 shadow-xl py-2 px-7 md:px-10 md:flex items-center justify-between">
       <div className="font-bold text-2xl cursor-pointer">
-        <Link to="/home">
-          <img src="/images/kct.png" className="h-16 w-16 rounded-xl" alt="" />
-        </Link>
-      </div>
-
-      <div className="relative sm:flex items-center p-2 text-gray-300 focus-within:text-gray-600">
-        <BiSearch
-          className="absolute  top-[9 px] left-[15px] text-black w-6 h-[36px] cursor-pointer"
-          onClick={handleSubmit}
-        />
-        <ToastContainer position="top-center" autoClose={3000} theme="light" />
-        <input
-          type="search"
-          className="border-none outline-none rounded-xl ring-2 ring-offset-gray-600 focus:ring-offset-gray-800 p-[6px] pr-3 pl-10 focus:ring-2 w-full"
-          size="40"
-          placeholder="Quick search for book"
-          onChange={(e) => setSearch(e.target.value)}
-          value={search}
-        />
-      </div>
-
-      <div className="sm:hidden absolute right-6 top-6 flex items-center pr-2">
-        <button
-          type="button"
-          className="relative bg-gray-800 p-1 transition-all duration-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-          onClick={toggleMobileMenu}
-        >
-          <FaBars className="text-white text-xl " />
-        </button>
-      </div>
-
-      <div className="hidden transition-all duration-300 sm:flex ml-6">
-        {items.map((currentNavItems, i) => {
-          const { id, span, link } = currentNavItems;
-
-          return (
-            <li
-              key={id}
-              onClick={() => navigate(link)}
-              className="md:my-2 my-[95px] cursor-pointer flex flex-col  justify-center items-center"
-            >
-              {React.createElement(icons[i % icons.length], {
-                className: "text-[#fff] text-2xl ",
-              })}
-              <div className="text-white cursor-pointer relative p-1 tracking-widest">
-                <span>{span}</span>
-
-                {span === "notification" && noti.length > 0 && (
-                  <div>
-                    <span
-                      className={`absolute ${
-                        count === null ? "bg-none" : colour
-                      } p-1 h-6 w-6 rounded-full bottom-9 right-7 flex items-center justify-center`}
-                      onClick={handleNotication}
-                    >
-                      {count} {notification && <Notification />}
-                    </span>
-                  </div>
-                )}
-              </div>
-            </li>
-          );
-        })}
-        <div className="flex justify-end items-center">
-          <div className="relative md:border md:rounded-full p-2 ">
-            <FaUser
-              className="text-white md:m-0 ml-2 text-xl cursor-pointer"
-              onClick={handleDropDown}
+        {fullname ? (
+          <Link to="/home">
+            <img
+              src="/images/kct.png"
+              className="h-16 w-16 rounded-xl"
+              alt=""
             />
-            {showDrop && <DropMenu />}
-          </div>
-        </div>
+          </Link>
+        ) : (
+          <Link to="/">
+            <img
+              src="/images/kct.png"
+              className="h-16 w-16 rounded-xl"
+              alt=""
+            />
+          </Link>
+        )}
       </div>
+      {fullname && userid && (
+        <>
+          <div className="relative sm:flex items-center p-2 text-gray-300 focus-within:text-gray-600">
+            <BiSearch
+              className="absolute  top-[9 px] left-[15px] text-black w-6 h-[36px] cursor-pointer"
+              onClick={handleSubmit}
+            />
+            <ToastContainer
+              position="top-center"
+              autoClose={3000}
+              theme="light"
+            />
+            <input
+              type="search"
+              className="border-none outline-none rounded-xl ring-2 ring-offset-gray-600 focus:ring-offset-gray-800 p-[6px] pr-3 pl-10 focus:ring-2 w-full"
+              size="50"
+              placeholder="Quick search for book"
+              onChange={(e) => setSearch(e.target.value)}
+              value={search}
+            />
+          </div>
 
-      <div
-        className={`${
-          isMobileMenuOpen ? "block" : "hidden"
-        } sm:hidden  px-2 pb-3 pt-2 transition duration-300 max-h-[20rem]`}
-      >
-        <div className="flex flex-col space-y-4">
-        {items.map((currentNavItems, i) => {
-          const { id, span, link } = currentNavItems;
-
-          return (
-            <li
-              key={id}
-              onClick={() => navigate(link)}
-              className="md:my-2 flex flex-col  justify-center items-center"
+          <div className="sm:hidden absolute right-6 top-6 flex items-center pr-2">
+            <button
+              type="button"
+              className="relative bg-gray-800 p-1 transition-all duration-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+              onClick={toggleMobileMenu}
             >
-              {React.createElement(icons[i % icons.length], {
-                className: "text-[#fff] cursor-pointer text-2xl ",
-              })}
-              <div className="text-white relative p-1 tracking-widest">
-                <span>{span}</span>
+              <FaBars className="text-white text-xl " />
+            </button>
+          </div>
 
-                {span === "notification" && noti.length > 0 && (
-                  <div>
-                    <span
-                      className={`absolute ${
-                        count === null ? "bg-none" : colour
-                      } p-1 h-6 w-6 rounded-full bottom-9 right-7 flex items-center justify-center`}
-                      onClick={handleNotication}
-                    >
-                      {count} {notification && <Notification />}
-                    </span>
+          <div className="hidden transition-all duration-300 sm:flex ml-6">
+            {items.map((currentNavItems, i) => {
+              const { id, span, link } = currentNavItems;
+
+              return (
+                <li
+                  key={id}
+                  onClick={() => navigate(link)}
+                  className="md:my-2 my-[95px] cursor-pointer flex flex-col  justify-center items-center"
+                >
+                  {React.createElement(icons[i % icons.length], {
+                    className: "text-[#fff] text-2xl ",
+                  })}
+                  <div className="text-white cursor-pointer relative p-1 tracking-widest">
+                    <span>{span}</span>
+
+                    {span === "notification" && noti.length > 0 && (
+                      <div>
+                        <span
+                          className={`absolute ${
+                            count === null ? "bg-none" : colour
+                          } p-1 h-6 w-6 rounded-full bottom-9 right-7 flex items-center justify-center`}
+                          onClick={handleNotication}
+                        >
+                          {count} {notification && <Notification />}
+                        </span>
+                      </div>
+                    )}
                   </div>
-                )}
+                </li>
+              );
+            })}
+            <div className="flex justify-end items-center">
+              <div className="relative md:border md:rounded-full p-2 ">
+                <FaUser
+                  className="text-white md:m-0 ml-2 text-xl cursor-pointer"
+                  onClick={handleDropDown}
+                />
+                {showDrop && <DropMenu />}
               </div>
-            </li>
-          );
-        })}
-          <div className="flex justify-center items-center">
-            <div className="relative md:border md:rounded-full p-2 ">
-              <FaUser
-                className="text-white md:m-0 ml-2 text-xl cursor-pointer"
-                onClick={handleDropDown}
-              />
-              {showDrop && <DropMenu />}
             </div>
           </div>
-        </div>
-      </div>
+
+          <div
+            className={`${
+              isMobileMenuOpen ? "block" : "hidden"
+            } sm:hidden  px-2 pb-3 pt-2 transition duration-300 max-h-[20rem]`}
+          >
+            <div className="flex flex-col space-y-4">
+              {items.map((currentNavItems, i) => {
+                const { id, span, link } = currentNavItems;
+
+                return (
+                  <li
+                    key={id}
+                    onClick={() => navigate(link)}
+                    className="md:my-2 flex flex-col  justify-center items-center"
+                  >
+                    {React.createElement(icons[i % icons.length], {
+                      className: "text-[#fff] cursor-pointer text-2xl ",
+                    })}
+                    <div className="text-white relative p-1 tracking-widest">
+                      <span>{span}</span>
+
+                      {span === "notification" && noti.length > 0 && (
+                        <div>
+                          <span
+                            className={`absolute ${
+                              count === null ? "bg-none" : colour
+                            } p-1 h-6 w-6 rounded-full bottom-9 right-7 flex items-center justify-center`}
+                            onClick={handleNotication}
+                          >
+                            {count} {notification && <Notification />}
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  </li>
+                );
+              })}
+              <div className="flex justify-center items-center">
+                <div className="relative md:border md:rounded-full p-2 ">
+                  <FaUser
+                    className="text-white md:m-0 ml-2 text-xl cursor-pointer"
+                    onClick={handleDropDown}
+                  />
+                  {showDrop && <DropMenu />}
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
     </nav>
   );
 };

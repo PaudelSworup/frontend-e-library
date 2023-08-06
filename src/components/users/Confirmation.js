@@ -14,6 +14,8 @@ const Confirmation = () => {
     confirmAccount(token)
       .then((res) => {
         if (res?.error && res.success === false) {
+          console.log(res?.error)
+          setMessage(res?.error)
           return toast.error(res?.error,{position:"top-right"})
         }
 

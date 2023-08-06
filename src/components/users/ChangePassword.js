@@ -11,18 +11,20 @@ const ChangePassword = () => {
   const [repeat_password, setRepeat_password] = useState("");
   const { userid } = useSelector((state) => state.users);
 
-  const change = ()=>{
-    changePassword({password,new_password,repeat_password}, userid).then((res)=>{
-        if(res?.error && res.success === false){
-           return toast.error(res?.error,{position:"top-right"})
-        }else{
-            setPassword("")
-            setNew_password("")
-            setRepeat_password("")
-            return toast.success(res?.message , {position:"top-center"})
+  const change = () => {
+    changePassword({ password, new_password, repeat_password }, userid).then(
+      (res) => {
+        if (res?.error && res.success === false) {
+          return toast.error(res?.error, { position: "top-right" });
+        } else {
+          setPassword("");
+          setNew_password("");
+          setRepeat_password("");
+          return toast.success(res?.message, { position: "top-center" });
         }
-    })
-  }
+      }
+    );
+  };
   return (
     <>
       <div className="flexflex-wrap">
@@ -62,7 +64,10 @@ const ChangePassword = () => {
       </div>
 
       <div>
-        <button onClick={()=>change()} className="mt-2 px-4 py-2 tracking-wide text-white rounded bg-blue-500 hover:bg-blue-600 focus:outline-none">
+        <button
+          onClick={() => change()}
+          className="mt-2 px-4 py-2 tracking-wide text-white rounded bg-blue-500 hover:bg-blue-600 focus:outline-none"
+        >
           <span className="flex items-center gap-3">
             Update password
             <FaSave />

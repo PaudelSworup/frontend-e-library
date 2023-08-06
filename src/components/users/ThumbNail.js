@@ -70,60 +70,33 @@ const ThumbNail = ({ result }) => {
           <p className="text-gray-400 tracking-wider truncate text-base">
             {overFlow(result?.desc, 70)}
           </p>
-          
+        </div>
+
+        <div className="px-6 pt-4 pb-2">
+          <span className="inline-block bg-gray-200 rounded-full tracking-wider px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+            {`#${result?.category?.category_name || result?.category_name}`}
+          </span>
         </div>
         <div className=" px-12 py-2 flex gap-3">
-            <p className="truncate max-w-md capitalize text-white transition duration-100 opacity-0 group-hover:opacity-100 ">
-              {`${new Date(result?.yearofpublication).getFullYear()}-${(
-                new Date(result?.yearofpublication).getMonth() + 1
-              )
-                .toString()
-                .padStart(2, "0")}-${new Date(result?.yearofpublication)
-                .getDate()
-                .toString()
-                .padStart(2, "0")} `}
-            </p>
-
-            <p className="max-w-md capitalize mt-[-5px] flex gap-3  text-white transition duration-100 opacity-0 group-hover:opacity-100 ">
-              <FaThumbsUp
-                className={`text-2xl ${
-                  isLiked ? "text-blue-500" : "text-white"
-                }`}
-                onClick={handleLike}
-              />{" "}
-              <span className="text-white text-xl">{count}</span>
-            </p>
-          </div>
-        {/* <div className="p-2 flex flex-col gap-3">
-          <p className="truncate max-w-md  capitalize text-white ">
-            {overFlow(result?.desc, 50)}
+          <p className="truncate max-w-md capitalize text-white transition duration-100 opacity-0 group-hover:opacity-100 ">
+            {`${new Date(result?.yearofpublication).getFullYear()}-${(
+              new Date(result?.yearofpublication).getMonth() + 1
+            )
+              .toString()
+              .padStart(2, "0")}-${new Date(result?.yearofpublication)
+              .getDate()
+              .toString()
+              .padStart(2, "0")} `}
           </p>
-          <h2 className="mt-1 text-white truncate capitalize transition-all duration-100 ease-in-out text-2xl group-hover:font-bold  ">
-            {overFlow(result?.title, 30)}
-          </h2>
-          <div className="flex gap-3">
-            <p className="truncate max-w-md capitalize text-white transition duration-100 opacity-0 group-hover:opacity-100 ">
-              {`${new Date(result?.yearofpublication).getFullYear()}-${(
-                new Date(result?.yearofpublication).getMonth() + 1
-              )
-                .toString()
-                .padStart(2, "0")}-${new Date(result?.yearofpublication)
-                .getDate()
-                .toString()
-                .padStart(2, "0")} `}
-            </p>
 
-            <p className="max-w-md capitalize mt-[-5px] flex gap-3  text-white transition duration-100 opacity-0 group-hover:opacity-100 ">
-              <FaThumbsUp
-                className={`text-2xl ${
-                  isLiked ? "text-blue-500" : "text-white"
-                }`}
-                onClick={handleLike}
-              />{" "}
-              <span className="text-white text-xl">{count}</span>
-            </p>
-          </div>
-        </div> */}
+          <p className="max-w-md capitalize mt-[-5px] flex gap-3  text-white transition duration-100 opacity-0 group-hover:opacity-100 ">
+            <FaThumbsUp
+              className={`text-2xl ${isLiked ? "text-blue-500" : "text-white"}`}
+              onClick={handleLike}
+            />{" "}
+            <span className="text-white text-xl">{count}</span>
+          </p>
+        </div>
       </div>
     </>
   );

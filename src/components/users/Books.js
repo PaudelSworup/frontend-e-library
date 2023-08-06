@@ -27,9 +27,13 @@ const Books = () => {
     );
   }, []);
 
+  console.log(mostrequested)
+
   useEffect(() => {
     filterItem();
   }, [books]);
+
+  
 
   const data = books.slice(0, 4);
 
@@ -37,6 +41,7 @@ const Books = () => {
     <>
       <div className="mt-4">
         <Row title="Our Collections" />
+       
         <div className="px-5 sm:grid md:grid-cols-2 xl:grid-cols-4 xl:flex overflow-x-scroll scrollbar-hide bg-[#111]">
           {data.map((result) => (
             <ThumbNail key={result.isbn} result={result} />
