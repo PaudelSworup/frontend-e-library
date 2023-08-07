@@ -20,6 +20,7 @@ import AddBook from "../components/Admin/AddBook";
 import AddCategory from "../components/Admin/AddCategory";
 import AdminRoute from "../auth/AdminRoute";
 import SideBar from "../components/Admin/SideBar";
+import SideNav from "../components/Admin/SideNav";
 // import Demo from "../components/Demo";
 // import Modal from "../components/Modals/Modal";
 // import Cards from "../components/Cards";
@@ -36,6 +37,9 @@ const RoutePath = () => {
       <Route path="/forgot" element={<Forgot />} />
       <Route path="/resendverification" element={<ResendVerification />} />
       <Route path="/sidebar" element={<SideBar/>}/>
+      <Route path="/side" element={<SideNav/>}/>
+      {/* <Route path="/admin" element={</>} /> */}
+      
       {/* <Route path="/modal" element={<Modal/>} /> */}
       {/* <Route path="/demo" element={<Demo/>} />  */}
       {/* <Route path="/card" element={<Cards/>} />

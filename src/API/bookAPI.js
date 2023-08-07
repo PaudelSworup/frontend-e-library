@@ -126,6 +126,15 @@ export const issueRequest = async (data) => {
     });
 };
 
+// get issuerequest for admin
+export const getReports = async () => {
+  try {
+    return await axios.get(`${API}/reports`);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 // like a book
 export const likeBook = async (data) => {
   return await fetch(`${API}/like`, {
@@ -221,6 +230,20 @@ function getFileNameFromContentDisposition(contentDisposition) {
     contentDisposition && contentDisposition.match(/filename="(.+)"/);
   return fileNameMatch && fileNameMatch[1] ? fileNameMatch[1] : null;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // add books for admin
 export const addBooks = async (data) => {
