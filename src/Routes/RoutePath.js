@@ -21,6 +21,9 @@ import AddCategory from "../components/Admin/AddCategory";
 import AdminRoute from "../auth/AdminRoute";
 import SideBar from "../components/Admin/SideBar";
 import SideNav from "../components/Admin/SideNav";
+import Dashboard from "../components/Admin/Dashboard";
+import AddBooks from "../components/Admin/AddBooks";
+import Requests from "../components/Admin/Requests";
 // import Demo from "../components/Demo";
 // import Modal from "../components/Modals/Modal";
 // import Cards from "../components/Cards";
@@ -38,6 +41,10 @@ const RoutePath = () => {
       <Route path="/resendverification" element={<ResendVerification />} />
       <Route path="/sidebar" element={<SideBar/>}/>
       <Route path="/side" element={<SideNav/>}/>
+      <Route path="/dash" element={<Dashboard/>}/>
+      <Route path="/addb" element={<AddBooks/>}/>
+      <Route path="/addcategory" element={<AddCategory />} />
+      <Route path="/requests" element={<Requests/>} />
       {/* <Route path="/admin" element={</>} /> */}
       
       {/* <Route path="/modal" element={<Modal/>} /> */}

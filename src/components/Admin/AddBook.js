@@ -73,7 +73,8 @@ const AddBook = () => {
     });
   };
   return (
-    <div className="min-h-screen px-2 py-2 sm:px-5 bg-gray-400 flex justify-center items-center">
+    
+    <div className="min-h-screen px-2 py-2 sm:px-5 bg-[#111] flex justify-center items-center">
       <form className="w-full max-w-4xl bg-gray-200 shadow-md rounded-lg px-8 pt-6 pb-8">
         <h2 className="text-2xl font-semibold mb-6">Add Book Description</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

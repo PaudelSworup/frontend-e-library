@@ -13,7 +13,7 @@ import { getReports } from "../../API/bookAPI";
 
 const Chart = () => {
   const [requested, setMostRequesteed] = useState([]);
-  const CustomTooltip = ({ active, payload, title }) => {
+  const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
       return (
         <div className="custom-tooltip">
@@ -52,12 +52,11 @@ const Chart = () => {
     }
   });
 
-  console.log(bookIdCounts);
-
   const data2 = Object.values(bookIdCounts);
 
   return (
-    <ResponsiveContainer width="100%" aspect={4.0 / 3.0}>
+    <div className="flex items-center justify-center lg:ml-60 m-4 lg:m-10 rounded">
+      <ResponsiveContainer width="100%" aspect={4.0 / 3.0}>
       <BarChart data={data2}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis textAnchor="end" interval={0} />
@@ -67,6 +66,8 @@ const Chart = () => {
         <Bar dataKey="most_requested" fill="#8884d8" />
       </BarChart>
     </ResponsiveContainer>
+    </div>
+    
   );
 };
 
