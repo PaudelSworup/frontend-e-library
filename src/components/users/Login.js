@@ -46,7 +46,7 @@ const Login = () => {
         if(data.user.role === 0){
           navigate("/home");
         }else{
-          navigate("/main")
+          navigate("/admin")
         }
         
       }

@@ -1,18 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { recommendedBooks } from "../../API/bookAPI";
 import { useSelector } from "react-redux";
 import ThumbNail from "./ThumbNail";
+import { useQuery } from "react-query";
 
 const Featured = () => {
   const [featured, setFeatured] = useState([]);
 
   const { userid } = useSelector((state) => state.users);
 
-  useEffect(() => {
-    recommendedBooks(userid).then((res) => {
-      setFeatured(res?.data?.recommendations);
-    });
-  }, [userid]);
+  const recommendBook = useQuery(
+    ["recommended",userid],
+    async()=> await recommendedBooks(userid),{
+      enabled:!!userid,
+      onSettled:(data)=>setFeatured(data?.data?.recommendations)
+    }
+    )
+
+  // useEffect(() => {
+  //   recommendedBooks(userid).then((res) => {
+  //     setFeatured(res?.data?.recommendations);
+  //   });
+  // }, [userid]);
 
   return (
     <>

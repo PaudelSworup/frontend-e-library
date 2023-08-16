@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { FaChevronCircleDown } from "react-icons/fa";
+import { FaChevronCircleDown, FaPlusCircle } from "react-icons/fa";
+import { BiCategory } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 
 const Dropdown = () => {
@@ -11,13 +12,13 @@ const Dropdown = () => {
         <div>
           <button
             type="button"
-            className="flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+            className="flex w-full justify-center gap-x-1.5 rounded-md  px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-insert"
             id="menu-button"
             aria-expanded="true"
             aria-haspopup="true"
             onClick={() => setOpen(!open)}
           >
-            Books/Category
+            <span className="text-white">Books/Category</span>
             <FaChevronCircleDown
               className={`text-lg ${open ? "transform rotate-180" : ""}`}
             />
@@ -25,7 +26,7 @@ const Dropdown = () => {
         </div>
         {open && (
           <div
-            className="absolute cursor-pointer right-[-6] z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+            className="absolute cursor-pointer right-[-6] z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1  "
             role="menu"
             aria-orientation="vertical"
             aria-labelledby="menu-button"
@@ -33,19 +34,19 @@ const Dropdown = () => {
             <div className="py-1" role="none">
               <span
                 onClick={() => navigate("/addb")}
-                className="text-gray-700 block px-4 py-2 text-sm"
+                className="text-gray-700 flex justify-start gap-3 items-center px-4 py-2 text-sm"
                 role="menuitem"
                 id="menu-item-0"
               >
-                Add Books
+                <FaPlusCircle /> Add Books
               </span>
               <span
                 onClick={() => navigate("/addcategory")}
-                className="text-gray-700 block px-4 py-2 text-sm"
+                className="text-gray-700 flex justify-start gap-3 items-center px-4 py-2 text-sm"
                 role="menuitem"
                 id="menu-item-1"
               >
-                Add Category
+              <BiCategory/> Add Category
               </span>
             </div>
           </div>

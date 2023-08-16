@@ -12,6 +12,7 @@ const ChangePassword = () => {
   const { userid } = useSelector((state) => state.users);
 
   const change = () => {
+  
     changePassword({ password, new_password, repeat_password }, userid).then(
       (res) => {
         if (res?.error && res.success === false) {

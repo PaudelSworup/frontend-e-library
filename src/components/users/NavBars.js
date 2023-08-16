@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import items from "./NavItem";
 import { FaBars, FaBell, FaHistory, FaHome, FaUser } from "react-icons/fa";
 import { BiSearch } from "react-icons/bi";
@@ -10,6 +10,8 @@ import { useDispatch, useSelector } from "react-redux";
 import Notification from "./Notification";
 import { getNotified, setStatus } from "../../API/bookAPI";
 import { setNotify } from "../../store/notifySlice";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import Loading from "./Loading";
 
 const NavBars = () => {
   const icons = [FaHome, FaHistory, FaBell];
@@ -19,53 +21,50 @@ const NavBars = () => {
   const [notification, setNotification] = useState(false);
   const { fullname, userid } = useSelector((state) => state.users);
   const { noti } = useSelector((state) => state.notify);
-  const [count, setCount] = useState(null);
   const [colour, setColour] = useState("bg-red-600");
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const queryClient = useQueryClient();
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen((prev) => !prev);
   };
 
+  const mutation = useMutation({
+    mutationFn: (data) => setStatus(data, userid),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["notifications", userid] });
+    },
+  });
+
+  const { isLoading, data, error } = useQuery(
+    ["notifications", userid],
+    async () => await getNotified(userid),
+    {
+      enabled: !!userid,
+      onSettled: (data) => dispatch(setNotify(data?.data?.notification)),
+    }
+  );
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  if (error) {
+    return <h2>Something went wrong...</h2>;
+  }
+
+  let unReadNotification;
+
+  if (data) {
+    unReadNotification = data?.data?.notification?.filter(
+      (status) => status.notificationStatus === false
+    )?.length;
+  }
+
   const handleDropDown = () => {
     setShowDrop(!showDrop);
   };
-
-  useEffect(() => {
-    noti?.map((length) => {
-      const falseCount = length?.data?.filter(
-        (item) => item.notificationStatus === false
-      ).length;
-
-      setCount(falseCount);
-      if (falseCount === 0) {
-        setCount(null);
-      }
-    });
-  }, [noti]);
-
-  useEffect(() => {
-    const fetchNotifications = async () => {
-      try {
-        const response = await getNotified(userid);
-        if (response?.data.success && response?.data.notification.length > 0) {
-          const { notification } = response?.data;
-          console.log(notification);
-          dispatch(setNotify({ data: notification }));
-        }
-
-        if (response?.data?.notification.length === 0) {
-          sessionStorage.removeItem("notify");
-        }
-      } catch (error) {
-        console.log("Error fetching notifications:", error);
-      }
-    };
-    if (fullname && userid) {
-      fetchNotifications();
-    }
-  }, [dispatch, userid]);
 
   const handleSubmit = (e) => {
     if (search === null || search === "") {
@@ -80,33 +79,27 @@ const NavBars = () => {
   };
 
   const handleNotication = () => {
-    console.log("hello");
     const newData = [];
     setNotification(!notification);
     setColour("bg-none");
-    setCount(null);
-    noti.map((data) => {
-      return data?.data?.map((data) => {
-        return newData.push({
-          id: data?.book?._id,
-          message: data?.messageNotification,
-          user_id: data?.user?._id ? data?.user?._id : null,
-          status: data?.notificationStatus,
-          date: data?.date,
-        });
-      });
-    });
-    // if(count !=null){
-    setStatus({ newData }, userid).then((res) => {
-      if (res?.success === true && res?.notification.length > 0) {
-        dispatch(
-          setNotify({
-            data: res?.notification,
-          })
-        );
-      }
-    });
-    // }
+    unReadNotification = 0
+    data?.data?.notification?.map((item) =>
+      newData.push({
+        id: item?.book?._id,
+        message: item?.messageNotification,
+        user_id: item?.user?._id ? item?.user?._id : null,
+        status: item?.notificationStatus,
+        date: item?.date,
+      })
+    );
+
+    // setStatus({ newData }, userid).then((res) => {
+    //   if (res?.success === true && res?.notification.length > 0) {
+    //     console.log(res?.notification);
+    //   }
+    // });
+
+    mutation.mutate({ newData });
   };
 
   return (
@@ -115,7 +108,7 @@ const NavBars = () => {
         {fullname ? (
           <Link to="/home">
             <img
-              src="/images/kct.png"
+              src="/images/librarykct.png"
               className="h-16 w-16 rounded-xl"
               alt=""
             />
@@ -130,6 +123,7 @@ const NavBars = () => {
           </Link>
         )}
       </div>
+
       {fullname && userid && (
         <>
           <div className="relative sm:flex items-center p-2 text-gray-300 focus-within:text-gray-600">
@@ -178,15 +172,15 @@ const NavBars = () => {
                   <div className="text-white cursor-pointer relative p-1 tracking-widest">
                     <span>{span}</span>
 
-                    {span === "notification" && noti.length > 0 && (
-                      <div>
+                    {span === "notification" && noti.flat().length > 0 && (
+                      <div onClick={handleNotication}>
                         <span
                           className={`absolute ${
-                            count === null ? "bg-none" : colour
+                            unReadNotification === 0 ? "bg-none" : colour
                           } p-1 h-6 w-6 rounded-full bottom-9 right-7 flex items-center justify-center`}
-                          onClick={handleNotication}
                         >
-                          {count} {notification && <Notification />}
+                          {unReadNotification === 0 ? "" : unReadNotification}
+                          {notification && <Notification />}
                         </span>
                       </div>
                     )}
@@ -230,11 +224,16 @@ const NavBars = () => {
                         <div>
                           <span
                             className={`absolute ${
-                              count === null ? "bg-none" : colour
+                              unReadNotification === 0 ? "bg-none" : colour
                             } p-1 h-6 w-6 rounded-full bottom-9 right-7 flex items-center justify-center`}
                             onClick={handleNotication}
                           >
-                            {count} {notification && <Notification />}
+                            {unReadNotification}{" "}
+                            {notification && (
+                              <Notification
+                                notificationData={unReadNotification}
+                              />
+                            )}
                           </span>
                         </div>
                       )}

@@ -24,6 +24,7 @@ import { toast } from "react-toastify";
 import Knn from "./Knn";
 import OtherInfo from "./OtherInfo";
 import Issue from "../Modals/Issue";
+import { useQuery } from "react-query";
 
 const Detail = ({ result }) => {
   const { id } = useParams();
@@ -31,39 +32,96 @@ const Detail = ({ result }) => {
   const [similar, setSimilar] = useState([]);
   const [rating, setRating] = useState(0);
   const [knn, setKnn] = useState([]);
-  const[message,setMessage] = useState(null)
+  const [message, setMessage] = useState(null);
   const { userid } = useSelector((state) => state.users);
-  useEffect(() => {
-    Promise.all([getUserRecommendation(userid), listBooks(id)])
-      .then(([recommendationRes, bookRes]) => {
-        const recommendationData =
-          recommendationRes?.data?.recommendedBooks || [];
-        const similarData = bookRes?.data?.book || [];
+  const [showFullText, setShowFullText] = useState(false);
 
-        setRecommendations(recommendationData);
-        setSimilar(similarData);
-      })
-      .catch((error) => {
-        // Handle error
-      });
+  const toggleTextVisibility = () => {
+    setShowFullText(!showFullText);
+  };
 
-    Promise.all([getRating(id)])
-      .then(([ratingRes]) => {
-        const ratingData = ratingRes?.data?.books.find((data) => {
+  const getuserRecommendation = useQuery(
+    ["getrecommendations", userid],
+    async () => await getUserRecommendation(userid),
+    {
+      onSettled: (recommendation) =>
+        setRecommendations(recommendation?.data?.recommendedBooks),
+    }
+  );
+
+  const getSimilarGenreBook = useQuery(
+    ["getsimilar", id],
+    async () => await listBooks(id),
+    {
+      onSettled: (similar) => setSimilar(similar?.data?.book),
+    }
+  );
+
+  const getRatingDetails = useQuery(
+    ["getrating", id],
+    async () => await getRating(id),
+    {
+      onSettled: (ratings) => {
+        const ratingdata = ratings?.data?.books?.find((data) => {
           return data?.user === userid && data?.book?._id === id;
         });
-        setRating(ratingData?.rating);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [userid, id]);
+        setRating(ratingdata?.rating);
+      },
+    }
+  );
 
-  useEffect(() => {
-    getKnn(userid, id).then((res) => {
-      setKnn(res?.data.recommendations);
-    });
-  }, [id, userid]);
+  const getNearest = useQuery(
+    ["getknn", userid, id],
+    async () => await getKnn(userid, id),
+    {
+      onSettled: (data) => setKnn(data?.data.recommendations),
+    }
+  );
+
+  // useEffect(() => {
+  //   Promise.all([getRating(id)])
+  //     .then(([ratingRes]) => {
+  //       const ratingData = ratingRes?.data?.books.find((data) => {
+  //         return data?.user === userid && data?.book?._id === id;
+  //       });
+  //       setRating(ratingData?.rating);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }, [id]);
+
+  // useEffect(() => {
+  //   Promise.all([getUserRecommendation(userid), listBooks(id)])
+  //     .then(([recommendationRes, bookRes]) => {
+  //       const recommendationData =
+  //         recommendationRes?.data?.recommendedBooks || [];
+  //       const similarData = bookRes?.data?.book || [];
+
+  //       setRecommendations(recommendationData);
+  //       setSimilar(similarData);
+  //     })
+  //     .catch((error) => {
+  //       // Handle error
+  //     });
+
+  //   Promise.all([getRating(id)])
+  //     .then(([ratingRes]) => {
+  //       const ratingData = ratingRes?.data?.books.find((data) => {
+  //         return data?.user === userid && data?.book?._id === id;
+  //       });
+  //       setRating(ratingData?.rating);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }, [userid, id]);
+
+  // useEffect(() => {
+  //   getKnn(userid, id).then((res) => {
+  //     setKnn(res?.data.recommendations);
+  //   });
+  // }, [id, userid]);
 
   const newRecommendation = recommendations.filter((data) => {
     return data?._id !== id;
@@ -96,7 +154,7 @@ const Detail = ({ result }) => {
           autoClose: 3000,
         });
       } else {
-        return setMessage(data?.message)
+        return setMessage(data?.message);
         // return toast.success(data.message, {
         //   position: "top-center",
         // });
@@ -175,14 +233,24 @@ const Detail = ({ result }) => {
         <hr className="my-5 border border-[#313131]" />
         <h2 className="text-3xl text-white tracking-widest">Synopsis</h2>
         <p className="text-white font-serif tracking-widest text-xl text-justify">
-          {result?.desc}
+          {`${showFullText
+            ? result?.desc
+            : result?.desc.slice(0, result?.desc.length / 2.5)}`}
         </p>
+        {result?.desc.length > 100 && (
+          <button
+            className="text-blue-500 underline mt-2"
+            onClick={toggleTextVisibility}
+          >
+            {showFullText ? "See Less" : "See More..."}
+          </button>
+        )}
         <hr className="my-5 border border-[#313131]" />
 
         <h2 className="text-white text-2xl capitalize tracking-widest font-bold">
           Other info
         </h2>
-        <div className=" flex-wrap flex justify-center  mt-3 gap-2 cursor-pointer">
+        <div className=" grid grid-cols-2  sm:flex flex-wrap justify-center  mt-3 gap-4 cursor-pointer">
           <OtherInfo
             one={"isbn"}
             two={result?.isbn}
@@ -253,7 +321,7 @@ const Detail = ({ result }) => {
           h2="See similar books"
           category={result?.category?.category_name}
         />
-        {message!=null && <Issue message={message} id={id}  />}
+        {message != null && <Issue message={message} id={id} />}
       </div>
     </>
   );

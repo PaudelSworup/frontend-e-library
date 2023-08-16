@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   BarChart,
   Bar,
@@ -10,6 +10,8 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { getReports } from "../../API/bookAPI";
+import { useQuery } from "react-query";
+import Loading from "../users/Loading";
 
 const Chart = () => {
   const [requested, setMostRequesteed] = useState([]);
@@ -24,11 +26,20 @@ const Chart = () => {
     return null;
   };
 
-  useEffect(() => {
-    getReports().then((res) => {
-      setMostRequesteed(res?.data.request);
-    });
-  }, []);
+
+  const {isLoading} = useQuery(["getreports"],async()=>await getReports(),{
+    onSettled:(data)=>setMostRequesteed(data?.data?.request)
+  })
+
+  if(isLoading){
+    return <Loading />
+  }
+
+  // useEffect(() => {
+  //   getReports().then((res) => {
+  //     setMostRequesteed(res?.data.request);
+  //   });
+  // }, []);
 
   const bookIdCounts = {};
 

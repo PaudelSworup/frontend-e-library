@@ -6,15 +6,30 @@ import "react-datepicker/dist/react-datepicker.css";
 import { addBooks, getGenre } from "../../API/bookAPI";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useQuery } from "react-query";
+import Loading from "../users/Loading";
 
 const AddBook = () => {
-  useEffect(() => {
-    getGenre()
-      .then((res) => {
-        setCategories(res?.data?.category);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+  const { isLoading, data, error } = useQuery(
+    "genres",
+    async () => await getGenre(),
+    {
+      onSettled: (data) => setCategories(data?.data?.category),
+      onError: (err) => console.log(err),
+    }
+  );
+
+  if (data) {
+    console.log("success");
+  }
+
+  // useEffect(() => {
+  //   getGenre()
+  //     .then((res) => {
+  //       setCategories(res?.data?.category);
+  //     })
+  //     .catch((err) => console.log(err));
+  // }, []);
 
   const [title, setTitle] = useState("");
   const [isbn, setIsbn] = useState("");
@@ -36,10 +51,15 @@ const AddBook = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if(pdf === null || image === null){
-      return toast.error("Uplaod all the files correctly",{position:"top-right"})
+    if (pdf === null || image === null) {
+      return toast.error("Uplaod all the files correctly", {
+        position: "top-right",
+      });
     }
-    if (pdf !=null && pdf.size > 5 * 1024 * 1024 || image!=null && image.size > 5 * 1024 * 1024) {
+    if (
+      (pdf != null && pdf.size > 5 * 1024 * 1024) ||
+      (image != null && image.size > 5 * 1024 * 1024)
+    ) {
       return toast.error(
         "File size limit exceeded.\n Please ensure that your file is no larger than 5 MB.",
         { position: "top-right" }
@@ -73,7 +93,6 @@ const AddBook = () => {
     });
   };
   return (
-    
     <div className="min-h-screen px-2 py-2 sm:px-5 bg-[#111] flex justify-center items-center">
       <form className="w-full max-w-4xl bg-gray-200 shadow-md rounded-lg px-8 pt-6 pb-8">
         <h2 className="text-2xl font-semibold mb-6">Add Book Description</h2>

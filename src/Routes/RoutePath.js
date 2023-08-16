@@ -16,19 +16,15 @@ import Notification from "../components/users/Notification";
 import Confirmation from "../components/users/Confirmation";
 import Forgot from "../components/users/Forgot";
 import ResendVerification from "../components/users/ResendVerification";
-import AddBook from "../components/Admin/AddBook";
-import AddCategory from "../components/Admin/AddCategory";
+
 import AdminRoute from "../auth/AdminRoute";
-import SideBar from "../components/Admin/SideBar";
-import SideNav from "../components/Admin/SideNav";
 import Dashboard from "../components/Admin/Dashboard";
 import AddBooks from "../components/Admin/AddBooks";
-import Requests from "../components/Admin/Requests";
-// import Demo from "../components/Demo";
-// import Modal from "../components/Modals/Modal";
-// import Cards from "../components/Cards";
-// import Navs from "../components/Navs";
 
+import AddGenre from "../components/Admin/AddGenre";
+
+import RequestSection from "../components/Admin/RequestSection";
+import SideBar from "../components/Admin/SideBar";
 
 const RoutePath = () => {
   return (
@@ -39,18 +35,7 @@ const RoutePath = () => {
       <Route path="/confirmation/:token" element={<Confirmation />} />
       <Route path="/forgot" element={<Forgot />} />
       <Route path="/resendverification" element={<ResendVerification />} />
-      <Route path="/sidebar" element={<SideBar/>}/>
-      <Route path="/side" element={<SideNav/>}/>
-      <Route path="/dash" element={<Dashboard/>}/>
-      <Route path="/addb" element={<AddBooks/>}/>
-      <Route path="/addcategory" element={<AddCategory />} />
-      <Route path="/requests" element={<Requests/>} />
-      {/* <Route path="/admin" element={</>} /> */}
-      
-      {/* <Route path="/modal" element={<Modal/>} /> */}
-      {/* <Route path="/demo" element={<Demo/>} />  */}
-      {/* <Route path="/card" element={<Cards/>} />
-      <Route path="/nav" element={<Navs/>} /> */}
+      <Route path="/side" element={<SideBar/>}/>
 
       <Route path="/" element={<PrivateRoute />}>
         <Route path="/home" element={<Home />} />
@@ -66,9 +51,11 @@ const RoutePath = () => {
       </Route>
 
       <Route path="/" element={<AdminRoute />}>
-        <Route path="/admin" element={<AddBook />} />
-        <Route path="/addcategory" element={<AddCategory />} />
-        {/* <Route path="/main" element={<Admin/>} /> */}
+        <Route path="/admin" element={<Dashboard />} />
+        <Route path="/addb" element={<AddBooks />} />
+        <Route path="/addcategory" element={<AddGenre />} />
+
+        <Route path="/requests" element={<RequestSection />} />
       </Route>
     </Routes>
   );

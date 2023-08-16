@@ -44,11 +44,11 @@ const ReqestThumbNail = ({ result }) => {
           </div>
         )}
 
-        <div className="rounded-3xl flex flex-col justify-center items-center mt-auto text-center tracking-widest  p-2 bg-[#6b6b6b]">
+        <div onClick={() => download(result?.books_id?._id)} className="rounded-3xl cursor-pointer flex flex-col justify-center items-center mt-auto text-center tracking-widest  p-2 bg-[#6b6b6b]">
           <div className="flex">
             {result && result.issueStatus === 1 && (
               <div className="flex items-center px-2">
-                <FaDownload onClick={() => download(result?.books_id?._id)} />
+                <FaDownload  />
               </div>
             )}
             {result?.issueStatus === 1

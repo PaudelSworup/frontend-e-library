@@ -4,6 +4,7 @@ import ThumbNail from "./ThumbNail";
 import { getAllBooks } from "../../API/bookAPI";
 import { FaDownload, FaSpinner } from "react-icons/fa";
 import { toast } from "react-toastify";
+import { useQuery } from "react-query";
 
 
 const Collection = () => {
@@ -17,11 +18,19 @@ const Collection = () => {
     return savedLimit ? Number(savedLimit) : 4;
   });
 
-  useEffect(() => {
-    getAllBooks().then((res) => {
-      setBooks(res?.data?.books);
-    });
-  }, []);
+  const {data,isLoading,error } = useQuery(
+    ["getallbooks"],
+    async () => await getAllBooks(),
+    {
+      onSettled: (data) => setBooks(data?.data?.books),
+    }
+  );
+
+  // useEffect(() => {
+  //   getAllBooks().then((res) => {
+  //     setBooks(res?.data?.books);
+  //   });
+  // }, []);
 
   useEffect(() => {
     localStorage.setItem("books", JSON.stringify(books));
@@ -55,7 +64,7 @@ const Collection = () => {
     }, 1000);
   };
 
-  const data = books.slice(0, limit);
+  const datas = books.slice(0, limit);
 
   return (
     <>
@@ -69,7 +78,7 @@ const Collection = () => {
         </div>
 
         <div className="sm:grid md:grid-cols-2 xl:flex overflow-x-scroll scrollbar-hide flex-wrap ">
-          {data?.map((result) => (
+          {datas?.map((result) => (
             <ThumbNail key={result.isbn} result={result} />
           ))}
         </div>

@@ -8,6 +8,7 @@ import HeadingContent from "./HeadingContent";
 import PersonalInfo from "./PersonalInfo";
 import FavouriteGenres from "./FavouriteGenres";
 import ChangePassword from "./ChangePassword";
+import { useQuery } from "react-query";
 
 const Profile = () => {
   const { userid, fullname, email } = useSelector((state) => state.users);
@@ -18,16 +19,23 @@ const Profile = () => {
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
 
-  useEffect(() => {
-    Promise.all([getProfile(), getUser()]).then(([user, data]) => {
-      user?.data?.profile?.find((data) => {
-        if (data?.userId?._id === userid) {
-          return setProfile(data?.profileImage);
-        }
-        return setProfile(undefined);
-      });
+  const getProfilePhoto = useQuery(
+    ["getprofile"],
+    async () => await getProfile(),
+    {
+      onSettled: (user) => {
+        user?.data?.profile?.find((data) => {
+          return data?.userId?._id === userid
+            ? setProfile(data?.profileImage)
+            : setProfile(undefined);
+        });
+      },
+    }
+  );
 
-      data?.data?.user?.find((data) => {
+  const getuser = useQuery(["getuser"], async () => await getUser(), {
+    onSettled: (user) => {
+      user?.data?.user.find((data) => {
         if (data?._id === userid) {
           setGenre(data?.choosedCatgoeirs);
           setName(data?.fullname);
@@ -36,8 +44,29 @@ const Profile = () => {
           setAddress(data?.address);
         }
       });
-    });
-  }, [getUser]);
+    },
+  });
+
+  // useEffect(() => {
+  //   Promise.all([getProfile(), getUser()]).then(([user, data]) => {
+  //     user?.data?.profile?.find((data) => {
+  //       if (data?.userId?._id === userid) {
+  //         return setProfile(data?.profileImage);
+  //       }
+  //       return setProfile(undefined);
+  //     });
+
+  //     data?.data?.user?.find((data) => {
+  //       if (data?._id === userid) {
+  //         setGenre(data?.choosedCatgoeirs);
+  //         setName(data?.fullname);
+  //         setEmailadd(data?.email);
+  //         setPhone(data?.mobilenum);
+  //         setAddress(data?.address);
+  //       }
+  //     });
+  //   });
+  // }, [getUser]);
 
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
@@ -103,7 +132,7 @@ const Profile = () => {
 
           <FavouriteGenres genre={genre} />
 
-          <ChangePassword/>
+          <ChangePassword />
         </div>
       </div>
     </>

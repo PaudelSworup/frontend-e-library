@@ -1,10 +1,11 @@
 import React from 'react'
 import SideNav from './SideNav'
 import AddBook from './AddBook'
+import SideBar from './SideBar'
 
 const AddBooks = () => {
   return (
-    <SideNav PassedComponent={<AddBook/>}  />
+    <SideBar PassedComponent={<AddBook/>}  />
   )
 }
 

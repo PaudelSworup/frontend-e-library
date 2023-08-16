@@ -1,5 +1,6 @@
 import React from "react";
 import { FaCheck, FaKey, FaTimes } from "react-icons/fa";
+import {GiSkeletonKey} from "react-icons/gi"
 import { Link } from "react-router-dom";
 
 const Modal = ({ message }) => {
@@ -18,12 +19,12 @@ const Modal = ({ message }) => {
             <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
               <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                 <div className="sm:flex sm:items-start">
-                  <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-green-100 sm:mx-0 sm:h-12 sm:w-12">
+                  <div className="mx-auto flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-full bg-green-100 sm:mx-0 sm:h-12 sm:w-12">
                     {message === "Invalid token" ||
                     message === "Token had expired" ? (
                       <>
-                        <FaKey className="text-3xl text-gray-400" />
-                        <FaTimes className="text-xl text-red-400 absolute left-11 top-8" />
+                        <GiSkeletonKey className="text-4xl text-gray-400" />
+                        <FaTimes className="text-2xl text-red-400 absolute sm:left-11 top-5" />
                       </>
                     ) : (
                       <FaCheck className="text-2xl text-green-700" />

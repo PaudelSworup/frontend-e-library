@@ -1,6 +1,7 @@
 import axios from "axios";
 import { API } from "../config";
 
+
 // to search books and shows result on binary search
 export const searchBook = async (name) => {
   try {
@@ -63,6 +64,10 @@ export const getUserRecommendation = async (id) => {
     console.log(err);
   }
 };
+
+
+
+
 
 // get/show books related to category (on recommendation section)
 export const listBooks = async (id) => {
@@ -200,6 +205,8 @@ export const setStatus = async (data, userid) => {
     });
 };
 
+
+
 export const downloadBook = async (bookId) => {
   try {
     const response = await fetch(`${API}/download/${bookId}`, {
@@ -208,7 +215,7 @@ export const downloadBook = async (bookId) => {
         Accept: "application/pdf",
       },
     });
-  
+
     const contentDisposition = response.headers.get("Content-Disposition");
     const fileName =
       getFileNameFromContentDisposition(contentDisposition) || "file.pdf";
@@ -231,20 +238,6 @@ function getFileNameFromContentDisposition(contentDisposition) {
   return fileNameMatch && fileNameMatch[1] ? fileNameMatch[1] : null;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // add books for admin
 export const addBooks = async (data) => {
   return await fetch(`${API}/books`, {
@@ -263,8 +256,7 @@ export const addBooks = async (data) => {
 };
 
 // add books category for admin
-export const addCategory = async(data)=>{
-  
+export const addCategory = async (data) => {
   return await fetch(`${API}/category`, {
     method: "POST",
     headers: {
@@ -273,6 +265,24 @@ export const addCategory = async(data)=>{
     },
     body: JSON.stringify(data),
   })
-    .then((res) => {return res.json()})
+    .then((res) => {
+      return res.json();
+    })
     .catch((err) => console.log(err));
-}
+};
+
+// approve books
+export const enableBookAccess = async (userid) => {
+  return await fetch(`${API}/approve/${userid}`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ userid }),
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .catch((err) => console.log(err));
+};
