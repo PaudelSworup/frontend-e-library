@@ -1,7 +1,6 @@
 import React from "react";
 import { enableBookAccess, getReports } from "../../API/bookAPI";
 import { image } from "../../config";
-import { ToastContainer, toast } from "react-toastify";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 
 const Requests = () => {
@@ -136,8 +135,6 @@ const Requests = () => {
                       </>
                     )}
                   </td>
-
-                  <ToastContainer />
                 </tr>
               );
             })}

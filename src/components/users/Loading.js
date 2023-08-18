@@ -1,6 +1,5 @@
 import React from "react";
-import {  FaSpinner } from "react-icons/fa";
-
+import {ImSpinner2} from "react-icons/im"
 
 const Loading = () => {
   const facts = [
@@ -36,7 +35,7 @@ const Loading = () => {
                 <div className="sm:flex sm:items-start">
                   <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-green-100 sm:mx-0 sm:h-12 sm:w-12">
                     <>
-                      <FaSpinner className="text-3xl animate-spin" />
+                      <ImSpinner2 className="text-3xl animate-spin" />
                     </>
                   </div>
                   <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">

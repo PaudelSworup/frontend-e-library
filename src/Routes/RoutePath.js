@@ -35,7 +35,7 @@ const RoutePath = () => {
       <Route path="/confirmation/:token" element={<Confirmation />} />
       <Route path="/forgot" element={<Forgot />} />
       <Route path="/resendverification" element={<ResendVerification />} />
-      <Route path="/side" element={<SideBar/>}/>
+      <Route path="/side" element={<SideBar />} />
 
       <Route path="/" element={<PrivateRoute />}>
         <Route path="/home" element={<Home />} />

@@ -4,7 +4,6 @@ import Row from "./Row";
 import { getAllBooks, getMostRequested } from "../../API/bookAPI";
 import { useQuery } from "react-query";
 
-
 const Books = () => {
   const [books, setBooks] = useState([]);
   const [recent, setRecent] = useState([]);
@@ -19,9 +18,6 @@ const Books = () => {
 
     setRecent(recentlyAdded.slice(0, 4));
   };
-
-
- 
 
   const getWholeBooks = useQuery(
     ["getallbooks"],
@@ -39,18 +35,9 @@ const Books = () => {
     }
   );
 
-
-  useEffect(()=>{
-    filterItem()
-  },[books])
-
-  
-
-  
-
-  
-
-  
+  useEffect(() => {
+    filterItem();
+  }, [books]);
 
   const datas = books.slice(0, 4);
 

@@ -4,16 +4,35 @@ import { Link } from "react-router-dom";
 import Dropdown from "./Dropdown";
 import { useSelector, useDispatch } from "react-redux";
 import { setLogout } from "../../store/userSlice";
+import { useQuery } from "react-query";
+import { getReports } from "../../API/bookAPI";
 
 const SideBar = ({ PassedComponent }) => {
   const dispatch = useDispatch();
   const { userid, fullname } = useSelector((state) => state.users);
   const [show, setShow] = useState(false);
+  const[count,setCount] = useState(null)
 
   const Logout = () => {
     localStorage.removeItem(userid);
     dispatch(setLogout());
   };
+
+
+  const listCount = useQuery(
+    ["reportsCount"],
+    async () => await getReports(),{
+      onSuccess:(data)=>{
+        const filteredRequests = data?.data?.request.filter(status => status.issueStatus === 0);
+        if(filteredRequests.length > 0){
+          setCount(filteredRequests.length)
+        }else setCount(null)
+        
+      }
+    }
+  );
+
+
   return (
     <>
       <div className="  lg:hidden flex items-center justify-end p-2 bg-slate-700">
@@ -47,7 +66,15 @@ const SideBar = ({ PassedComponent }) => {
               className="text-white flex items-center py-2 pl-4 pr-6 text-sm font-medium transition-colors duration-200 hover:bg-gray-700"
             >
               <FaListUl className="mr-2" />
-              Book Approval List
+              <span className="flex-1 ml-3 whitespace-nowrap">
+                Book Approval List
+              </span>
+              {count !=null &&
+               <span className="inline-flex items-center justify-center w-3 h-3 p-3 ml-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">
+                {count}
+               </span>
+              }
+             
             </Link>
           </li>
           <li className="mb-1">

@@ -1,6 +1,6 @@
 import React from "react";
 import { image } from "../../config";
-import { FaDownload } from "react-icons/fa";
+import { MdFileDownload } from "react-icons/md";
 import { downloadBook } from "../../API/bookAPI";
 
 const ReqestThumbNail = ({ result }) => {
@@ -15,13 +15,14 @@ const ReqestThumbNail = ({ result }) => {
         console.log(res);
       })
       .catch((err) => console.log(err));
+      // 
   };
   return (
-    <div className="flex gap-3 ml-2 mb-2 h-[300px] main_div_width  mx-auto   p-3 rounded-md bg-[#252525]">
-      <div className="flex items-center">
+    <div className="flex gap-3 ml-2 mb-2 h-[300px] main_div_width    mx-auto   p-3 rounded-md bg-[#252525]">
+      <div className="flex">
         <img
           src={`${image}/${result?.books_id?.image}`}
-          className="h-auto req_thumb_image max-w-[150px] object-contain"
+          className="h-auto req_thumb_image max-w-[150px]"
           alt=""
         />
       </div>
@@ -44,11 +45,14 @@ const ReqestThumbNail = ({ result }) => {
           </div>
         )}
 
-        <div onClick={() => download(result?.books_id?._id)} className="rounded-3xl cursor-pointer flex flex-col justify-center items-center mt-auto text-center tracking-widest  p-2 bg-[#6b6b6b]">
-          <div className="flex">
+        <div
+          onClick={() => download(result?.books_id?._id)}
+          className="rounded-3xl cursor-pointer  text-center tracking-widest p-1 bg-[#6b6b6b]"
+        >
+          <div className="flex justify-center items-center">
             {result && result.issueStatus === 1 && (
-              <div className="flex items-center px-2">
-                <FaDownload  />
+              <div className="flex items-center px-1">
+                <MdFileDownload />
               </div>
             )}
             {result?.issueStatus === 1

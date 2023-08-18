@@ -82,24 +82,30 @@ const NavBars = () => {
     const newData = [];
     setNotification(!notification);
     setColour("bg-none");
-    unReadNotification = 0
-    data?.data?.notification?.map((item) =>
-      newData.push({
-        id: item?.book?._id,
-        message: item?.messageNotification,
-        user_id: item?.user?._id ? item?.user?._id : null,
-        status: item?.notificationStatus,
-        date: item?.date,
-      })
-    );
+
+    const existingNotificationIds = noti.flat().map((item) => item);
+
+    existingNotificationIds.map((data) => {
+      if (data?.notificationStatus === false) {
+        newData.push({
+          id: data?.book?._id,
+          message: data?.messageNotification,
+          user_id: data?.user?._id ? data?.user?._id : null,
+          status: data?.notificationStatus,
+          date: data?.date,
+        });
+      }
+    });
 
     // setStatus({ newData }, userid).then((res) => {
     //   if (res?.success === true && res?.notification.length > 0) {
     //     console.log(res?.notification);
     //   }
     // });
-
-    mutation.mutate({ newData });
+    if (newData.length != 0) {
+      console.log("hey");
+      mutation.mutate({ newData });
+    }
   };
 
   return (
@@ -172,7 +178,7 @@ const NavBars = () => {
                   <div className="text-white cursor-pointer relative p-1 tracking-widest">
                     <span>{span}</span>
 
-                    {span === "notification" && noti.flat().length > 0 && (
+                    {id === 5 && noti.flat().length > 0 && (
                       <div onClick={handleNotication}>
                         <span
                           className={`absolute ${
@@ -220,7 +226,7 @@ const NavBars = () => {
                     <div className="text-white relative p-1 tracking-widest">
                       <span>{span}</span>
 
-                      {span === "notification" && noti.length > 0 && (
+                      {id === 5 && noti.flat().length > 0 && (
                         <div>
                           <span
                             className={`absolute ${
@@ -228,12 +234,8 @@ const NavBars = () => {
                             } p-1 h-6 w-6 rounded-full bottom-9 right-7 flex items-center justify-center`}
                             onClick={handleNotication}
                           >
-                            {unReadNotification}{" "}
-                            {notification && (
-                              <Notification
-                                notificationData={unReadNotification}
-                              />
-                            )}
+                            {unReadNotification === 0 ? "" : unReadNotification}
+                            {notification && <Notification />}
                           </span>
                         </div>
                       )}

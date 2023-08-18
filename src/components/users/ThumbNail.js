@@ -10,6 +10,7 @@ import { image } from "../../config";
 const ThumbNail = ({ result }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [count, setCount] = useState(0);
+  
 
   const { userid } = useSelector((state) => state.users);
 

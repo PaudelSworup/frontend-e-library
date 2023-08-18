@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import NavBars from "./NavBars";
 import ThumbNail from "./ThumbNail";
 import { getAllBooks } from "../../API/bookAPI";
-import { FaDownload, FaSpinner } from "react-icons/fa";
+import { FaDownload } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { useQuery } from "react-query";
+import {ImSpinner2} from "react-icons/im"
+
 
 
 const Collection = () => {
@@ -55,7 +57,7 @@ const Collection = () => {
     setTimeout(() => {
       setLoading(false);
       if (books.length > limit) {
-        setLimit(limit + 2);
+        setLimit(limit + 3);
       } else {
         return toast.success("All books are loaded 📖", {
           position: "top-center",
@@ -94,7 +96,7 @@ const Collection = () => {
             <FaDownload />
           </span>
           {loading && (
-            <FaSpinner className="animate-spin rounded-full h-7 w-7 border-t-2 border-b-2 text-white border-gray-900" />
+            <ImSpinner2 className="animate-spin rounded-full h-7 w-7 border-t-2 border-b-2 text-white border-gray-900" />
           )}
         </div>
       </div>
