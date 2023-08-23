@@ -15,7 +15,6 @@ const ReqestThumbNail = ({ result }) => {
         console.log(res);
       })
       .catch((err) => console.log(err));
-      // 
   };
   return (
     <div className="flex gap-3 ml-2 mb-2 h-[300px] main_div_width    mx-auto   p-3 rounded-md bg-[#252525]">
@@ -38,7 +37,7 @@ const ReqestThumbNail = ({ result }) => {
 
         {result?.issueStatus === 1 && (
           <div className="flex mt-3 flex-col gap-">
-            <p className="text-xs text-gray-400">Book Approved Date</p>
+            <p className="text-xs text-gray-400">Book Approved On</p>
             <p className="text-sm">{`${monthName2} ${approvedDate
               .getDate()
               .toString()} , ${approvedDate.getFullYear().toString()}`}</p>

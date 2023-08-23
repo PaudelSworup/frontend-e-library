@@ -184,7 +184,7 @@ const Detail = ({ result }) => {
                 className="text-white cursor-pointer text-2xl"
               />
               <p className="text-green-600 tracking-widest">
-                Available in the Library
+                Available
               </p>
             </div>
 

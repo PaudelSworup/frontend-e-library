@@ -135,6 +135,22 @@ export const resend = async (email) => {
     });
 };
 
+export const deleteUserData = async (id) => {
+  // return console.log(id)
+  return await fetch(`${API}/removeuser/${id}`, {
+    method: "DELETE",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .catch((err) => {
+      return console.log(err);
+    });
+};
 
 export const getUser = async () => {
   try {
@@ -169,7 +185,7 @@ export const updateDetails = async (data, id) => {
 };
 
 // reset password
-export const resetPassword = async(data,token)=>{
+export const resetPassword = async (data, token) => {
   try {
     const response = await fetch(`${API}/resetpassword/${token}`, {
       method: "PUT",
@@ -191,11 +207,10 @@ export const resetPassword = async(data,token)=>{
     console.log("Error:", error.message);
     return { error: error.message, success: false }; // Return an error object with the error message
   }
-}
-
+};
 
 // change password
-export const changePassword = async(data,id)=>{
+export const changePassword = async (data, id) => {
   return await fetch(`${API}/changepassword/${id}`, {
     method: "PUT",
     headers: {
@@ -210,4 +225,22 @@ export const changePassword = async(data,id)=>{
     .catch((err) => {
       return console.log(err);
     });
-}
+};
+
+
+export const checkOTP = async (data) => {
+  return await fetch(`${API}/validateotp`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  })
+    .then((res) => {
+      return res.json()
+    })
+    .catch((err) => {
+      return console.log(err);
+    });
+};
