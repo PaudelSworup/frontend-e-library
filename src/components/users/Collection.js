@@ -20,7 +20,7 @@ const Collection = () => {
     return savedLimit ? Number(savedLimit) : 4;
   });
 
-  const {data,isLoading,error } = useQuery(
+  const booksData = useQuery(
     ["getallbooks"],
     async () => await getAllBooks(),
     {

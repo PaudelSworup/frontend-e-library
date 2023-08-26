@@ -15,14 +15,9 @@ const LandingPage = () => {
     >
       <nav className="flex flex-wrap items-center justify-between bg-black p-4">
         <div className="flex items-center">
-          <img
-            src="/images/kct.png"
-            alt="Library Management System"
-            className="h-16 w-16 rounded-xl"
-          />
-          <h1 className="text-2xl font-bold text-gray-400 ml-2">
-            LBM
-          </h1>
+          <h3 className="text-3xl font-bold text-shadow-lg italic animate-pulse text-white">
+            bookNest
+          </h3>
         </div>
         <div className="flex items-center mt-4 sm:mt-0">
           <Link

@@ -1,4 +1,4 @@
-import { FaCog, FaEnvelope, FaHeart, FaSignOutAlt } from "react-icons/fa";
+import { FaCog, FaEnvelope, FaHeart } from "react-icons/fa";
 
 export const drop = [
   {

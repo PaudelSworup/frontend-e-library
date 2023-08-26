@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import NavBars from "./NavBars";
 import { useParams } from "react-router-dom";
-// import { getBookbyCategory } from "../API/bookAPI";
+
 import Generes from "./Generes";
 import ThumbNail from "./ThumbNail";
 import { toast } from "react-toastify";
@@ -13,7 +13,7 @@ const CategoryData = () => {
   const { id } = useParams();
   const [genre, setGenre] = useState([]);
 
-  const { data, isLoading, error } = useQuery(
+  const { data} = useQuery(
     ["getGenre", id],
     async () => await getBookbyCategory(id),
     {
@@ -22,7 +22,7 @@ const CategoryData = () => {
   );
 
   if (data?.data?.books.length < 1) {
-     toast.error("No books has been added related to this genre", {
+    toast.error("No books has been added related to this genre", {
       position: "top-right",
     });
   }

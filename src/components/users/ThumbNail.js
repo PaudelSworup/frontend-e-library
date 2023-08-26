@@ -52,12 +52,12 @@ const ThumbNail = ({ result }) => {
 
   return (
     <>
-      <div className="ml-3 bg-[#222]  group rounded overflow-hidden shadow-lg max-w-sm my-10 cursor-pointer transition duration-[420ms] ease-in transform sm:hover:scale-105 hover:z-50 ">
+      <div className="ml-3   group rounded overflow-hidden shadow-lg max-w-sm my-10 cursor-pointer transition duration-[420ms] ease-in transform sm:hover:scale-105 hover:z-50 ">
         <Link to={{ pathname: `/book/detail/${result?._id}` }}>
           <LazyImage
             src={`${image}/${result?.image}`}
             alt=""
-            className="w-full max-h-[333px]"
+            className="w-full max-h-[260px]"
             loading="lazy"
           />
         </Link>
@@ -79,7 +79,7 @@ const ThumbNail = ({ result }) => {
           </span>
         </div>
         <div className=" px-12 py-2 flex gap-3">
-          <p className="truncate max-w-md capitalize text-white transition duration-100 opacity-0 group-hover:opacity-100 ">
+          <p className="truncate max-w-md capitalize text-white transition duration-200 opacity-0 group-hover:opacity-100 ">
             {`${new Date(result?.yearofpublication).getFullYear()}-${(
               new Date(result?.yearofpublication).getMonth() + 1
             )
@@ -90,7 +90,7 @@ const ThumbNail = ({ result }) => {
               .padStart(2, "0")} `}
           </p>
 
-          <p className="max-w-md capitalize mt-[-5px] flex gap-3  text-white transition duration-100 opacity-0 group-hover:opacity-100 ">
+          <p className="max-w-md flex capitalize mt-[-5px]  gap-3  text-white transition duration-200 opacity-0 group-hover:opacity-100">
             <FaThumbsUp
               className={`text-2xl ${isLiked ? "text-blue-500" : "text-white"}`}
               onClick={handleLike}

@@ -3,6 +3,7 @@ import ThumbNail from "./ThumbNail";
 import HeadingContent from "./HeadingContent";
 
 const Saved = ({ data }) => {
+  console.log(data)
   return (
     <div className="flex flex-col  ">
       <HeadingContent

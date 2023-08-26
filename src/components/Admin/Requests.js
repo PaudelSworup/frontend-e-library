@@ -83,10 +83,7 @@ const Requests = () => {
                       alt=""
                     />
                   </td>
-                  <td
-                    scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                  >
+                  <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     {data?.books_id?.title}
                   </td>
                   <td className="px-6 py-4">
@@ -103,23 +100,28 @@ const Requests = () => {
                       ? "Rejected"
                       : "Pending"}
                   </td>
-                  <td className="px-6 py-4 grid gap-4">
-                    {data?.issueStatus === 1 ? (
+                  <td className="px-6  py-4">
+                    {data?.issueStatus === 1 && (
                       <button
                         disabled
                         className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
                       >
                         Approved
                       </button>
-                    ) : data?.issueStatus === 2 ? (
+                    )}
+
+                    {data?.issueStatus === 2 && (
                       <button
                         disabled
                         className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                       >
                         Rejected
                       </button>
-                    ) : (
-                      <>
+                    )}
+
+                    {data?.issueStatus !== 1 && data.issueStatus !== 2 && (
+                        <div className="flex flex-col gap-3 ">
+                       
                         <button
                           onClick={() =>
                             authorizeBookRequests(data?.user_id?._id)
@@ -132,7 +134,8 @@ const Requests = () => {
                         <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
                           Reject
                         </button>
-                      </>
+                        </div>
+                      
                     )}
                   </td>
                 </tr>

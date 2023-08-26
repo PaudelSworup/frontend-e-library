@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import NavBars from "./NavBars";
@@ -8,18 +8,31 @@ import { createAccount } from "../../API/userAuthApi";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import LabelComp from "./LabelComp";
+import { useQuery } from "react-query";
+
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const [genre, setGenre] = useState([]);
 
-  useEffect(() => {
-    getGenre().then((res) => {
-      console.log(res);
-      setGenre(res?.data.category);
-    });
-  }, []);
+  const width = window.screen.width;
+  const height = window.screen.height;
+
+  const genress = useQuery(["register"],async()=>await getGenre(),{
+    onSuccess:(data)=>{
+      setGenre(data?.data?.category)
+    }
+  })
+
+  
+
+  // useEffect(() => {
+  //   getGenre().then((res) => {
+  //     console.log(res);
+  //     setGenre(res?.data.category);
+  //   });
+  // }, []);
 
   const options = genre?.map((data) => ({
     value: data?.category_name,
@@ -79,6 +92,8 @@ const Register = () => {
         mobilenum: values.mobileNumber,
         password: values.password,
         choosedCatgoeirs: values.categories,
+        width,
+        height,
       }).then((res) => {
         if (res.success === true) {
           toast.success(res.message, { position: "top-center" });
@@ -116,7 +131,7 @@ const Register = () => {
           <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
             <div className="rounded-md shadow-sm -space-y-px">
               <div>
-              <LabelComp labelForhtml="Full name"/>
+                <LabelComp labelForhtml="Full name" />
                 <input
                   id="fullName"
                   name="fullName"
@@ -138,7 +153,7 @@ const Register = () => {
                 )}
               </div>
               <div>
-              <LabelComp labelForhtml="Email Address"/>
+                <LabelComp labelForhtml="Email Address" />
                 <input
                   id="email"
                   name="email"
@@ -161,7 +176,7 @@ const Register = () => {
               </div>
 
               <div>
-              <LabelComp labelForhtml="Address"/>
+                <LabelComp labelForhtml="Address" />
                 <input
                   id="address"
                   type="text"
@@ -181,7 +196,7 @@ const Register = () => {
               </div>
 
               <div>
-              <LabelComp labelForhtml="Mobile number"/>
+                <LabelComp labelForhtml="Mobile number" />
                 <input
                   id="mobileNumber"
                   type="number"
@@ -204,7 +219,7 @@ const Register = () => {
               </div>
 
               <div>
-              <LabelComp labelForhtml="Password"/>
+                <LabelComp labelForhtml="Password" />
                 <input
                   id="password"
                   name="password"
@@ -226,7 +241,7 @@ const Register = () => {
                 )}
               </div>
               <div>
-              <LabelComp labelForhtml="Confirm password"/>
+                <LabelComp labelForhtml="Confirm password" />
                 <input
                   id="confirmPassword"
                   name="confirmPassword"

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { FaBars, FaChartPie, FaListUl, FaSignOutAlt } from "react-icons/fa";
+import { FaBars, FaChartPie, FaListUl, FaSignOutAlt, FaUsers } from "react-icons/fa";
+import {GiBookshelf} from "react-icons/gi"
+
 import { Link } from "react-router-dom";
 import Dropdown from "./Dropdown";
 import { useSelector, useDispatch } from "react-redux";
@@ -25,7 +27,11 @@ const SideBar = ({ PassedComponent }) => {
       );
       if (filteredRequests.length > 0) {
         setCount(filteredRequests.length);
-      } else setCount(null);
+      }
+
+      if(filteredRequests.length === 0){
+        setCount(null)
+      }
     },
   });
 
@@ -75,10 +81,20 @@ const SideBar = ({ PassedComponent }) => {
 
           <li className="mb-1">
             <Link
+              to="/books"
+              className="text-white flex items-center py-2 pl-4 pr-6 text-sm font-medium transition-colors duration-200 hover:bg-gray-700"
+            >
+              <GiBookshelf className="mr-2" />
+              <span className="flex-1 ml-3 whitespace-nowrap">Book lists</span>
+            </Link>
+          </li>
+
+          <li className="mb-1">
+            <Link
               to="/users"
               className="text-white flex items-center py-2 pl-4 pr-6 text-sm font-medium transition-colors duration-200 hover:bg-gray-700"
             >
-              <FaListUl className="mr-2" />
+              <FaUsers className="mr-2" />
               <span className="flex-1 ml-3 whitespace-nowrap">user lists</span>
             </Link>
           </li>

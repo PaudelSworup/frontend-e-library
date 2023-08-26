@@ -1,5 +1,4 @@
 import React from 'react'
-import SideNav from './SideNav'
 import Requests from './Requests'
 import SideBar from './SideBar'
 

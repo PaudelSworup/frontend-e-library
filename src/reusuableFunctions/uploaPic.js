@@ -1,7 +1,9 @@
 import { toast } from "react-toastify";
 import { upload } from "../API/userAuthApi";
 
+
 export const uploadProfile = (userid, onChangeCallback) => {
+
   const handleImageUpload = (event) => {
     const image = event.target.files[0];
     const formData = new FormData();
@@ -11,7 +13,7 @@ export const uploadProfile = (userid, onChangeCallback) => {
 
     upload(formData).then((data) => {
       if (data?.error) {
-        return toast.error(data.error, { position: "top-center", autoClose: 3000 });
+        return toast.error(data.error, { position: "top-right"});
       } else {
         return toast.success(data.message, {
           position: "top-center",
@@ -19,6 +21,7 @@ export const uploadProfile = (userid, onChangeCallback) => {
         });
       }
     });
+    
   };
 
   const fileInput = document.createElement("input");

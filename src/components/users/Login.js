@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { checkOTP, login } from "../../API/userAuthApi";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setLogin } from "../../store/userSlice";
 import { RiEyeFill, RiEyeOffFill } from "react-icons/ri";
 import { Link, useNavigate } from "react-router-dom";
@@ -15,10 +15,9 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [showOtpModal, setShowOtpModal] = useState(false);
-  const [otp, setOTP] = useState(null);
+  const [otp, setOTP] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
 
   const togglePasswordVisibility = () => {
     setShowPassword((prevState) => !prevState);
@@ -32,7 +31,6 @@ const Login = () => {
     e.preventDefault();
     login({ email, password, width, height }).then((data) => {
       setIsLoading(false);
-      console.log(data);
       if (data.error) {
         return toast.error(data.error, {
           position: "top-center",
@@ -63,9 +61,8 @@ const Login = () => {
     });
   };
 
-  const validateOTPS = async() => {
-    const otpValidationData = await checkOTP({ otp, width, height,email });
-    console.log(otpValidationData)
+  const validateOTPS = async () => {
+    const otpValidationData = await checkOTP({ otp, width, height, email });
 
     if (otpValidationData.success === true) {
       setShowOtpModal(false);
@@ -100,11 +97,10 @@ const Login = () => {
           }
         }
       });
-    }else{
-      if(otpValidationData?.success === false){
-        return toast.error(otpValidationData.error)
+    } else {
+      if (otpValidationData?.success === false) {
+        return toast.error(otpValidationData.error);
       }
-      
     }
   };
 
@@ -114,7 +110,7 @@ const Login = () => {
       <div className="flex flex-col gap-6  items-center justify-center m-5">
         <div className="flex flex-col gap-2 justify-center">
           <h2 className="text-white tracking-widest text-center font-serif text-2xl">
-            KCT Login Portal
+            bookNest Login Portal
           </h2>
           <p className="text-white tracking-widest capitalize">
             Where you enrich your knowledge
@@ -231,7 +227,7 @@ const Login = () => {
                               id="email"
                               size={35}
                               type="email"
-                              placeholder="Enter your email"
+                              placeholder="Enter your OTP"
                               value={otp}
                               onChange={(e) => setOTP(e.target.value)}
                             />

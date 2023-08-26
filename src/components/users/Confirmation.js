@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import React from "react";
+
 import { useParams } from "react-router-dom";
 import { confirmAccount } from "../../API/userAuthApi";
 import Modal from "../Modals/Modal";

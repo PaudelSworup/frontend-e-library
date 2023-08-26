@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import { FaFilePdf, FaFileImage, FaCheckCircle } from "react-icons/fa";
 import LabelAdmin from "./LabelAdmin";
 import DatePicker from "react-datepicker";
@@ -7,10 +7,10 @@ import { addBooks, getGenre } from "../../API/bookAPI";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useQuery } from "react-query";
-import Loading from "../users/Loading";
+
 
 const AddBook = () => {
-  const { isLoading, data, error } = useQuery(
+  const bookData = useQuery(
     "genres",
     async () => await getGenre(),
     {
@@ -19,9 +19,7 @@ const AddBook = () => {
     }
   );
 
-  if (data) {
-    console.log("success");
-  }
+  
 
   // useEffect(() => {
   //   getGenre()

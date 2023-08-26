@@ -13,8 +13,9 @@ const Generes = () => {
 
   return (
     <>
-      <div className="flex flex-col p-4">
+      <div className="flex mx-auto flex-col p-4">
         <h2 className="text-white font-bold text-2xl">Generes</h2>
+        <p className="text-white">Browse Our Extensive Collection of Books Across Different Genres.</p>
         <div className="flex xl:justify-center gap-7 py-3 overflow-x-scroll scrollbar-hide">
           {genre && genre.map((data, i) => {
             return (

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { icons } from "./Ricons";
 import { Link } from "react-router-dom";
 
@@ -6,44 +6,41 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Detail from "./Detail";
 import { toast } from "react-toastify";
-import jwtDecode from "jwt-decode";
 import { image } from "../../config";
+import { getBookmarks, postBookMark, removeBookmark } from "../../API/bookAPI";
+import { useQuery } from "react-query";
 
-const DetailSection = ({ result }) => {
+const DetailSection = ({ result, id }) => {
   const navigate = useNavigate();
 
-  const { token } = useSelector((state) => state.users);
-  const decodeToken = jwtDecode(token);
+  const { userid } = useSelector((state) => state.users);
 
   const [saved, setSaved] = useState(true);
 
-  const favoritesKey = `${decodeToken.id}-${result.isbn}`;
-
-  useEffect(() => {
-    let status = JSON.parse(localStorage.getItem(favoritesKey));
-    if (status) {
-      if (status.isbn === result.isbn) {
-        setSaved(false);
-      }
-    }
-  }, [result]);
+  const savedStatus = useQuery(["savedstatus"], async () => getBookmarks(), {
+    onSuccess: (data) => {
+      data?.data?.books?.filter((data) =>
+        data?.userId === userid && data?.book?._id === id
+          ? setSaved(false)
+          : setSaved(true)
+      );
+    },
+  });
 
   const saveItems = () => {
     console.log("saved item value is", saved);
     setSaved(!saved);
     if (saved) {
-      localStorage.setItem(favoritesKey, JSON.stringify(result));
-      return toast.success("The book has been added to your wishlist 📖", {
-        position: "top-center",
-        autoClose: 3000,
-        hideProgressBar: false,
+      postBookMark({ userId: userid, book: id }).then((data) => {
+        if (data?.success === true) {
+          return toast.success(data?.message);
+        }
       });
     } else {
-      localStorage.removeItem(favoritesKey);
-      return toast.success("The book has been removed from your wishlist📖", {
-        position: "top-center",
-        autoClose: 3000,
-        hideProgressBar: false,
+      removeBookmark(userid, id).then((data) => {
+        if (data?.success === true) {
+          return toast.success(data?.message);
+        }
       });
     }
   };
@@ -54,8 +51,12 @@ const DetailSection = ({ result }) => {
         <div className="py-3 px-2">
           <p className="text-white tracking-wider">
             <Link to="/home">Home</Link> /
-            <Link to={`/book/genre/${result?.category?.category_name}/${result?.category?._id}`}>{result?.category?.category_name}</Link>/
-            <span>{result?.title}</span>
+            <Link
+              to={`/book/genre/${result?.category?.category_name}/${result?.category?._id}`}
+            >
+              {result?.category?.category_name}
+            </Link>
+            /<span>{result?.title}</span>
           </p>
         </div>
 
@@ -79,7 +80,9 @@ const DetailSection = ({ result }) => {
                   {data.icon}
                 </span>
               ) : (
-                <span onClick={data.onclick} className="text-white">{data.icon}</span>
+                <span onClick={data.onclick} className="text-white">
+                  {data.icon}
+                </span>
               )}
             </div>
           ))}

@@ -205,6 +205,56 @@ export const setStatus = async (data, userid) => {
     });
 };
 
+// userfavourites bookmark
+export const postBookMark = async(data)=>{
+  return await fetch(`${API}/bookmark`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .catch((err) => {
+      return console.log(err);
+    });
+
+}
+
+
+// getting userFavourites Bookmark
+
+export const getBookmarks = async () => {
+  try {
+    return await axios.get(`${API}/bookmark`);
+  } catch (err) {
+    console.log(err);
+    // throw new Error("Failed to get data, something went wrong")
+  }
+};
+
+
+//removing userfavourite
+export const removeBookmark = async (id,bookid) => {
+  // return console.log(id)
+  return await fetch(`${API}/bookmark/${id}/${bookid}`, {
+    method: "DELETE",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .catch((err) => {
+      return console.log(err);
+    });
+};
+
 
 
 export const downloadBook = async (bookId) => {

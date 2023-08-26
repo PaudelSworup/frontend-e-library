@@ -26,6 +26,7 @@ import AddGenre from "../components/Admin/AddGenre";
 import RequestSection from "../components/Admin/RequestSection";
 import SideBar from "../components/Admin/SideBar";
 import UsersList from "../components/Admin/UsersList";
+import BookList from "../components/Admin/BookList";
 
 const RoutePath = () => {
   return (
@@ -57,6 +58,7 @@ const RoutePath = () => {
         <Route path="/addcategory" element={<AddGenre />} />
         <Route path="/requests" element={<RequestSection />} />
         <Route path="/users" element={<UsersList/>}/>
+        <Route path="/books" element={<BookList/>}/>
       </Route>
     </Routes>
   );

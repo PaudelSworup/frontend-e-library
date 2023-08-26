@@ -39,28 +39,28 @@ const Books = () => {
     filterItem();
   }, [books]);
 
-  const datas = books.slice(0, 4);
+  const datas = books.slice(0, 5);
 
   return (
     <>
       <div className="mt-4">
         <Row title="Our Collections" />
 
-        <div className="px-5 sm:grid md:grid-cols-2 xl:grid-cols-4 xl:flex overflow-x-scroll scrollbar-hide bg-[#111]">
+        <div className="px-5 sm:grid md:grid-cols-2 xl:grid-cols-4 xl:flex  overflow-x-scroll scrollbar-hide bg-[#111]">
           {datas.map((result) => (
             <ThumbNail key={result.isbn} result={result} />
           ))}
         </div>
 
         <Row title="Recently Added/New Arrival" />
-        <div className="px-5  sm:grid md:grid-cols-2 xl:flex overflow-x-scroll scrollbar-hide bg-[#111]">
+        <div className="px-5  sm:grid md:grid-cols-2 xl:flex  overflow-x-scroll scrollbar-hide bg-[#111]">
           {recent.map((result) => (
             <ThumbNail key={result.isbn} result={result} />
           ))}
         </div>
 
         <Row title="Most Requested" />
-        <div className="px-5  sm:grid md:grid-cols-2 xl:flex overflow-x-scroll scrollbar-hide bg-[#111]">
+        <div className="px-5  sm:grid md:grid-cols-2 xl:flex  overflow-x-scroll scrollbar-hide bg-[#111]">
           {mostrequested?.map((result) => (
             <ThumbNail key={result.isbn} result={result} />
           ))}

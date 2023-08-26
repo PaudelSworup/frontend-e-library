@@ -5,6 +5,8 @@ import { getProfile } from "../../API/userAuthApi";
 import Saved from "./Saved";
 import Saved2 from "./Saved2";
 import { uploadProfile } from "../../reusuableFunctions/uploaPic";
+import { useQuery } from "react-query";
+import { getBookmarks } from "../../API/bookAPI";
 
 
 const SavedItems = () => {
@@ -13,15 +15,18 @@ const SavedItems = () => {
   
   const [profile, setProfile] = useState();
 
-  useEffect(() => {
-    const matchingValues = [];
-    for (let key in localStorage) {
-      if (localStorage.hasOwnProperty(key) && key.startsWith(userid)) {
-        matchingValues.push(JSON.parse(localStorage.getItem(key)));
-      }
+  const savedItems = useQuery(["bookmark"],async()=>await getBookmarks(),{
+    onSuccess:(data)=>{
+      // console.log(data)
+      const specificUserBookmark = data?.data?.books.filter((data)=>data?.userId === userid)
+      const mappedData = specificUserBookmark.map((data)=>data?.book)
+      setIsbn(mappedData)
+     
+      
     }
-    setIsbn(matchingValues);
-  }, [userid]);
+  })
+
+ 
 
   useEffect(() => {
     getProfile().then((user) => {

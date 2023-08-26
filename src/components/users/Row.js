@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 const Row = ({title}) => {
     const navigate = useNavigate()
   return (
-    <div className="flex px-3 py-2 justify-between">
+    <div className="flex px-3 py-2 justify-evenly">
       <h3 className="text-white text-2xl font-serif">{title}</h3>
 
       {title === "Our Collections" && <p

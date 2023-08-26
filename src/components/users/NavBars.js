@@ -85,47 +85,49 @@ const NavBars = () => {
 
     const existingNotificationIds = noti.flat().map((item) => item);
 
-    existingNotificationIds.map((data) => {
-      if (data?.notificationStatus === false) {
+    existingNotificationIds.map((data) => (
+      data?.notificationStatus === false &&
         newData.push({
           id: data?.book?._id,
           message: data?.messageNotification,
           user_id: data?.user?._id ? data?.user?._id : null,
           status: data?.notificationStatus,
           date: data?.date,
-        });
-      }
-    });
+        })
+        
+      
+    ));
 
     // setStatus({ newData }, userid).then((res) => {
     //   if (res?.success === true && res?.notification.length > 0) {
     //     console.log(res?.notification);
     //   }
     // });
-    if (newData.length != 0) {
+    if (newData.length !== 0) {
       console.log("hey");
       mutation.mutate({ newData });
     }
   };
 
   return (
-    <nav className="bg-gray-900 shadow-xl py-2 px-7 md:px-10 md:flex items-center justify-between">
-      <div className="font-bold text-2xl cursor-pointer">
+    <nav className="bg-gray-900 shadow-xl py-2 px-7 md:px-10 md:flex items-center justify-around">
+      <div className="font-bold text-2xl  cursor-pointer">
         {fullname ? (
           <Link to="/home">
-            <img
+            <h3 className="text-3xl font-bold text-shadow-lg italic animate-pulse text-white">
+              bookNest
+            </h3>
+            {/* <img
               src="/images/librarykct.png"
               className="h-16 w-16 rounded-xl"
               alt=""
-            />
+            /> */}
           </Link>
         ) : (
           <Link to="/">
-            <img
-              src="/images/kct.png"
-              className="h-16 w-16 rounded-xl"
-              alt=""
-            />
+            <h3 className="text-3xl font-bold text-shadow-lg italic animate-pulse text-white">
+              bookNest
+            </h3>
           </Link>
         )}
       </div>

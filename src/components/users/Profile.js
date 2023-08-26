@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ProfileSection from "./ProfileSection";
 import { uploadProfile } from "../../reusuableFunctions/uploaPic";
 import { useSelector } from "react-redux";
@@ -8,7 +8,7 @@ import HeadingContent from "./HeadingContent";
 import PersonalInfo from "./PersonalInfo";
 import FavouriteGenres from "./FavouriteGenres";
 import ChangePassword from "./ChangePassword";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 
 const Profile = () => {
   const { userid, fullname, email } = useSelector((state) => state.users);
@@ -18,17 +18,22 @@ const Profile = () => {
   const [emailadd, setEmailadd] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
+  const queryClient = useQueryClient();
 
   const getProfilePhoto = useQuery(
     ["getprofile"],
     async () => await getProfile(),
     {
-      onSettled: (user) => {
-        user?.data?.profile?.find((data) => {
-          return data?.userId?._id === userid
-            ? setProfile(data?.profileImage)
-            : setProfile(undefined);
+      onSuccess: (user) => {
+        const data = user?.data?.profile?.find((data) => {
+          return data?.userId?._id === userid;
         });
+
+        if (data) {
+          setProfile(data?.profileImage);
+        } else {
+          setProfile(undefined);
+        }
       },
     }
   );
@@ -80,8 +85,9 @@ const Profile = () => {
     }
   };
 
-  const handleUploadProfile = () => {
-    uploadProfile(userid, handleFileChange);
+  const handleUploadProfile = async () => {
+    await uploadProfile(userid, handleFileChange);
+    queryClient.invalidateQueries({ queryKey: ["getprofile"] });
   };
 
   const handleInputChange = (inputName, value) => {
