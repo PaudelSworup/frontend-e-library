@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import {
   FaBarcode,
   FaBook,
@@ -183,16 +183,14 @@ const Detail = ({ result }) => {
                 title="Available"
                 className="text-white cursor-pointer text-2xl"
               />
-              <p className="text-green-600 tracking-widest">
-                Available
-              </p>
+              <p className="text-green-600 tracking-widest">Available</p>
             </div>
 
-            <div>
+            {/* <div>
               <p className="text-white tracking-widest">
                 Stock:{result?.stock}
               </p>
-            </div>
+            </div> */}
           </div>
         ) : (
           <div className="my-3 flex justify-between gap-3">
@@ -206,11 +204,11 @@ const Detail = ({ result }) => {
               </p>
             </div>
 
-            <div>
+            {/* <div>
               <p className="text-white tracking-widest">
                 Stock:{result?.stock}
               </p>
-            </div>
+            </div> */}
           </div>
         )}
         <div className="flex flex-col items-start gap-3">
@@ -233,17 +231,19 @@ const Detail = ({ result }) => {
         <hr className="my-5 border border-[#313131]" />
         <h2 className="text-3xl text-white tracking-widest">Synopsis</h2>
         <p className="text-white font-serif tracking-widest text-xl text-justify">
-          {`${showFullText
-            ? result?.desc
-            : result?.desc.slice(0, result?.desc.length / 2.5)}`}
+          {`${
+            showFullText
+              ? result?.desc
+              : result?.desc.slice(0, result?.desc.length / 2.5)
+          }`}
         </p>
         {result?.desc.length > 100 && (
-          <button
+          <strong
             className="text-blue-500 underline mt-2"
             onClick={toggleTextVisibility}
           >
-            {showFullText ? "See Less" : "See More..."}
-          </button>
+            {showFullText ? "See Less" : " See More..."}
+          </strong>
         )}
         <hr className="my-5 border border-[#313131]" />
 

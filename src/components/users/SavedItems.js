@@ -8,40 +8,55 @@ import { uploadProfile } from "../../reusuableFunctions/uploaPic";
 import { useQuery } from "react-query";
 import { getBookmarks } from "../../API/bookAPI";
 
-
 const SavedItems = () => {
   const { userid, fullname, email } = useSelector((state) => state.users);
   const [Isbn, setIsbn] = useState();
-  
+
   const [profile, setProfile] = useState();
 
-  const savedItems = useQuery(["bookmark"],async()=>await getBookmarks(),{
-    onSuccess:(data)=>{
+  const savedItems = useQuery(["bookmark"], async () => await getBookmarks(), {
+    onSuccess: (data) => {
       // console.log(data)
-      const specificUserBookmark = data?.data?.books.filter((data)=>data?.userId === userid)
-      const mappedData = specificUserBookmark.map((data)=>data?.book)
-      setIsbn(mappedData)
-     
-      
-    }
-  })
+      const specificUserBookmark = data?.data?.books.filter(
+        (data) => data?.userId === userid
+      );
+      const mappedData = specificUserBookmark.map((data) => data?.book);
+      setIsbn(mappedData);
+    },
+  });
 
- 
+  // useEffect(() => {
+  //   getProfile().then((user) => {
+  //     user?.data?.profile.find((data)=>{
+  //       if(data?.userId?._id === userid){
+  //         return setProfile(data?.profileImage);
+  //       }
+  //       return setProfile(undefined)
+  //      })
+  //   });
+  // }, [userid]);
 
-  useEffect(() => {
-    getProfile().then((user) => {
-      user?.data?.profile.find((data)=>{
-        if(data?.userId?._id === userid){
-          return setProfile(data?.profileImage);
+  const getProfilePhoto = useQuery(
+    ["getprofile"],
+    async () => await getProfile(),
+    {
+      onSuccess: (user) => {
+        const data = user?.data?.profile?.find((data) => {
+          return data?.userId?._id === userid;
+        });
+
+        if (data) {
+          setProfile(data?.profileImage);
+        } else {
+          setProfile(undefined);
         }
-        return setProfile(undefined)
-       })
-    });
-  }, [userid]);
+      },
+    }
+  );
 
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
-  
+
     // Perform any validations or actions based on the selected file
     if (selectedFile) {
       console.log("Selected file:", selectedFile);

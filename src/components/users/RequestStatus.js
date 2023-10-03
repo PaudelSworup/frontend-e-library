@@ -5,35 +5,52 @@ import { useSelector } from "react-redux";
 import { uploadProfile } from "../../reusuableFunctions/uploaPic";
 import Saved2 from "./Saved2";
 import RequestHistory from "./RequestHistory";
+import { useQuery, useQueryClient } from "react-query";
 
 const RequestStatus = () => {
   const [profile, setProfile] = useState([]);
   const { userid, fullname, email } = useSelector((state) => state.users);
   const [filter, setFilter] = useState([]);
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     getHistory().then((res) => {
-      console.log(res?.data?.filterData)
+      console.log(res?.data?.filterData);
       const filterData = res?.data?.filterData.filter((data) => {
         return data?.user_id?._id === userid;
       });
-      setFilter(filterData)
-
+      setFilter(filterData);
     });
   }, [userid]);
-  
-  
 
-  useEffect(() => {
-    getProfile().then((user) => {
-      user?.data?.profile.find((data)=>{
-        if(data?.userId?._id === userid){
-          return setProfile(data?.profileImage);
+  // useEffect(() => {
+  //   getProfile().then((user) => {
+  //     user?.data?.profile.find((data)=>{
+  //       if(data?.userId?._id === userid){
+  //         return setProfile(data?.profileImage);
+  //       }
+  //       return setProfile(undefined)
+  //      })
+  //   });
+  // }, [userid]);
+
+  const getProfilePhoto = useQuery(
+    ["getprofile"],
+    async () => await getProfile(),
+    {
+      onSuccess: (user) => {
+        const data = user?.data?.profile?.find((data) => {
+          return data?.userId?._id === userid;
+        });
+
+        if (data) {
+          setProfile(data?.profileImage);
+        } else {
+          setProfile(undefined);
         }
-        return setProfile(undefined)
-       })
-    });
-  }, [userid]);
+      },
+    }
+  );
 
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];

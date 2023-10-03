@@ -1,6 +1,12 @@
 import React, { useState } from "react";
-import { FaBars, FaChartPie, FaListUl, FaSignOutAlt, FaUsers } from "react-icons/fa";
-import {GiBookshelf} from "react-icons/gi"
+import {
+  FaBars,
+  FaChartPie,
+  FaListUl,
+  FaSignOutAlt,
+  FaUsers,
+} from "react-icons/fa";
+import { GiBookshelf } from "react-icons/gi";
 
 import { Link } from "react-router-dom";
 import Dropdown from "./Dropdown";
@@ -8,16 +14,19 @@ import { useSelector, useDispatch } from "react-redux";
 import { setLogout } from "../../store/userSlice";
 import { useQuery } from "react-query";
 import { getReports } from "../../API/bookAPI";
+import { useNavigate } from "react-router-dom";
 
 const SideBar = ({ PassedComponent }) => {
   const dispatch = useDispatch();
   const { userid, fullname } = useSelector((state) => state.users);
   const [show, setShow] = useState(false);
   const [count, setCount] = useState(null);
+  const navigate = useNavigate();
 
   const Logout = () => {
     localStorage.removeItem(userid);
     dispatch(setLogout());
+    navigate("/login");
   };
 
   const listCount = useQuery(["reportsCount"], async () => await getReports(), {
@@ -29,8 +38,8 @@ const SideBar = ({ PassedComponent }) => {
         setCount(filteredRequests.length);
       }
 
-      if(filteredRequests.length === 0){
-        setCount(null)
+      if (filteredRequests.length === 0) {
+        setCount(null);
       }
     },
   });

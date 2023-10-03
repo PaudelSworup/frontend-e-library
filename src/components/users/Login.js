@@ -226,7 +226,7 @@ const Login = () => {
                               className="shadow appearance-none border rounded w-full py-[14px] px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                               id="email"
                               size={35}
-                              type="email"
+                              type="number"
                               placeholder="Enter your OTP"
                               value={otp}
                               onChange={(e) => setOTP(e.target.value)}

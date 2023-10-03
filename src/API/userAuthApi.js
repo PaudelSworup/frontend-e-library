@@ -227,7 +227,6 @@ export const changePassword = async (data, id) => {
     });
 };
 
-
 export const checkOTP = async (data) => {
   return await fetch(`${API}/validateotp`, {
     method: "POST",
@@ -238,7 +237,7 @@ export const checkOTP = async (data) => {
     body: JSON.stringify(data),
   })
     .then((res) => {
-      return res.json()
+      return res.json();
     })
     .catch((err) => {
       return console.log(err);

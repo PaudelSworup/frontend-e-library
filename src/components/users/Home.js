@@ -10,14 +10,14 @@ const Home = () => {
   return (
     <>
       <NavBars />
+
       <Banner />
       <Generes />
       <div className="container mx-auto">
-      <Featured />
-      <Books />
+        <Featured />
+        <Books />
       </div>
-      <Footer/>
-     
+      <Footer />
     </>
   );
 };

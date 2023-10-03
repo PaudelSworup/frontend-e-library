@@ -41,9 +41,8 @@ const LandingPage = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <LandingComponents
             h2="Account Feature"
-            p="With your account, you can request up to three books at a time.
-              Enjoy the convenience of setting return dates and receiving
-              notifications. Late returns may incur a fine penalty."
+            p="With your account, you can request up to three books in a day.
+            Once a book is approved, there's no need for book returns; you can simply download it directly and receive notifications for your approved books. Enjoy hassle-free access to your titles!"
           />
 
           <LandingComponents

@@ -54,7 +54,7 @@ const ThumbNail = ({ result }) => {
     <>
       <div className="ml-3   group rounded overflow-hidden shadow-lg max-w-sm my-10 cursor-pointer transition duration-[420ms] ease-in transform sm:hover:scale-105 hover:z-50 ">
         <Link to={{ pathname: `/book/detail/${result?._id}` }}>
-          <LazyImage
+          <img
             src={`${image}/${result?.image}`}
             alt=""
             className="w-full max-h-[260px]"
