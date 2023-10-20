@@ -13,30 +13,31 @@ const Notification = () => {
         <h2 className="text-white text-xl tracking-wider font-bold">
           Notifications
         </h2>
-
-        {noti.flat().map((data) => {
-          return (
-            <div
-              key={data?._id}
-              className="text-white lg:h-auto w-full flex gap-3 max-w-full bg-slate-400 "
-            >
-              <img
-                src={`${image}/${data?.book?.image}`}
-                alt=""
-                className="md:h-20 object-contain notify-image"
-              />
-
-              <p
-                className="flex flex-col justify-center items-start"
-                title={data?.messageNotification}
+        <div className="overflow-y-auto max-h-60 scrollbar-hide">
+          {noti.flat().map((data) => {
+            return (
+              <div
+                key={data?._id}
+                className="text-white lg:h-auto w-full m-3 flex gap-3 max-w-full bg-slate-400 "
               >
-                {overFlow(data?.messageNotification, 55)}
+                <img
+                  src={`${image}/${data?.book?.image}`}
+                  alt=""
+                  className="md:h-20 object-contain notify-image"
+                />
 
-                <span>{formatNotificationTime(data?.date)}</span>
-              </p>
-            </div>
-          );
-        })}
+                <p
+                  className="flex flex-col justify-center items-start"
+                  title={data?.messageNotification}
+                >
+                  {overFlow(data?.messageNotification, 55)}
+
+                  <span>{formatNotificationTime(data?.date)}</span>
+                </p>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

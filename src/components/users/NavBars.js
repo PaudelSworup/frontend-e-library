@@ -8,7 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import DropMenu from "./DropMenu";
 import { useDispatch, useSelector } from "react-redux";
 import Notification from "./Notification";
-import { getNotified, setStatus } from "../../API/bookAPI";
+import { getNotified, setStatus, getNotifications } from "../../API/bookAPI";
 import { setNotify } from "../../store/notifySlice";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import Loading from "./Loading";
@@ -46,6 +46,32 @@ const NavBars = () => {
     }
   );
 
+  const booksMutation = useMutation({
+    mutationFn: (data) => setStatus(data, userid),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["booksNotifications", userid],
+      });
+    },
+  });
+
+  const booksNotifications = useQuery(
+    ["booksNotifications", userid],
+    async () => await getNotifications(userid),
+    {
+      enabled: !!userid,
+      onSuccess: (data) => dispatch(setNotify(data?.data?.notification)),
+    }
+  );
+
+  // const booksNotifications = useQuery(
+  //   ["booksNotifications"],
+  //   async () => await getNotifications(),
+  //   {
+  //     onSettled: (data) => dispatch(setNotify(data?.data?.notification)),
+  //   }
+  // );
+
   if (isLoading) {
     return <Loading />;
   }
@@ -55,9 +81,16 @@ const NavBars = () => {
   }
 
   let unReadNotification;
+  let booksunReadNotificatons;
 
   if (data) {
     unReadNotification = data?.data?.notification?.filter(
+      (status) => status.notificationStatus === false
+    )?.length;
+  }
+
+  if (booksNotifications?.data) {
+    unReadNotification = booksNotifications.data?.data?.notification?.filter(
       (status) => status.notificationStatus === false
     )?.length;
   }
@@ -85,27 +118,34 @@ const NavBars = () => {
 
     const existingNotificationIds = noti.flat().map((item) => item);
 
-    existingNotificationIds.map((data) => (
-      data?.notificationStatus === false &&
+    existingNotificationIds.map((data) => {
+      if (data?.notificationStatus === false && data?.sendAll === true) {
         newData.push({
           id: data?.book?._id,
           message: data?.messageNotification,
           user_id: data?.user?._id ? data?.user?._id : null,
           status: data?.notificationStatus,
+          sendAll: true,
           date: data?.date,
-        })
-        
-      
-    ));
+        });
+      } else {
+        if (data?.notificationStatus === false && data?.sendAll === false) {
+          newData.push({
+            id: data?.book?._id,
+            message: data?.messageNotification,
+            user_id: data?.user?._id ? data?.user?._id : null,
+            sendAll: false,
+            status: data?.notificationStatus,
+            date: data?.date,
+          });
+        }
+      }
+    });
 
-    // setStatus({ newData }, userid).then((res) => {
-    //   if (res?.success === true && res?.notification.length > 0) {
-    //     console.log(res?.notification);
-    //   }
-    // });
     if (newData.length !== 0) {
       console.log("hey");
       mutation.mutate({ newData });
+      booksMutation.mutate({ newData });
     }
   };
 
@@ -184,10 +224,18 @@ const NavBars = () => {
                       <div onClick={handleNotication}>
                         <span
                           className={`absolute ${
-                            unReadNotification === 0 ? "bg-none" : colour
+                            unReadNotification === 0 ||
+                            booksunReadNotificatons === 0
+                              ? "bg-none"
+                              : colour
                           } p-1 h-6 w-6 rounded-full bottom-9 right-7 flex items-center justify-center`}
                         >
-                          {unReadNotification === 0 ? "" : unReadNotification}
+                          {(unReadNotification === 0
+                            ? ""
+                            : unReadNotification) ||
+                            (booksunReadNotificatons === 0
+                              ? ""
+                              : booksunReadNotificatons)}
                           {notification && <Notification />}
                         </span>
                       </div>

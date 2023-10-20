@@ -46,7 +46,7 @@ const SideBar = ({ PassedComponent }) => {
 
   return (
     <>
-      <div className="lg:hidden   flex items-center justify-end p-2 bg-slate-700">
+      <div className="lg:hidden flex items-center justify-end p-2 bg-slate-700">
         <FaBars
           onClick={() => setShow(!show)}
           className={`p-2 text-white text-4xl ${show && "animate-bounce"}`}

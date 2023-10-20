@@ -62,7 +62,7 @@ const Books = () => {
         <Row title="Most Requested" />
         <div className="px-5  sm:grid md:grid-cols-2 xl:flex  overflow-x-scroll scrollbar-hide bg-[#111]">
           {mostrequested?.map((result) => (
-            <ThumbNail key={result.isbn} result={result} />
+            <ThumbNail key={result?.book?.isbn} result={result?.book} />
           ))}
         </div>
       </div>

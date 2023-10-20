@@ -13,16 +13,12 @@ const Users = () => {
   const [sure, setSure] = useState(false);
   const [selectedUserId, setSelectedUserId] = useState(null);
 
-  const { status} = useQuery(
-    ["getusers"],
-    async () => await getUser(),
-    {
-      onSuccess: (data) => {
-        const userData = data?.data?.user.filter((data) => data?.role === 0);
-        setUsers(userData);
-      },
-    }
-  );
+  const { status } = useQuery(["getusers"], async () => await getUser(), {
+    onSuccess: (data) => {
+      const userData = data?.data?.user.filter((data) => data?.role === 0);
+      setUsers(userData);
+    },
+  });
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
@@ -49,7 +45,7 @@ const Users = () => {
 
   return (
     <>
-      <div className="flex items-center justify-evenly">
+      <div className="flex items-center lg:ml-[250px] justify-center">
         <div className="relative overflow-x-auto">
           <table className="lg:w-auto w-full  text-sm text-left text-gray-500 dark:text-gray-400">
             <thead className="text-xs  text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">

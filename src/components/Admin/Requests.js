@@ -38,9 +38,9 @@ const Requests = () => {
   };
 
   return (
-    <div className="flex items-center justify-end">
+    <div className="flex items-center lg:ml-[250px] justify-center ">
       <div className="relative overflow-x-auto">
-        <table className="lg:w-auto w-full  text-sm text-left text-gray-500 dark:text-gray-400">
+        <table className="w-full lg:w-[700px]  text-sm text-left text-gray-500 dark:text-gray-400">
           <thead className="text-xs  text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
               <th scope="col" className="px-6 py-3">
@@ -89,7 +89,7 @@ const Requests = () => {
                   <td className="px-6 py-4">
                     {data?.books_id?.category?.category_name}
                   </td>
-                  <td className="px-6 py-4">
+                  <td className="px-6 py-4 ">
                     {new Date(data?.issueDate).toLocaleString()}
                   </td>
                   <td className="px-6 py-4">{data?.user_id?.fullname}</td>
@@ -120,8 +120,7 @@ const Requests = () => {
                     )}
 
                     {data?.issueStatus !== 1 && data.issueStatus !== 2 && (
-                        <div className="flex flex-col gap-3 ">
-                       
+                      <div className="flex flex-col gap-3 ">
                         <button
                           onClick={() =>
                             authorizeBookRequests(data?.user_id?._id)
@@ -134,8 +133,7 @@ const Requests = () => {
                         <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
                           Reject
                         </button>
-                        </div>
-                      
+                      </div>
                     )}
                   </td>
                 </tr>

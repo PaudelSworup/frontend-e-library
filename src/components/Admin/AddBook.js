@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import { FaFilePdf, FaFileImage, FaCheckCircle } from "react-icons/fa";
 import LabelAdmin from "./LabelAdmin";
 import DatePicker from "react-datepicker";
@@ -8,19 +8,11 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useQuery } from "react-query";
 
-
 const AddBook = () => {
-  const bookData = useQuery(
-    "genres",
-    async () => await getGenre(),
-    {
-      onSettled: (data) => setCategories(data?.data?.category),
-      onError: (err) => console.log(err),
-    }
-  );
-
-  
-
+  const bookData = useQuery(["genres"], async () => await getGenre(), {
+    onSettled: (data) => setCategories(data?.data?.category),
+    onError: (err) => console.log(err),
+  });
   // useEffect(() => {
   //   getGenre()
   //     .then((res) => {
@@ -39,6 +31,8 @@ const AddBook = () => {
   const [publicationDate, setPublicationDate] = useState(null);
   const [publisher, setPublisher] = useState("");
   const [categories, setCategories] = useState("");
+
+  console.log(categories);
 
   const handleDateChange = (date) => {
     setPublicationDate(date);
@@ -91,8 +85,8 @@ const AddBook = () => {
     });
   };
   return (
-    <div className="min-h-screen px-2 py-2 sm:px-5 bg-[#111] flex justify-center items-center">
-      <form className="w-full max-w-4xl bg-gray-200 shadow-md rounded-lg px-8 pt-6 pb-8">
+    <div className="min-h-screen px-2 py-2 sm:px-5 bg-[#111] flex items-center lg:ml-[250px] justify-center">
+      <form className="w-full max-w-4xl bg-gray-50 shadow-md rounded-lg px-8 pt-6 pb-8">
         <h2 className="text-2xl font-semibold mb-6">Add Book Description</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="flex flex-col gap-4">
@@ -166,7 +160,7 @@ const AddBook = () => {
               <input
                 type="text"
                 id="title"
-                className="w-full px-3 py-2 border rounded-lg"
+                className="w-full bg-gray-200 px-3 py-2 border rounded-lg"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
               />
@@ -177,7 +171,7 @@ const AddBook = () => {
               <input
                 type="number"
                 id="number"
-                className="w-full no-number-spin  px-3 py-2 border rounded-lg"
+                className="w-full bg-gray-200 no-number-spin  px-3 py-2 border rounded-lg"
                 value={isbn}
                 onChange={(e) => setIsbn(e.target.value)}
               />
@@ -190,7 +184,7 @@ const AddBook = () => {
               />
               <select
                 id="category"
-                className="w-full bg-white px-3 py-2 border rounded-lg"
+                className="w-full  bg-gray-200 px-3 py-2 border rounded-lg"
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
               >
@@ -209,7 +203,7 @@ const AddBook = () => {
               <input
                 type="text"
                 id="publisher"
-                className="w-full   px-3 py-2 border rounded-lg"
+                className="w-full bg-gray-200   px-3 py-2 border rounded-lg"
                 value={publisher}
                 onChange={(e) => setPublisher(e.target.value)}
               />
@@ -220,7 +214,7 @@ const AddBook = () => {
               <input
                 type="number"
                 id="stock"
-                className="w-full no-number-spin  px-3 py-2 border rounded-lg"
+                className="w-full bg-gray-200 no-number-spin  px-3 py-2 border rounded-lg"
                 value={stock}
                 onChange={(e) => setStock(e.target.value)}
               />
@@ -232,7 +226,7 @@ const AddBook = () => {
                 className={className}
               />
               <DatePicker
-                className="w-full px-3 py-2 border rounded-lg"
+                className="w-full bg-gray-200 px-3 py-2 border rounded-lg"
                 selected={publicationDate}
                 onChange={handleDateChange}
                 dateFormat="dd/MM/yyyy"
@@ -248,7 +242,7 @@ const AddBook = () => {
               <LabelAdmin labelForhtml="Description:" className={className} />
               <textarea
                 id="description"
-                className="w-full h-48 px-3 py-2 border rounded-lg"
+                className="w-full bg-gray-200 h-48 px-3 py-2 border rounded-lg"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               ></textarea>

@@ -1,7 +1,6 @@
 import axios from "axios";
 import { API } from "../config";
 
-
 // to search books and shows result on binary search
 export const searchBook = async (name) => {
   try {
@@ -64,10 +63,6 @@ export const getUserRecommendation = async (id) => {
     console.log(err);
   }
 };
-
-
-
-
 
 // get/show books related to category (on recommendation section)
 export const listBooks = async (id) => {
@@ -177,8 +172,18 @@ export const getMostRequested = async () => {
   }
 };
 
-// get Notification
+// get Notification for specific user
 export const getNotified = async (userid) => {
+  try {
+    return await axios.get(`${API}/notifications/${userid}`);
+  } catch (err) {
+    console.log(err);
+    // throw new Error("Failed to get data, something went wrong")
+  }
+};
+
+// get Notification
+export const getNotifications = async (userid) => {
   try {
     return await axios.get(`${API}/notifications/${userid}`);
   } catch (err) {
@@ -206,7 +211,7 @@ export const setStatus = async (data, userid) => {
 };
 
 // userfavourites bookmark
-export const postBookMark = async(data)=>{
+export const postBookMark = async (data) => {
   return await fetch(`${API}/bookmark`, {
     method: "POST",
     headers: {
@@ -221,9 +226,7 @@ export const postBookMark = async(data)=>{
     .catch((err) => {
       return console.log(err);
     });
-
-}
-
+};
 
 // getting userFavourites Bookmark
 
@@ -236,9 +239,8 @@ export const getBookmarks = async () => {
   }
 };
 
-
 //removing userfavourite
-export const removeBookmark = async (id,bookid) => {
+export const removeBookmark = async (id, bookid) => {
   // return console.log(id)
   return await fetch(`${API}/bookmark/${id}/${bookid}`, {
     method: "DELETE",
@@ -254,8 +256,6 @@ export const removeBookmark = async (id,bookid) => {
       return console.log(err);
     });
 };
-
-
 
 export const downloadBook = async (bookId) => {
   try {
